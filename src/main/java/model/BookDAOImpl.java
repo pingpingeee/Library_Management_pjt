@@ -8,25 +8,25 @@ public class BookDAOImpl implements BookDAO {
 
 	@Override
 	public int insertBook(Book book, Boolean admin) {
-		// TODO::ë„ì„œë“±ë¡ êµ¬í˜„ë¶€
+		// TODO::µµ¼­µî·Ï ±¸ÇöºÎ
 		return 0;
 	}
 
 	@Override
 	public int updateBook(Book book, Boolean admin) {
-		// TODO::ë„ì„œìˆ˜ì • êµ¬í˜„ë¶€
+		// TODO::µµ¼­¼öÁ¤ ±¸ÇöºÎ
 		return 0;
 	}
 
 	@Override
 	public List<Book> mainBookInfo() {
-		// TODO::ë©”ì¸í™”ë©´ ì±…ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸° êµ¬í˜„ë¶€
+		// TODO::¸ŞÀÎÈ­¸é Ã¥Á¤º¸ ºÒ·¯¿À±â ±¸ÇöºÎ
 		return null;
 	}
 
 	@Override
 	public List<Book> searchBookInfo() {
-		// TODO:: ì±… ê²€ìƒ‰ êµ¬í˜„ë¶€
+		// TODO:: Ã¥ °Ë»ö ±¸ÇöºÎ
 		return null;
 	}
 

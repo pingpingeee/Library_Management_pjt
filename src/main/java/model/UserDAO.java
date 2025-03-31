@@ -3,9 +3,9 @@ package model;
 import entity.User;
 
 public interface UserDAO {
-	public int userJoin(User user); // íšŒì›ê°€ì…
-	public int userLogin(User user); // ë¡œê·¸ì¸
-	public int getUserInfo(User user); // íšŒì›ì •ë³´ë¶ˆëŸ¬ì˜¤ê¸°
-	public int updateUserInfo(User user); // íšŒì›ì •ë³´ìˆ˜ì •
+	public int userJoin(User user); // È¸¿ø°¡ÀÔ
+	public int userLogin(User user); // ·Î±×ÀÎ
+	public int getUserInfo(User user); // È¸¿øÁ¤º¸ºÒ·¯¿À±â
+	public int updateUserInfo(User user); // È¸¿øÁ¤º¸¼öÁ¤
 	public void userLogout();
 }

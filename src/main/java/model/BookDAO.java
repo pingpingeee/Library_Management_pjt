@@ -5,9 +5,9 @@ import java.util.List;
 import entity.Book;
 
 public interface BookDAO {
-	// ê´€ë¦¬ìë§Œ ê°€ëŠ¥ì€ Boolean adminì„ ìˆ˜ì •í•´ì•¼í• ìˆ˜ë„ ìˆìŒ
-	public int insertBook(Book book, Boolean admin); // ë„ì„œë“±ë¡ (ê´€ë¦¬ìë§Œ ê°€ëŠ¥)
-	public int updateBook(Book book, Boolean admin); // ë„ì„œìˆ˜ì • (ê´€ë¦¬ìë§Œ ê°€ëŠ¥)
-	public List<Book> mainBookInfo(); // ë©”ì¸í™”ë©´ ì±… ì†Œê°œ => b_borrowcount ë§ì€ìˆœ
-	public List<Book> searchBookInfo(); // íšŒì›ì •ë³´ìˆ˜ì • => b_titleì— ì¼ì¹˜í•œ ë¬¸ìì—´ì´ ìˆëŠ” ê²ƒë“¤
+	// °ü¸®ÀÚ¸¸ °¡´ÉÀº Boolean adminÀ» ¼öÁ¤ÇØ¾ßÇÒ¼öµµ ÀÖÀ½
+	public int insertBook(Book book, Boolean admin); // µµ¼­µî·Ï (°ü¸®ÀÚ¸¸ °¡´É)
+	public int updateBook(Book book, Boolean admin); // µµ¼­¼öÁ¤ (°ü¸®ÀÚ¸¸ °¡´É)
+	public List<Book> mainBookInfo(); // ¸ŞÀÎÈ­¸é Ã¥ ¼Ò°³ => b_borrowcount ¸¹Àº¼ø
+	public List<Book> searchBookInfo(); // È¸¿øÁ¤º¸¼öÁ¤ => b_title¿¡ ÀÏÄ¡ÇÑ ¹®ÀÚ¿­ÀÌ ÀÖ´Â °Íµé
 }

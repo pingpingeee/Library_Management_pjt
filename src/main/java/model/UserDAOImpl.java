@@ -6,25 +6,25 @@ public class UserDAOImpl implements UserDAO{
 
 	@Override
 	public int userJoin(User user) {
-		// TODO:: íšŒì›ê°€ì… êµ¬í˜„ë¶€
+		// TODO:: È¸¿ø°¡ÀÔ ±¸ÇöºÎ
 		return 0;
 	}
 
 	@Override
 	public int userLogin(User user) {
-		// TODO:: ë¡œê·¸ì¸ êµ¬í˜„ë¶€
+		// TODO:: ·Î±×ÀÎ ±¸ÇöºÎ
 		return 0;
 	}
 
 	@Override
 	public int getUserInfo(User user) {
-		// TODO:: ìœ ì €ì •ë³´ë¶ˆëŸ¬ì˜¤ê¸° êµ¬í˜„ë¶€
+		// TODO:: À¯ÀúÁ¤º¸ºÒ·¯¿À±â ±¸ÇöºÎ
 		return 0;
 	}
 
 	@Override
 	public int updateUserInfo(User user) {
-		// TODO:: ìœ ì €ì •ë³´ìˆ˜ì • êµ¬í˜„ë¶€
+		// TODO:: À¯ÀúÁ¤º¸¼öÁ¤ ±¸ÇöºÎ
 		return 0;
 	}
 
@@ -32,7 +32,7 @@ public class UserDAOImpl implements UserDAO{
 	public void userLogout() {
 	}
 	
-	// ë¡œê·¸ì•„ì›ƒ
+	// ·Î±×¾Æ¿ô ¼¼¼Ç»èÁ¦
 //	@Override
 //	public void userLogout(HtppServletRequest request) {
 //		HttpSession session = request.getSession(false);

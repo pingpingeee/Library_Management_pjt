@@ -1,15 +1,27 @@
 package controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import entity.User;
 
+@Controller
 public class UserController {
 	
-	public void login(String id, String pw) {
+	@RequestMapping("/login")
+	public String login(String id, String pw) {
+		return "login";
 	}
-	public void join(User user) {
+	@RequestMapping("/join")
+	public String join(User user) {
+		return "join";
 	}
-	public void getUserInfo(int u_number) {
+	@RequestMapping("/user_info")
+	public String getUserInfo(int u_number) {
+		return "user_info";
 	}
-	public void updateUserInfo(User user) {
+	@RequestMapping("/update_user_info")
+	public String updateUserInfo(User user) {
+		return "user_update";
 	}
 }
