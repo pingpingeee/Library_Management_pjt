@@ -26,6 +26,10 @@
   도서 관련 로직 구현
 
 ##### views
+- book_search.jsp
+  도서 검색 후 화면
+- book_update.jsp
+  도서 수정 화면
 - join.jsp
   회원가입 화면
 - jogin.jsp
