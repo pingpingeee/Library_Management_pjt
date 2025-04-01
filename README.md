@@ -66,7 +66,7 @@ CREATE TABLE USER (
     U_ADDRESS VARCHAR2 (150), // 유저 주소
     U_BORROW number(1), // 유저가 최대 빌릴 수 있는 수 (3권)
     U_ADMIN BOOLEAN, // 유저 관리자확인 1,0
-    U_REGDATE DATE // 유저 회원가입날짜
+    U_REGDATE DATE DEAFULT now()// 유저 회원가입날짜
 );
 
 CREATE TABLE BOOK (
