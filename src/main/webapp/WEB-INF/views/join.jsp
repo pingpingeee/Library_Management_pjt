@@ -36,7 +36,7 @@
 			<input type="text" name="address" required>
 
 			<input type="submit" value="회원가입">
-			<input type="button" value="뒤로가기" onclick="location='login.jsp'">
+			<input type="button" value="뒤로가기" onclick="location='/pilotpjt/login'">
 		</form>
 	</div>
 </body>
