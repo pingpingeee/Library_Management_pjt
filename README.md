@@ -61,6 +61,8 @@ CREATE TABLE USER (
     U_PW VARCHAR2(30), // 유저 비번
     U_NAME VARCHAR2(20), // 유저 이름
     U_EMAIL VARCHAR2 (50), // 유저 이메일
+    U_TEL VARCHAR2 (14), // 유저 전화번호
+    U_JUMIN VARCHAR2 (13), // 유저 주민번호
     U_BORROW number(1), // 유저가 최대 빌릴 수 있는 수 (3권)
     U_ADMIN BOOLEAN, // 유저 관리자확인 1,0
     U_REGDATE DATE // 유저 회원가입날짜
