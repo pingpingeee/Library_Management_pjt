@@ -19,6 +19,7 @@
 	<p>전화번호 :  <%=user.getUserTel() %></p>
 	<p>이메일 :  <%=user.getUserEmail() %></p>
 	<p>주소 :  <%=user.getUserAddress() %></p>
+	<a href="/logout">로그아웃</a>
 	<%
 	} else {
 	%>

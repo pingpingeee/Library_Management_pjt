@@ -121,10 +121,6 @@ public class UserDAOImpl implements UserDAO {
 		return 0;
 	}
 
-	@Override
-	public void userLogout() {
-	}
-
 
 //	@Override
 //	public void userLogout(HtppServletRequest request) {

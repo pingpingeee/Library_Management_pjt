@@ -1,17 +1,28 @@
 package entity;
 
 public class User {
-	private int userNumber; // �쑀�� 怨좎쑀踰덊샇
-	private String userId; // �쑀�� �븘�씠�뵒
-	private String userPw; // �쑀�� 鍮꾨쾲
-	private String userName; // �쑀�� �씠由�
-	private String userEmail; // �쑀�� �씠硫붿씪
-	private String userTel; // �쑀�� �쟾踰�
-	private String userBirth; // �쑀�� �깮�씪
-	private String userAddress; // �쑀�� 二쇱냼
-	private int userBorrow; // �쑀��媛� 理쒕� 鍮뚮┫ �닔 �엳�뒗 �닔 (3沅�)
-	private int userAdmin; // �쑀�� 愿�由ъ옄�솗�씤 1,0
-	private String userRegdate; // �쑀�� �쉶�썝媛��엯�궇吏�
+	private int userNumber; 
+	private String userId; 
+	private String userPw; 
+	private String userName; 
+	private String userEmail; 
+	private String userTel; 
+	private String userBirth; 
+	private String userAddress;
+	private int userBorrow; 
+	private int userAdmin; 
+	private String userRegdate;
+	private boolean remeberId; // 아이디기억할래용?
+	
+	
+
+	public boolean isRemeberId() {
+		return remeberId;
+	}
+
+	public void setRemeberId(boolean remeberId) {
+		this.remeberId = remeberId;
+	}
 
 	public int getUserNumber() {
 		return userNumber;
