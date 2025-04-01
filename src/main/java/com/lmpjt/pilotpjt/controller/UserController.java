@@ -57,15 +57,12 @@ public class UserController {
 	}
 	
     // 로그아웃
-    @RequestMapping("logout")
-    public String logout(HttpServletRequest request) {
-    	System.out.println("test1");
-        HttpSession session = request.getSession(false); // 세션이 존재하면 가져오기
-        if (session != null) {
-            session.invalidate(); // 세션 전체 삭제
-        }
-        return "redirect:/login"; 
-    }
+	@RequestMapping("/logout")
+	public ModelAndView logout(HttpSession session) {
+	    session.invalidate();
+	    ModelAndView mv = new ModelAndView("redirect:/login");
+	    return mv; 
+	}
 
 	@RequestMapping("/join")
 	public String join(User user) {
