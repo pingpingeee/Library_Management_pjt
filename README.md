@@ -53,7 +53,9 @@
 - Book.java
   도서 엔티티
 
----
+## 🛑주의사항🛑
+- jsp의 body부에서 각 input의 name은 Entity의 참조변수를 따라가야합니다. 꼭 주의해서 작성해주세요.
+
 ```
 GRANT CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, 
       CREATE SYNONYM, CREATE PROCEDURE, CREATE TRIGGER, CREATE MATERIALIZED VIEW 
