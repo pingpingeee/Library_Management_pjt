@@ -1,69 +1,86 @@
 package entity;
 
 public class Book {
-	private int b_number; // 책 고유번호
-	private String b_title; // 책  제목
-	private String b_coment; // 책 짧은 내용
-	private String b_writer; // 책 저자
-	private String b_pub; // 책 출판사
-	private String b_date; // 책 출판일자
-	private String b_category; // 책 카테고리
-	private int b_count; // 책 몇권남았는지
-	private int b_borrowcount; // 책 얼마나 빌렸는지
-	public int getB_number() {
-		return b_number;
+	private int bookNumber; // 책 고유번호
+	private String bookTitle; // 책 제목
+	private String bookComent; // 책 짧은 내용
+	private String bookWriter; // 책 저자
+	private String bookPub; // 책 출판사
+	private String bookDate; // 책 출판일자
+	private String bookCategory; // 책 카테고리
+	private int bookCount; // 책 몇권남았는지
+	private int bookBorrowcount; // 책 얼마나 빌렸는지
+
+	public int getBookNumber() {
+		return bookNumber;
 	}
-	public void setB_number(int b_number) {
-		this.b_number = b_number;
+
+	public void setBookNumber(int bookNumber) {
+		this.bookNumber = bookNumber;
 	}
-	public String getB_title() {
-		return b_title;
+
+	public String getBookTitle() {
+		return bookTitle;
 	}
-	public void setB_title(String b_title) {
-		this.b_title = b_title;
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
 	}
-	public String getB_coment() {
-		return b_coment;
+
+	public String getBookComent() {
+		return bookComent;
 	}
-	public void setB_coment(String b_coment) {
-		this.b_coment = b_coment;
+
+	public void setBookComent(String bookComent) {
+		this.bookComent = bookComent;
 	}
-	public String getB_writer() {
-		return b_writer;
+
+	public String getBookWriter() {
+		return bookWriter;
 	}
-	public void setB_writer(String b_writer) {
-		this.b_writer = b_writer;
+
+	public void setBookWriter(String bookWriter) {
+		this.bookWriter = bookWriter;
 	}
-	public String getB_pub() {
-		return b_pub;
+
+	public String getBookPub() {
+		return bookPub;
 	}
-	public void setB_pub(String b_pub) {
-		this.b_pub = b_pub;
+
+	public void setBookPub(String bookPub) {
+		this.bookPub = bookPub;
 	}
-	public String getB_date() {
-		return b_date;
+
+	public String getBookDate() {
+		return bookDate;
 	}
-	public void setB_date(String b_date) {
-		this.b_date = b_date;
+
+	public void setBookDate(String bookDate) {
+		this.bookDate = bookDate;
 	}
-	public String getB_category() {
-		return b_category;
+
+	public String getBookCategory() {
+		return bookCategory;
 	}
-	public void setB_category(String b_category) {
-		this.b_category = b_category;
+
+	public void setBookCategory(String bookCategory) {
+		this.bookCategory = bookCategory;
 	}
-	public int getB_count() {
-		return b_count;
+
+	public int getBookCount() {
+		return bookCount;
 	}
-	public void setB_count(int b_count) {
-		this.b_count = b_count;
+
+	public void setBookCount(int bookCount) {
+		this.bookCount = bookCount;
 	}
-	public int getB_borrowcount() {
-		return b_borrowcount;
+
+	public int getBookBorrowcount() {
+		return bookBorrowcount;
 	}
-	public void setB_borrowcount(int b_borrowcount) {
-		this.b_borrowcount = b_borrowcount;
+
+	public void setBookBorrowcount(int bookBorrowcount) {
+		this.bookBorrowcount = bookBorrowcount;
 	}
-	
-	
+
 }

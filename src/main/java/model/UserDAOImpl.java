@@ -1,30 +1,53 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 import entity.User;
 
 public class UserDAOImpl implements UserDAO{
+	
+	private static UserDAOImpl instance = new UserDAOImpl();
+	public static UserDAOImpl getInstance() {
+		return instance;
+	}
+	
+	public void test() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public Connection getConnection() throws Exception {
+		return ((DataSource)(new InitialContext().lookup("java:comp/env/jdbc/oracle"))).getConnection();
+	}
 
 	@Override
 	public int userJoin(User user) {
-		// TODO:: 회원가입 구현부
 		return 0;
 	}
 
 	@Override
 	public int userLogin(User user) {
-		// TODO:: 로그인 구현부
 		return 0;
 	}
 
 	@Override
 	public int getUserInfo(User user) {
-		// TODO:: 유저정보불러오기 구현부
 		return 0;
 	}
 
 	@Override
 	public int updateUserInfo(User user) {
-		// TODO:: 유저정보수정 구현부
 		return 0;
 	}
 
@@ -32,7 +55,6 @@ public class UserDAOImpl implements UserDAO{
 	public void userLogout() {
 	}
 	
-	// 로그아웃 세션삭제
 //	@Override
 //	public void userLogout(HtppServletRequest request) {
 //		HttpSession session = request.getSession(false);

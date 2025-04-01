@@ -1,0 +1,29 @@
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  
+  height: 75px;
+  padding: 1rem;
+  color: white;
+  background: teal;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body {
+  padding-top: 75px;
+  background: #EEE;
+}
+
+/* 길이 */
+body, html {
+  height: 200%;
+}
+/* 배너 세로길이 */
+* {
+  box-sizing: border-box;
+}
