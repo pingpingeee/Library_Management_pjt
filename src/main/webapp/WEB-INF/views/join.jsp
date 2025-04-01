@@ -4,21 +4,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입</title>
+<link rel="stylesheet" type="text/css" href="/pilotpjt/resources/css/join.css">
 </head>
 <body>
-	<h1>join.jsp</h1>
-	<form method="post" action="/pilotpjt/login">
-		<label>아이디 : <input type="text" name="id"></label><br>
-		<label>비밀번호 : <input type="text" name="id"></label><br>
-		<label>비밀번호확인 : <input type="text" name="id"></label><br>
-		<label>이름 : <input type="text" name="id"></label><br>
-		<label>이메일 : <input type="text" name="id"></label><br>
-		<label>전화번호 : <input type="text" name="id"></label><br>
-		<label>생일 : <input type="text" name="id"></label><br>
-		<label>주소 : <input type="text" name="id"></label><br>
-		<input type="submit" value="회원가입">
-		<input type="button" value="뒤로가기" onclick="location='login.jsp'">
-	</form>
+	<div class="container">
+		<h2>회원가입</h2>
+		<form method="post" action="/pilotpjt/join">
+			<label>아이디</label>
+			<input type="text" name="id" required>
+			
+			<label>비밀번호</label>
+			<input type="password" name="pwd" required>
+			
+			<label>비밀번호 확인</label>
+			<input type="password" name="pwdConfirm" required>
+			
+			<label>이름</label>
+			<input type="text" name="name" required>
+			
+			<label>이메일</label>
+			<input type="email" name="email" required>
+			
+			<label>전화번호</label>
+			<input type="tel" name="phone" required>
+			
+			<label>생년월일</label>
+			<input type="date" name="birthdate" required>
+			
+			<label>주소</label>
+			<input type="text" name="address" required>
+
+			<input type="submit" value="회원가입">
+			<input type="button" value="뒤로가기" onclick="location='login.jsp'">
+		</form>
+	</div>
 </body>
 </html>

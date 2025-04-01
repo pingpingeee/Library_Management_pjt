@@ -1,0 +1,67 @@
+/* signup.css - 회원가입 페이지 스타일 */
+body {
+	font-family: 'Noto Sans KR', sans-serif;
+	background-color: #F9F7F0; /* 부드러운 베이지 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+}
+
+.container {
+	background-color: white;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	width: 400px;
+}
+
+h2 {
+	color: #2C3E50; /* 네이비 블루 */
+	margin-bottom: 20px;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+label {
+	text-align: left;
+	font-weight: bold;
+	color: #2C3E50;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="tel"],
+	input[type="date"] {
+	padding: 10px;
+	width: 100%;
+	border: 1px solid #2C3E50;
+	border-radius: 5px;
+	outline: none;
+}
+
+input:focus {
+	border-color: #D4AF37; /* 골드 */
+}
+
+input[type="submit"], input[type="button"] {
+	padding: 10px;
+	width: 100%;
+	background-color: #2C3E50; /* 네이비 블루 */
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background 0.3s ease-in-out;
+}
+
+input[type="submit"]:hover, input[type="button"]:hover {
+	background-color: #D4AF37; /* 골드 */
+	color: #2C3E50;
+	font-weight: bold;
+}
