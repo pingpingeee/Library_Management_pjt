@@ -1,5 +1,8 @@
 package com.lmpjt.pilotpjt.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -68,19 +71,52 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/join")
-	public ModelAndView join(HttpServletRequest request, HttpServletResponse response, User user) {
-		ModelAndView mv = new ModelAndView();
-		if (manager.checkId(user.getUserId()) == 1) { // 중복 시
-			mv.addObject("error", "이미 사용중인 아이디입니다.");
-		} else {
-			int re = manager.userJoin(user);
-			if(re == 1) {
-//				mv.addObject("data", new Message("회원가입이 완료되었습니다.", "/"));
-				mv.setViewName("Message");
-			}
-		}
-		return mv;
+	public void join(HttpServletResponse response, User user) throws IOException {
+	    response.setContentType("text/html; charset=UTF-8");
+	    PrintWriter out = response.getWriter();
+
+	    if (manager.checkId(user.getUserId()) == 1) { // 중복 아이디 체크
+	        out.println("<script>");
+	        out.println("alert('이미 사용중인 아이디입니다.');");
+	        out.println("history.back();"); // 이전 페이지로 이동
+	        out.println("</script>");
+	        out.close();
+	    } else {
+	        int re = manager.userJoin(user);
+	        // 회원가입 성공시 팝업창 처리해야함
+	        // 여기만 어떻게 처리하면 회원가입 완전 끝
+	        // 예외처리까지 다 넣음 팝업문 넣는게 좀 별론데 회원가입완료됐다고 창을 새롭게 넣을지 말지 고민중
+	        if (re == 1) {
+	            out.println("<script>");
+	            out.println("alert('회원가입이 완료되었습니다.');");
+	            out.println("location.href='/';"); // 메인 페이지로 이동
+	            out.println("</script>");
+	            out.close();
+	        }
+	    }
 	}
+	
+	// 둘 다 팝업 처리? 
+//	@RequestMapping(method = RequestMethod.POST, value = "/join")
+//	public ModelAndView join(HttpServletRequest request, HttpServletResponse response, User user) throws IOException {
+//		ModelAndView mv = new ModelAndView();
+//		if (manager.checkId(user.getUserId()) == 1) { // 중복 시
+//			mv.setViewName("join");
+//			mv.addObject("error", "이미 사용중인 아이디입니다.");
+//			return mv;
+//		} else {
+//			int re = manager.userJoin(user);
+//			if (re == 1) {
+//				PrintWriter out = response.getWriter(); // 팝업창을 열어주기 위한 선언
+//				out.println("<script>");
+//				out.println("alert('회원가입이 완료되었습니다.');");
+//				out.println("location.href='/';"); // 메인 페이지로 이동
+//				out.println("</script>");
+//				out.close();
+//			}
+//		}
+//		return mv;
+//	}
 
 	@RequestMapping("/user_info")
 	public String getUserInfo(int u_number) {
