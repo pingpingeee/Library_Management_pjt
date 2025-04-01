@@ -64,18 +64,18 @@ TO bookmanager;
 ALTER USER bookmanager DEFAULT TABLESPACE USERS;
 ALTER USER bookmanager QUOTA UNLIMITED ON USERS;
 
-CREATE TABLE USER (
-    U_NUMBER NUMBER(5) PRIMARY KEY, // 유저 고유번호
-    U_ID VARCHAR2(30), // 유저 아이디
-    U_PW VARCHAR2(30), // 유저 비번
-    U_NAME VARCHAR2(20), // 유저 이름
-    U_EMAIL VARCHAR2 (50), // 유저 이메일
-    U_TEL VARCHAR2 (14), // 유저 전화번호
-    U_BIRTH VARCHAR2 (8), // 유저 생일
-    U_ADDRESS VARCHAR2 (150), // 유저 주소
-    U_BORROW number(1), // 유저가 최대 빌릴 수 있는 수 (3권)
-    U_ADMIN BOOLEAN, // 유저 관리자확인 1,0
-    U_REGDATE DATE DEAFULT now()// 유저 회원가입날짜
+CREATE TABLE USERINFO (
+    U_NUMBER NUMBER(5) PRIMARY KEY, -- 유저 고유번호
+    U_ID VARCHAR2(30) NOT NULL, -- 유저 아이디
+    U_PW VARCHAR2(30) NOT NULL, -- 유저 비밀번호
+    U_NAME VARCHAR2(20) NOT NULL, -- 유저 이름
+    U_EMAIL VARCHAR2(50), -- 유저 이메일
+    U_TEL VARCHAR2(14), -- 유저 전화번호
+    U_BIRTH VARCHAR2(8), -- 유저 생일 (YYYYMMDD 형식)
+    U_ADDRESS VARCHAR2(150), -- 유저 주소
+    U_BORROW NUMBER(1) DEFAULT 3, -- 유저가 최대 빌릴 수 있는 수 (기본값 3)
+    U_ADMIN NUMBER(1) DEFAULT 0, -- 유저 관리자 여부 (0: 일반, 1: 관리자)
+    U_REGDATE DATE DEFAULT SYSDATE
 );
 
 CREATE TABLE BOOK (
