@@ -1,62 +1,104 @@
 package entity;
 
 public class User {
-	private int u_number; // 유저 고유번호
-	private String u_id; // 유저 아이디
-	private String u_pw; // 유저 비번
-	private String u_name; // 유저 이름
-	private String u_email; // 유저 이메일
-	private int u_borrow; // 유저가 최대 빌릴 수 있는 수 (3권)
-	private Boolean u_admin; // 유저 관리자확인 1,0
-	private String u_regdate; // 유저 회원가입날짜
-	public int getU_number() {
-		return u_number;
-	}
-	public void setU_number(int u_number) {
-		this.u_number = u_number;
-	}
-	public String getU_id() {
-		return u_id;
-	}
-	public void setU_id(String u_id) {
-		this.u_id = u_id;
-	}
-	public String getU_pw() {
-		return u_pw;
-	}
-	public void setU_pw(String u_pw) {
-		this.u_pw = u_pw;
-	}
-	public String getU_name() {
-		return u_name;
-	}
-	public void setU_name(String u_name) {
-		this.u_name = u_name;
-	}
-	public String getU_email() {
-		return u_email;
-	}
-	public void setU_email(String u_email) {
-		this.u_email = u_email;
-	}
-	public int getU_borrow() {
-		return u_borrow;
-	}
-	public void setU_borrow(int u_borrow) {
-		this.u_borrow = u_borrow;
-	}
-	public Boolean getU_admin() {
-		return u_admin;
-	}
-	public void setU_admin(Boolean u_admin) {
-		this.u_admin = u_admin;
-	}
-	public String getU_regdate() {
-		return u_regdate;
-	}
-	public void setU_regdate(String u_regdate) {
-		this.u_regdate = u_regdate;
+	private int userNumber; // 유저 고유번호
+	private String userId; // 유저 아이디
+	private String userPw; // 유저 비번
+	private String userName; // 유저 이름
+	private String userEmail; // 유저 이메일
+	private String userTel; // 유저 전번
+	private String userBirth; // 유저 생일
+	private String userAddress; // 유저 주소
+	private int userBorrow; // 유저가 최대 빌릴 수 있는 수 (3권)
+	private Boolean userAdmin; // 유저 관리자확인 1,0
+	private String userRegdate; // 유저 회원가입날짜
+
+	public int getUserNumber() {
+		return userNumber;
 	}
 
-	
+	public void setUserNumber(int userNumber) {
+		this.userNumber = userNumber;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserPw() {
+		return userPw;
+	}
+
+	public void setUserPw(String userPw) {
+		this.userPw = userPw;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public String getUserTel() {
+		return userTel;
+	}
+
+	public void setUserTel(String userTel) {
+		this.userTel = userTel;
+	}
+
+	public String getUserBirth() {
+		return userBirth;
+	}
+
+	public void setUserBirth(String userBirth) {
+		this.userBirth = userBirth;
+	}
+
+	public String getUserAddress() {
+		return userAddress;
+	}
+
+	public void setUserAddress(String userAddress) {
+		this.userAddress = userAddress;
+	}
+
+	public int getUserBorrow() {
+		return userBorrow;
+	}
+
+	public void setUserBorrow(int userBorrow) {
+		this.userBorrow = userBorrow;
+	}
+
+	public Boolean getUserAdmin() {
+		return userAdmin;
+	}
+
+	public void setUserAdmin(Boolean userAdmin) {
+		this.userAdmin = userAdmin;
+	}
+
+	public String getUserRegdate() {
+		return userRegdate;
+	}
+
+	public void setUserRegdate(String userRegdate) {
+		this.userRegdate = userRegdate;
+	}
+
 }
