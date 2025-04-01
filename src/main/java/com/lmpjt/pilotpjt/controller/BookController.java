@@ -4,13 +4,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import entity.Book;
+import model.UserDAOImpl;
 
 @Controller
 public class BookController {
 	
+	
 	@RequestMapping("/main")
 	public String getMainBookInfo() {
-		
+		UserDAOImpl manager = UserDAOImpl.getInstance();
+		manager.test();
 		return "main";
 	}
 	
