@@ -14,15 +14,15 @@
 	</c:if>
 
 	<form method="post" action="/pilotpjt/login">
-		<label>아이디: </label><input type="text" name="id"><br> <label>비밀번호:
-		</label><input type="password" name="pwd"><br>             
+		<label>아이디: <input type="text" name="id"></label><br>
+		<label>비밀번호: <input type="password" name="pwd"></label><br>
 <!-- 		<div class="checkbox"> -->
 <!-- 			<label> <input type="checkbox" name="rememberId" -->
 <!-- 				id="rememberId" /> 아이디 기억 -->
 <!-- 			</label> -->
 <!-- 		</div> -->
-		<input type="submit" value="로그인"> <input type="button"
-			value="회원가입" location="/pilotpjt/join">
+		<input type="submit" value="로그인">
+		<input type="button" value="회원가입" onclick="location='/pilotpjt/join'">
 	</form>
 </body>
 </html>

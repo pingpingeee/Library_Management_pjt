@@ -27,7 +27,41 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int userJoin(User user) {
-		return 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "insert into userinfo(u_number, u_id, u_pw, u_name, u_email, u_tel, u_birth, u_address) "
+				+ "values((select nvl(max(u_number), 0)+1 from userinfo), ?, ?, ?, ?, ?, ?, ?)";
+		int re = -1;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user.getUserId());
+			pstmt.setString(2, user.getUserPw());
+			pstmt.setString(3, user.getUserName());
+			pstmt.setString(4, user.getUserEmail());
+			pstmt.setString(5, user.getUserTel());
+			pstmt.setString(6, user.getUserBirth());
+			pstmt.setString(7, user.getUserAddress());
+			
+			rs = pstmt.executeQuery();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return re;
 	}
 
 	@Override
@@ -121,6 +155,41 @@ public class UserDAOImpl implements UserDAO {
 		return 0;
 	}
 
+	@Override
+	public int checkId(String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select u_id from userinfo where u_id=?";
+		int re = -1;
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				re = 1;
+			} else {
+				re = -1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return re;
+	}
 
 //	@Override
 //	public void userLogout(HtppServletRequest request) {

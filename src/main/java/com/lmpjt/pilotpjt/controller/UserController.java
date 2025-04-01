@@ -17,11 +17,9 @@ import model.UserDAOImpl;
 public class UserController {
 	UserDAOImpl manager = UserDAOImpl.getInstance();
 
-	
 	// 로그인 렌더
 	@RequestMapping(method = RequestMethod.GET, value = "/login")
 	public String loginPage() {
-		System.out.println("test1");
 		return "login";
 	}
 
@@ -31,9 +29,9 @@ public class UserController {
 		ModelAndView mv = new ModelAndView();
 		int check = manager.userLogin(id, pwd); // 받아온 아이디 비번 쿼리 훑고 오기 1, 0, -1 담김
 		User user = manager.getUserInfo(id); // 받아온 아이디로 사용자 정보 훑고 오기
-		
+
 //		System.out.println(check);
-		
+
 		// 아이디기억 체크 하면 쿠키로 7일간 정리하게 처리
 //		Cookie rememberCookie = new Cookie("REMEBER", user.getUserId());
 //		rememberCookie.setPath("/");
@@ -43,7 +41,7 @@ public class UserController {
 //			rememberCookie.setMaxAge(0);
 //		}
 //		response.addCookie(rememberCookie);
-		
+
 		if (check == 1) { // 로그인 성공 시
 			HttpSession session = request.getSession(); // 세션 생성
 			session.setAttribute("loginUser", user); // 키 : loginUser에 user 객체 담음
@@ -55,18 +53,33 @@ public class UserController {
 
 		return mv;
 	}
-	
-    // 로그아웃
+
+	// 로그아웃
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpSession session) {
-	    session.invalidate();
-	    ModelAndView mv = new ModelAndView("redirect:/login");
-	    return mv; 
+		session.invalidate();
+		ModelAndView mv = new ModelAndView("redirect:/login");
+		return mv;
 	}
 
-	@RequestMapping("/join")
+	@RequestMapping(method = RequestMethod.GET, value = "/join")
 	public String join(User user) {
 		return "join";
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/join")
+	public ModelAndView join(HttpServletRequest request, HttpServletResponse response, User user) {
+		ModelAndView mv = new ModelAndView();
+		if (manager.checkId(user.getUserId()) == 1) { // 중복 시
+			mv.addObject("error", "이미 사용중인 아이디입니다.");
+		} else {
+			int re = manager.userJoin(user);
+			if(re == 1) {
+//				mv.addObject("data", new Message("회원가입이 완료되었습니다.", "/"));
+				mv.setViewName("Message");
+			}
+		}
+		return mv;
 	}
 
 	@RequestMapping("/user_info")
