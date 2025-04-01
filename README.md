@@ -54,7 +54,13 @@
   도서 엔티티
 
 ## 🛑주의사항🛑
-- jsp의 body부에서 각 input의 name은 Entity의 참조변수를 따라가야합니다. 꼭 주의해서 작성해주세요.
+- jsp의 body부에서 각 input의 name은 Entity의 참조변수를 따라가야합니다. 꼭 주의해서 작성해주세요. 
+
+## 서비스 구현
+- 2025-04-02. 로그인, 세션(loginUser사용하세요. UserController참고.) - 정종현
+- 2025-04-02. 도서 등록 예외처리 완료 *(보완점 발견 시 수정필요) - 이병훈
+  🛑 카테고리를 문자열로 입력하는게 아닌 사용자에게 직접 보기를 보여주는 식으로 표현이 좋아보임
+- 2025-04-02. 회원가입 예외처리 완료 *(회원가입 성공시 완료 화면 및 화면이동 필요) - 정종현
 
 ```
 GRANT CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, 
