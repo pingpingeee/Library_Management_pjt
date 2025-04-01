@@ -53,7 +53,16 @@
 - Book.java
   도서 엔티티
 
----
+## 🛑주의사항🛑
+- jsp의 body부에서 각 input의 name은 Entity의 참조변수를 따라가야합니다. 꼭 주의해서 작성해주세요. 
+
+## 서비스 구현
+- 2025-04-02. 로그인, 세션(loginUser사용하세요. UserController참고.) - 정종현
+- 2025-04-02. 도서 등록 예외처리 완료 *(보완점 발견 시 수정필요) - 이병훈
+  
+  🛑 카테고리를 문자열로 입력하는게 아닌 사용자에게 직접 보기를 보여주는 식으로 표현이 좋아보임
+- 2025-04-02. 회원가입 예외처리 완료 *(회원가입 성공시 완료 화면 및 화면이동 필요) - 정종현
+
 ```
 GRANT CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, 
       CREATE SYNONYM, CREATE PROCEDURE, CREATE TRIGGER, CREATE MATERIALIZED VIEW 
@@ -70,8 +79,8 @@ CREATE TABLE USERINFO (
     U_PW VARCHAR2(30) NOT NULL, -- 유저 비밀번호
     U_NAME VARCHAR2(20) NOT NULL, -- 유저 이름
     U_EMAIL VARCHAR2(50), -- 유저 이메일
-    U_TEL VARCHAR2(14), -- 유저 전화번호
-    U_BIRTH VARCHAR2(8), -- 유저 생일 (YYYYMMDD 형식)
+    U_TEL VARCHAR2(25), -- 유저 전화번호
+    U_BIRTH VARCHAR2(25), -- 유저 생일 (YYYYMMDD 형식)
     U_ADDRESS VARCHAR2(150), -- 유저 주소
     U_BORROW NUMBER(1) DEFAULT 3, -- 유저가 최대 빌릴 수 있는 수 (기본값 3)
     U_ADMIN NUMBER(1) DEFAULT 0, -- 유저 관리자 여부 (0: 일반, 1: 관리자)
@@ -84,10 +93,10 @@ CREATE TABLE BOOK (
     B_COMENT VARCHAR2 (100), -- 짧은 내용
     B_WRITER VARCHAR2(20), -- 저자
     B_PUB VARCHAR2(30), -- 출판사
-    B_DATE DATE, -- 출판일자
+    B_DATE VARCHAR2(100), -- 출판일자
     B_CATEGORY VARCHAR2(50), -- 카테고리
     B_COUNT NUMBER(1), -- 몇권남아있는지
-    B_BORROWCOUNT NUMBER(3) -- 얼마나 빌렸는지
+    B_BORROWCOUNT NUMBER(3) DEFAULT 0 -- 얼마나 빌렸는지
 );
 
 CREATE TABLE BOOK_BORROW(
