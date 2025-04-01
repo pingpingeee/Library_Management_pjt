@@ -47,10 +47,8 @@ public class BookController {
 
 		int re = manager.insertBook(book, loginUser.getUserAdmin());
 		if (re == 1) {
-			System.out.println("test1");
 			mv.setViewName("redirect:/main");
 		} else {
-			System.out.println("test2");
 			mv.setViewName("book_insert");
 			mv.addObject("error", "도서 등록에 실패하였습니다.");
 		}
