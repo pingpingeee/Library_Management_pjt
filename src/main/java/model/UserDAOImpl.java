@@ -32,36 +32,45 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int userLogin(String id, String pwd) {
-	    Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
-	    String sql = "select u_pw from userinfo where u_id=?";
-	    int result = -1;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select u_pw from userinfo where u_id=?";
+		int re = -1;
 
-	    try {
-	        conn = getConnection();
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, user.getUserId());
-	        pstmt.setString(2, user.getUserPw());
-	        rs = pstmt.executeQuery();
+		String checkUserPwd = ""; // 디비에서 긁어온거랑 일치하는지 확인할 변수
 
-	        if (rs.next()) {
-	            result = 1; // 로그인 성공
-	        } else {
-	            result = 0; // 로그인 실패
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    } finally {
-	        try {
-	            if (rs != null) rs.close();
-	            if (pstmt != null) pstmt.close();
-	            if (conn != null) conn.close();
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    }
-	    return result;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				checkUserPwd = rs.getString("u_pw");
+				if (checkUserPwd.equals(pwd)) {
+					re = 1;
+				} else {
+					re = 0;
+				}
+			} else {
+				re = -1; // 로그인 실패
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return re;
 	}
 
 	@Override
@@ -69,10 +78,10 @@ public class UserDAOImpl implements UserDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select u_id, u_pw, u_name, u_tel, u_birth, u_address, u_borrw, u_admin, u_regdate from userinfo where u_id=?";
+		String sql = "select u_id, u_pw, u_name, u_tel, u_birth, u_address, u_borrow, u_admin, u_regdate from userinfo where u_id=?";
 		int re = -1;
 		User user = null;
-		
+
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -116,11 +125,6 @@ public class UserDAOImpl implements UserDAO {
 	public void userLogout() {
 	}
 
-	@Override
-	public User getUserInfo(User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 //	@Override
 //	public void userLogout(HtppServletRequest request) {
