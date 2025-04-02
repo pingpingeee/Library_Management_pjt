@@ -62,7 +62,6 @@
   현재 == model, entity => DB데이터 보냄 => controller => DB데이터를 가공하여 표현 => views
 
   변경 될 수 있음 == DAO, entity => DB데이터보냄 => Service = DB데이터를 객체에 담음 => controller => DB데이터 표현 => views
-
   
 
 ## 서비스 구현
@@ -71,6 +70,18 @@
   
   🛑 카테고리를 문자열로 입력하는게 아닌 사용자에게 직접 보기를 보여주는 식으로 표현이 좋아보임
 - 2025-04-02. 회원가입 예외처리 완료 *(회원가입 성공시 완료 화면 및 화면이동 필요) - 정종현
+
+## 변경 사항
+- lombok 사용을 위한 dependency 추가
+```
+<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+   <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.36</version>
+      <scope>provided</scope>
+   </dependency>
+```
 
 ```
 GRANT CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, 
