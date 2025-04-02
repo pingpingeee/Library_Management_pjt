@@ -54,7 +54,8 @@
   도서 엔티티
 
 ## 🛑주의사항🛑
-- jsp의 body부에서 각 input의 name은 Entity의 참조변수를 따라가야합니다. 꼭 주의해서 작성해주세요. 
+- jsp의 body부에서 각 input의 name은 Entity의 참조변수를 따라가야합니다. 꼭 주의해서 작성해주세요.
+- entity 및 model 패키지의 경로와 클래스, 인터페이스 파일 이름이 변경 될 수 있습니다. 변경시 말씀드림
 
 ## 서비스 구현
 - 2025-04-02. 로그인, 세션(loginUser사용하세요. UserController참고.) - 정종현
