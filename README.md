@@ -62,6 +62,14 @@
   현재 == model, entity => DB데이터 보냄 => controller => DB데이터를 가공하여 표현 => views
 
   변경 될 수 있음 == DAO, entity => DB데이터보냄 => Service = DB데이터를 객체에 담음 => controller => DB데이터 표현 => views
+
+  DAO - 쿼리문
+  
+  DTO - 엔티티
+  
+  Service - DAO와 controller 중간다리
+  
+  controller - view와 중간다리
   
 
 ## 서비스 구현
@@ -72,7 +80,7 @@
 - 2025-04-02. 회원가입 예외처리 완료 *(회원가입 성공시 완료 화면 및 화면이동 필요) - 정종현
 
 ## 변경 사항
-- lombok 사용을 위한 dependency 추가
+- 2025-04-02. lombok 사용을 위한 dependency 추가
 ```
 <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
    <dependency>
