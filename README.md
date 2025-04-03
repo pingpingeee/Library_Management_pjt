@@ -147,6 +147,16 @@ CREATE TABLE BOOK_RETURN(
     CONSTRAINT FK_BOOK_RETURN_BOOK FOREIGN KEY (B_NUMBER) REFERENCES BOOK(B_NUMBER) ON DELETE CASCADE
 );
 
+-- 도서 등록 내역 관리 테이블
+CREATE TABLE BOOK_REGISTRATION_LOG (
+    LOG_ID NUMBER(6) PRIMARY KEY, -- 로그 고유번호
+    U_NUMBER NUMBER(5) NOT NULL, -- 도서 등록을 한 관리자 USERINFO외례키
+    B_NUMBER NUMBER(6) NOT NULL, -- 등록된 도서 번호 BOOK 외례키
+    REG_DATE DATE DEFAULT SYSDATE, -- 등록일자
+    CONSTRAINT FK_BOOK_REG_USER FOREIGN KEY (U_NUMBER) REFERENCES USER(U_NUMBER) ON DELETE CASCADE,
+    CONSTRAINT FK_BOOK_REG_BOOK FOREIGN KEY (B_NUMBER) REFERENCES BOOK(B_NUMBER) ON DELETE CASCADE
+);
+
 -- 게시판 테이블
 CREATE TABLE BOARD (
     B_ID NUMBER(5) PRIMARY KEY, -- 게시글 고유번호
@@ -171,8 +181,8 @@ CREATE TABLE COMMENT (
 );
 ```
 
-## dbdiagram.io
-![image](https://github.com/user-attachments/assets/3e66e364-ebed-450b-9fd9-d049077578e1)
+## ERD
+![image](https://github.com/user-attachments/assets/18713957-8d3a-4eb4-9c0c-dd07b42bf14f)
 
 ```
 
@@ -218,6 +228,15 @@ TABLE BOOK_RETURN{
     Ref: BOOK_RETURN.U_NUMBER > USERINFO.U_NUMBER
     Ref: BOOK_RETURN.B_NUMBER > BOOK.B_NUMBER
 
+TABLE BOOK_REGISTATION_LOG {
+    LOG_ID NUMBER [primary key]
+    U_NUMBER NUMBER
+    B_NUMBER NUMNER
+    REG_DATE DATE [default:'SYSDATE']
+}
+  REF: BOOK_REGISTATION_LOG.U_NUMBER > USERINFO.U_NUMBER
+  REF: BOOK_REGISTATION_LOG.B_NUMBER > BOOK.B_NUMBER
+
 Table BOARD {
     B_ID NUMBER [primary key] // 게시글 고유번호
     U_NUMBER NUMBER // 작성자 (USER 테이블 참조)
@@ -242,6 +261,6 @@ Table COMMENT {
 ```
 
 
-## 로그인 & 회원가입 ERD
+## 로그인 & 회원가입 플로우차트
 ![image](https://github.com/user-attachments/assets/7580a162-a41d-4238-a64a-8f34db87b4c9)
 
