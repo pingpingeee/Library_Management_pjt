@@ -81,6 +81,11 @@
 
 ## 변경 사항
 - 2025-04-02. lombok 사용을 위한 dependency 추가
+- 2025-04-03. 등록된 도서 기록 테이블추가 BOOK_REGISTRATION_LOG
+- 2025-04-03. 게시판 테이블추가 BOARD 
+- 2025-04-03. 댓글 테이블추가 COMMENT
+
+  
 ```
 <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
    <dependency>
