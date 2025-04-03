@@ -171,8 +171,9 @@ CREATE TABLE COMMENT (
 );
 ```
 
-** dbdiagram.io
+## dbdiagram.io
 ![image](https://github.com/user-attachments/assets/3e66e364-ebed-450b-9fd9-d049077578e1)
+
 ```
 
 Table USERINFO {
