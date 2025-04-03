@@ -240,3 +240,8 @@ Table COMMENT {
     Ref: COMMENT.U_NUMBER > USERINFO.U_NUMBER
     Ref: COMMENT.B_ID > BOARD.B_ID
 ```
+
+
+## 로그인 & 회원가입 ERD
+![image](https://github.com/user-attachments/assets/7580a162-a41d-4238-a64a-8f34db87b4c9)
+
