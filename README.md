@@ -262,5 +262,6 @@ Table COMMENT {
 
 
 ## 로그인 & 회원가입 플로우차트
-![image](https://github.com/user-attachments/assets/426a8239-58cd-4a8e-a617-64f6608b647e)
+![image](https://github.com/user-attachments/assets/f40ff56b-8692-4678-964b-f941cccd0855)
+
 
