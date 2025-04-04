@@ -185,6 +185,9 @@ CREATE TABLE COMMENT (
 ```
 
 ## ERD
+
+![image](https://github.com/user-attachments/assets/4abc992b-8830-40aa-bfb4-10a4ce027fca)
+
 ![image](https://github.com/user-attachments/assets/18713957-8d3a-4eb4-9c0c-dd07b42bf14f)
 
 ```
@@ -241,23 +244,23 @@ TABLE BOOK_REGISTATION_LOG {
   REF: BOOK_REGISTATION_LOG.B_NUMBER > BOOK.B_NUMBER
 
 Table BOARD {
-    B_ID NUMBER [primary key] // 게시글 고유번호
+    BD_ID NUMBER [primary key] // 게시글 고유번호
     U_NUMBER NUMBER // 작성자 (USER 테이블 참조)
-    B_TITLE VARCHAR(100) // 게시글 제목
-    B_CONTENT TEXT // 게시글 내용
-    B_WRITEDATE DATE [default: `SYSDATE`] // 작성일
-    B_VIEWS NUMBER(5) [default: 0] // 조회수
-    B_LIKES NUMBER(5) [default: 0] // 좋아요 수
+    BD_TITLE VARCHAR(100) // 게시글 제목
+    BD_CONTENT TEXT // 게시글 내용
+    BD_WRITEDATE DATE [default: `SYSDATE`] // 작성일
+    BD_VIEWS NUMBER(5) [default: 0] // 조회수
+    BD_LIKES NUMBER(5) [default: 0] // 좋아요 수
 }
     Ref: BOARD.U_NUMBER > USERINFO.U_NUMBER
 
     
 Table COMMENT {
-    C_ID NUMBER [primary key] // 댓글 고유번호
-    B_ID NUMBER // 어느 게시글의 댓글인지 (BOARD 참조)
+    CT_ID NUMBER [primary key] // 댓글 고유번호
+    BD_ID NUMBER // 어느 게시글의 댓글인지 (BOARD 참조)
     U_NUMBER NUMBER // 작성자 (USER 테이블 참조)
-    C_CONTENT VARCHAR(500) // 댓글 내용
-    C_WRITEDATE DATE [default: `SYSDATE`] // 작성일
+    CT_CONTENT VARCHAR(500) // 댓글 내용
+    CT_WRITEDATE DATE [default: `SYSDATE`] // 작성일
 }
     Ref: COMMENT.U_NUMBER > USERINFO.U_NUMBER
     Ref: COMMENT.B_ID > BOARD.B_ID
