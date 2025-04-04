@@ -268,9 +268,5 @@ Table COMMENT {
 ![image](https://github.com/user-attachments/assets/42c9b8b7-f470-4843-82bc-3ed59fce2352)
 
 ## 도서 등록 플로우차트
-![image](https://github.com/user-attachments/assets/5b406bee-c521-4a9e-ba55-fb0769783b96)
-
-
-
-
+![image](https://github.com/user-attachments/assets/ddda9356-1cb5-4e6b-aa1d-6a7f0d169dc4)
 
