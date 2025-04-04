@@ -185,7 +185,7 @@ CREATE TABLE COMMENT (
 ```
 
 ## ERD
-![image](https://github.com/user-attachments/assets/4573f249-db91-44f1-8665-58211608ef7a)
+![image](https://github.com/user-attachments/assets/e37eb2fd-e6f8-457a-8bf0-caaeecd9eebb)
 
 ```
 
