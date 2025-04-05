@@ -4,7 +4,18 @@
   <img src="https://img.shields.io/badge/oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white"> 
   <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
 
-#### pilot pjt 1
+##### 1차 개발 ( 2025-04-08 ~ 2025-04-14 )
+- 로그인&회원가입
+- 도서 등록
+- 도서 수정
+- 도서 대출&반납
+- 도서 대출&반납 기록열람
+- 게시판&게시글
+
+##### 2차 개발
+- 도서 판매 등록
+- 도서 구매
+- 도서 판매&구매 기록 열람
 
 ##### 개발환경
 - IDE : eclipse
