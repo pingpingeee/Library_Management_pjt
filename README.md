@@ -31,7 +31,7 @@ CREATE TABLE USERINFO (
     userBirth       VARCHAR2(20),
     userZipCode     VARCHAR2(50),
     userAddress     VARCHAR2(100),
-    userDetailAddress VARCHAR2(100) DEFAULT '',
+    userDetailAddress VARCHAR2(100),
     userBorrow      NUMBER DEFAULT 3,
     userAdmin       NUMBER DEFAULT 0,
     userRegdate     DATE DEFAULT SYSDATE
@@ -134,6 +134,7 @@ CREATE TABLE BUY_RECORD (
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
 );
+
 
 ```
 
