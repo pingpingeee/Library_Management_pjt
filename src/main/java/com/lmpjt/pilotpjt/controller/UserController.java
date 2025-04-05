@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lmpjt.pilotpjt.DAO.UserDAOImpl;
-import com.lmpjt.pilotpjt.DTO.User;
+import com.lmpjt.pilotpjt.dao.UserDAOImpl;
+import com.lmpjt.pilotpjt.dto.User;
 
 @Controller
 public class UserController {

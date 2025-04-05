@@ -1,8 +1,8 @@
-package com.lmpjt.pilotpjt.DAO;
+package com.lmpjt.pilotpjt.dao;
 
 import java.util.List;
 
-import com.lmpjt.pilotpjt.DTO.Book;
+import com.lmpjt.pilotpjt.dto.Book;
 
 public interface BookDAO {
 	// 관리자만 가능은 Boolean admin을 수정해야할수도 있음

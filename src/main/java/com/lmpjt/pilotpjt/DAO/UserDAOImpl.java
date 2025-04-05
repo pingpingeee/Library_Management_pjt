@@ -1,4 +1,4 @@
-package com.lmpjt.pilotpjt.DAO;
+package com.lmpjt.pilotpjt.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import com.lmpjt.pilotpjt.DTO.User;
+import com.lmpjt.pilotpjt.dto.User;
 
 public class UserDAOImpl implements UserDAO {
 
