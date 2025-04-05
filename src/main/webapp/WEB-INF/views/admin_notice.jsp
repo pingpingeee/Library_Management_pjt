@@ -181,11 +181,6 @@
 	                    <i class="fas fa-clipboard"></i>
 	                </div>
 	                <div class="empty-text">등록된 공지사항이 없습니다.</div>
-	                <% if (user != null && user.getUserAdmin() == 1) { %>
-	                <a href="/pilotpjt/notice_write" class="write-btn">
-	                    <i class="fas fa-pen"></i> 첫 공지사항 작성하기
-	                </a>
-	                <% } %>
 	            </div>
 	        </c:otherwise>
 	    </c:choose>
