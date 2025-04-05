@@ -64,29 +64,29 @@
 	    </div>
 	    
 	    <div class="notice-controls">
-	        <div class="search-filter-container">
-	            <div class="search-container">
-	                <form action="/pilotpjt/notice_view" method="GET">
-	                    <input type="text" name="keyword" placeholder="공지사항 검색" class="search-input" value="${param.keyword}">
-	                    <button type="submit" class="search-btn">
-	                        <i class="fas fa-search"></i>
-	                    </button>
-	                </form>
-	            </div>
+<!-- 	        <div class="search-filter-container"> -->
+<!-- 	            <div class="search-container"> -->
+<!-- 	                <form action="/pilotpjt/notice_view" method="GET"> -->
+<%-- 	                    <input type="text" name="keyword" placeholder="공지사항 검색" class="search-input" value="${param.keyword}"> --%>
+<!-- 	                    <button type="submit" class="search-btn"> -->
+<!-- 	                        <i class="fas fa-search"></i> -->
+<!-- 	                    </button> -->
+<!-- 	                </form> -->
+<!-- 	            </div> -->
 	            
-	            <select class="filter-select" name="category" onchange="location = this.value;">
-	                <option value="/pilotpjt/notice_view" ${empty param.category ? 'selected' : ''}>전체 카테고리</option>
-	                <option value="/pilotpjt/notice_view?category=important" ${param.category == 'important' ? 'selected' : ''}>중요 공지</option>
-	                <option value="/pilotpjt/notice_view?category=event" ${param.category == 'event' ? 'selected' : ''}>이벤트</option>
-	                <option value="/pilotpjt/notice_view?category=info" ${param.category == 'info' ? 'selected' : ''}>안내</option>
-	                <option value="/pilotpjt/notice_view?category=update" ${param.category == 'update' ? 'selected' : ''}>업데이트</option>
-	            </select>
+<!-- 	            <select class="filter-select" name="category" onchange="location = this.value;"> -->
+<%-- 	                <option value="/pilotpjt/notice_view" ${empty param.category ? 'selected' : ''}>전체 카테고리</option> --%>
+<%-- 	                <option value="/pilotpjt/notice_view?category=important" ${param.category == 'important' ? 'selected' : ''}>중요 공지</option> --%>
+<%-- 	                <option value="/pilotpjt/notice_view?category=event" ${param.category == 'event' ? 'selected' : ''}>이벤트</option> --%>
+<%-- 	                <option value="/pilotpjt/notice_view?category=info" ${param.category == 'info' ? 'selected' : ''}>안내</option> --%>
+<%-- 	                <option value="/pilotpjt/notice_view?category=update" ${param.category == 'update' ? 'selected' : ''}>업데이트</option> --%>
+<!-- 	            </select> -->
 	            
-	            <select class="filter-select" name="sort" onchange="location = this.value;">
-	                <option value="/pilotpjt/notice_view${not empty param.category ? '?category='.concat(param.category) : ''}" ${param.sort == null ? 'selected' : ''}>최신순</option>
-	                <option value="/pilotpjt/notice_view?sort=views${not empty param.category ? '&category='.concat(param.category) : ''}" ${param.sort == 'views' ? 'selected' : ''}>조회순</option>
-	            </select>
-	        </div>
+<!-- 	            <select class="filter-select" name="sort" onchange="location = this.value;"> -->
+<%-- 	                <option value="/pilotpjt/notice_view${not empty param.category ? '?category='.concat(param.category) : ''}" ${param.sort == null ? 'selected' : ''}>최신순</option> --%>
+<%-- 	                <option value="/pilotpjt/notice_view?sort=views${not empty param.category ? '&category='.concat(param.category) : ''}" ${param.sort == 'views' ? 'selected' : ''}>조회순</option> --%>
+<!-- 	            </select> -->
+<!-- 	        </div> -->
 	        
 	        <% 
 	        UserDTO user = (UserDTO) session.getAttribute("loginUser");

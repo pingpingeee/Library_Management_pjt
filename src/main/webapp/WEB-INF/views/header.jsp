@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>도서관리 시스템</title>
 <link rel="stylesheet" type="text/css" href="/pilotpjt/resources/css/header.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 	<%
@@ -30,7 +31,7 @@
 					공지사항
 				</a>
 				
-				<a href="/pilotpjt/board_view" class="nav-link <%= currentPage.contains("board_view") ? "active" : "" %>">
+				<a href="board_view" class="nav-link <%= currentPage.contains("board_view") ? "active" : "" %>">
 					게시판
 				</a>
 				
@@ -69,19 +70,19 @@
 			            
 			            <div class="dropdown-divider"></div>
 			            
-			            <a href="/pilotpjt/my_page" class="dropdown-item">
-			                <i class="dropdown-icon">👤</i>
+			            <a href="mypage" class="dropdown-item">
+			                <i class="dropdown-icon fa-solid fa-user"></i>
 			                <span>마이페이지</span>
 			            </a>
 			            <a href="/pilotpjt/edit_profile" class="dropdown-item">
-			                <i class="dropdown-icon">✏️</i>
+			                <i class="dropdown-icon fa-solid fa-pen-to-square"></i>
 			                <span>내정보수정</span>
 			            </a>
 			            
 			            <% if (user.getUserAdmin() == 1) { %>
 			            <div class="dropdown-divider"></div>
 			            <a href="admin_view" class="dropdown-item admin-item">
-			                <i class="dropdown-icon">⚙️</i>
+			                <i class="dropdown-icon fa-solid fa-gear"></i>
 			                <span>관리자모드</span>
 			                <span class="admin-badge">Admin</span>
 			            </a>
@@ -89,7 +90,7 @@
 			            
 			            <div class="dropdown-divider"></div>
 			            <a href="/pilotpjt/logout" class="dropdown-item">
-			                <i class="dropdown-icon">🚪</i>
+			                <i class="dropdown-icon fa-solid fa-right-from-bracket"></i>
 			                <span>로그아웃</span>
 			            </a>
 			        </div>

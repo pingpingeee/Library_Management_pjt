@@ -17,7 +17,7 @@ public class UserDTO {
 	private String userBirth; 
 	private String userZipCode;
 	private String userAddress;
-	private String userDetailAddress;
+	private String userDetailAddress = "";
 	private int userBorrow; 
 	private int userAdmin; 
 	private String userRegdate;

@@ -46,7 +46,8 @@ public class UserController {
 		ArrayList<UserDTO> dtos = dao.userLogin(userId, userPw);
 
 		UserDTO dto = dao.getUserInfo(userId);
-
+		System.out.println(dto);
+		
 		if (dtos.isEmpty()) {
 			return "redirect:loginView";
 		} else {
@@ -63,24 +64,24 @@ public class UserController {
 	@RequestMapping("/join")
 	public String join(HttpServletRequest request, UserDTO dto) {
 		UserDAO dao = sqlSession.getMapper(UserDAO.class);
-		String userId = request.getParameter("userId");
-		String userPw = request.getParameter("userPw");		
-		String userName = request.getParameter("userName");		
-		String userEmail = request.getParameter("userEmail");		
-		String userTel = request.getParameter("userTel");		
-		String userBirth = request.getParameter("userBirth");		
-		String userAddress = request.getParameter("userAddress");
-		String userDetailAddress = request.getParameter("userDetailAddress");
-		String userZipCode = request.getParameter("userZipCode");
-		System.out.println(userId);
-		System.out.println(userPw);
-		System.out.println(userName);
-		System.out.println(userEmail);
-		System.out.println(userTel);
-		System.out.println(userBirth);
-		System.out.println(userAddress);
-		System.out.println(userDetailAddress);
-		System.out.println(userZipCode);
+//		String userId = request.getParameter("userId");
+//		String userPw = request.getParameter("userPw");		
+//		String userName = request.getParameter("userName");		
+//		String userEmail = request.getParameter("userEmail");		
+//		String userTel = request.getParameter("userTel");		
+//		String userBirth = request.getParameter("userBirth");		
+//		String userAddress = request.getParameter("userAddress");
+//		String userDetailAddress = request.getParameter("userDetailAddress");
+//		String userZipCode = request.getParameter("userZipCode");
+//		System.out.println(userId);
+//		System.out.println(userPw);
+//		System.out.println(userName);
+//		System.out.println(userEmail);
+//		System.out.println(userTel);
+//		System.out.println(userBirth);
+//		System.out.println(userAddress);
+//		System.out.println(userDetailAddress);
+//		System.out.println(userZipCode);
 
 		if (dao.checkId(request.getParameter("userId")) != null) {
 			// 이미 사용중인 아이디 화면 처리 어떻게?

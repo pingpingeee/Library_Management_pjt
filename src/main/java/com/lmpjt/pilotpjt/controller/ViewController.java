@@ -1,5 +1,6 @@
 package com.lmpjt.pilotpjt.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -58,6 +59,10 @@ public class ViewController {
 	public String loginPage() {
 		return "login";
 	}
+	@RequestMapping("/mypage")
+	public String mypage() {
+		return "mypage";
+	}
 
 	// 로그아웃
 	@RequestMapping("/logout")
@@ -68,7 +73,21 @@ public class ViewController {
 
 	// 회원가입 뷰
 	@RequestMapping("/joinView")
-	public String join(UserDTO user) {
+	public String join() {
 		return "join";
+	}
+	
+	// 게시판 관련 렌더
+	@RequestMapping("/board_view")
+	public String boardView() {
+		return "board_view";
+	}
+	@RequestMapping("/board_detail")
+	public String boardViewDetail() {
+		return "board_detail";
+	}
+	@RequestMapping("/board_write")
+	public String boardViewWrite() {
+		return "board_write";
 	}
 }

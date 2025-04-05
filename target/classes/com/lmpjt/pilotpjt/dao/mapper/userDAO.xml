@@ -24,7 +24,7 @@
 	<select id="getUserInfo"
 		resultType="com.lmpjt.pilotpjt.dto.UserDTO">
 		select userId, userPw, userName, userTel, userEmail,
-		userBirth, userAddress, userDetailAddress,
+		userBirth, userZipCode, userAddress, userDetailAddress,
 		userBorrow, userAdmin, userRegdate from
 		userinfo where userId=#{param1}
 	</select>
