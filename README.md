@@ -138,7 +138,7 @@ CREATE TABLE BUY_RECORD (
 ```
 
 ## ERD
-![image](https://github.com/user-attachments/assets/e37eb2fd-e6f8-457a-8bf0-caaeecd9eebb)
+![image](https://github.com/user-attachments/assets/5c668ab5-4098-439b-a0d1-85609255b0c1)
 
 ## 로그인 & 회원가입 플로우차트
 ![image](https://github.com/user-attachments/assets/42c9b8b7-f470-4843-82bc-3ed59fce2352)
