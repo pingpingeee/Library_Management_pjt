@@ -90,10 +90,14 @@
       <scope>provided</scope>
    </dependency>
 ```
-- 2025-04-03. 등록된 도서 기록 테이블추가 BOOK_REGISTRATION_LOG
-- 2025-04-03. 게시판 테이블추가 BOARD 
-- 2025-04-03. 댓글 테이블추가 COMMENT
-
+- 2025-04-03. 테이블 추가 BOOK_REGISTRATION_LOG 등록된 도서 기록 
+- 2025-04-03. 테이블 추가 BOARD 게시판
+- 2025-04-03. 테이블 추가 COMMENT 댓글
+- 2025-04-05. 테이블 추가 BORROW_RECORD 대출기록
+- ===== 아래는 추후 개발 ======
+- 2025-04-05. 테이블 추가 SELL_BOOK 판매중인 책
+- 2025-04-05. 테이블 추가 SELL_RECORD 판매된 책 기록
+- 2025-04-05. 테이블 추가 BUY_RECORD 구매된 책 기록
 
 ## DB쿼리문
 ```
