@@ -1,4 +1,4 @@
-## Library_management_pjt
+# Library_management_pjt
 
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
   <img src="https://img.shields.io/badge/oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white"> 
@@ -31,75 +31,7 @@
 
 ##### views
 - book_search.jsp
-  도서 검색 후 화면
-- book_update.jsp
-  도서 수정 화면
-- join.jsp
-  회원가입 화면
-- jogin.jsp
-  로그인 화면
-- main.jsp
-  메인 화면
-- search_book.jsp
-  도서 검색 결과 화면
-- user_info.jsp
-  유저 정보 조회 화면
-- user_update.jsp
-  유저 정보 수정 화면
-
-##### entitiy
-- User.java
-  유저 엔티티
-- Book.java
-  도서 엔티티
-
-## 🛑주의사항🛑
-- jsp의 body부에서 각 input의 name은 Entity의 참조변수를 따라가야합니다. 꼭 주의해서 작성해주세요.
-- entity 및 model 패키지의 경로와 클래스, 인터페이스 파일 이름이 변경 될 수 있습니다. 변경시 말씀드림
-
-  #### 컨트롤러 부분을 세분화하여 분리 할 수 있습니다. 컨트롤러부분의 내용만 세분화하고 나머지는 이름변경만 할 수 있습니다.
-  
-  현재 == model, entity => DB데이터 보냄 => controller => DB데이터를 가공하여 표현 => views
-
-  변경 될 수 있음 == DAO, entity => DB데이터보냄 => Service = DB데이터를 객체에 담음 => controller => DB데이터 표현 => views
-
-  DAO - 쿼리문
-  
-  DTO - 엔티티
-  
-  Service - DAO와 controller 중간다리
-  
-  controller - view와 중간다리
-  
-
-## 서비스 구현
-- 2025-04-02. 로그인, 세션(loginUser사용하세요. UserController참고.) - 정종현
-- 2025-04-02. 도서 등록 예외처리 완료 *(보완점 발견 시 수정필요) - 이병훈
-  
-  🛑 카테고리를 문자열로 입력하는게 아닌 사용자에게 직접 보기를 보여주는 식으로 표현이 좋아보임
-- 2025-04-02. 회원가입 예외처리 완료 *(회원가입 성공시 완료 화면 및 화면이동 필요) - 정종현
-
-## 변경 사항
-- 2025-04-02. lombok 사용을 위한 dependency 추가
-```
-<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-   <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.36</version>
-      <scope>provided</scope>
-   </dependency>
-```
-- 2025-04-03. 테이블 추가 BOOK_REGISTRATION_LOG 등록된 도서 기록 
-- 2025-04-03. 테이블 추가 BOARD 게시판
-- 2025-04-03. 테이블 추가 COMMENT 댓글
-- 2025-04-05. 테이블 추가 BORROW_RECORD 대출기록
-- ===== 아래는 추후 개발 ======
-- 2025-04-05. 테이블 추가 SELL_BOOK 판매중인 책
-- 2025-04-05. 테이블 추가 SELL_RECORD 판매된 책 기록
-- 2025-04-05. 테이블 추가 BUY_RECORD 구매된 책 기록
-
-## DB쿼리문
+  도서 검정
 ```
 GRANT CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, 
       CREATE SYNONYM, CREATE PROCEDURE, CREATE TRIGGER, CREATE MATERIALIZED VIEW 
