@@ -1,4 +1,4 @@
-package model; //DBBean 역할
+package com.lmpjt.pilotpjt.DAO; //DBBean 역할
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.util.List;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import entity.Book;
+import com.lmpjt.pilotpjt.DTO.Book;
 
 public class BookDAOImpl implements BookDAO {
 	private static BookDAOImpl instance = new BookDAOImpl();

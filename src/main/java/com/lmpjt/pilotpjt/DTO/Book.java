@@ -1,15 +1,15 @@
-package entity;
+package com.lmpjt.pilotpjt.DTO;
 
 public class Book {
-	private int bookNumber; // ì±… ê³ ìœ ë²ˆí˜¸
-	private String bookTitle; // ì±… ì œëª©
-	private String bookComent; // ì±… ì§§ì€ ë‚´ìš©
-	private String bookWriter; // ì±… ì €ì
-	private String bookPub; // ì±… ì¶œíŒì‚¬
-	private String bookDate; // ì±… ì¶œíŒì¼ì
-	private String bookCategory; // ì±… ì¹´í…Œê³ ë¦¬
-	private int bookCount; // ì±… ëª‡ê¶Œë‚¨ì•˜ëŠ”ì§€
-	private int bookBorrowcount; // ì±… ì–¼ë§ˆë‚˜ ë¹Œë ¸ëŠ”ì§€
+	private int bookNumber; // ì±? ê³ ìœ ë²ˆí˜¸
+	private String bookTitle; // ì±? ? œëª?
+	private String bookComent; // ì±? ì§§ì? ?‚´?š©
+	private String bookWriter; // ì±? ???
+	private String bookPub; // ì±? ì¶œíŒ?‚¬
+	private String bookDate; // ì±? ì¶œíŒ?¼?
+	private String bookCategory; // ì±? ì¹´í…Œê³ ë¦¬
+	private int bookCount; // ì±? ëª‡ê¶Œ?‚¨?•˜?Š”ì§?
+	private int bookBorrowcount; // ì±? ?–¼ë§ˆë‚˜ ë¹Œë ¸?Š”ì§?
 
 	public int getBookNumber() {
 		return bookNumber;

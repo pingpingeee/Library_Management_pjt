@@ -1,6 +1,6 @@
-package model;
+package com.lmpjt.pilotpjt.DAO;
 
-import entity.User;
+import com.lmpjt.pilotpjt.DTO.User;
 
 public interface UserDAO {
 	public int userJoin(User user); // 회원가입

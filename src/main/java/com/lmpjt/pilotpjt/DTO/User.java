@@ -1,4 +1,4 @@
-package entity;
+package com.lmpjt.pilotpjt.DTO;
 
 public class User {
 	private int userNumber; 
@@ -12,7 +12,7 @@ public class User {
 	private int userBorrow; 
 	private int userAdmin; 
 	private String userRegdate;
-	private boolean remeberId; // ì•„ì´ë””ê¸°ì–µí• ë˜ìš©?
+	private boolean remeberId; // ?•„?´?””ê¸°ì–µ?• ?˜?š©?
 	
 	
 
