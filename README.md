@@ -48,8 +48,9 @@ CREATE TABLE USERINFO (
     userTel         VARCHAR2(20),
     userEmail       VARCHAR2(100),
     userBirth       VARCHAR2(20),
+    userZipCode     VARCHAR2(50),
     userAddress     VARCHAR2(100),
-    userDetailAddress VARCHAR2(100),
+    userDetailAddress VARCHAR2(100) DEFAULT '',
     userBorrow      NUMBER DEFAULT 3,
     userAdmin       NUMBER DEFAULT 0,
     userRegdate     DATE DEFAULT SYSDATE
@@ -67,13 +68,14 @@ CREATE TABLE BOOKINFO (
     bookBorrowCount     NUMBER
 );
 
-CREATE TABLE notice (
-    noticeNum      NUMBER PRIMARY KEY,
-    title          VARCHAR2(200) NOT NULL,
-    noContent      VARCHAR2(1000) NOT NULL,
-    writer         VARCHAR2(50) DEFAULT '관리자',
-    regdate        DATE DEFAULT SYSDATE,
-    views          NUMBER DEFAULT 0
+CREATE TABLE NOTICE(
+    noticeNum            NUMBER PRIMARY KEY,
+    noticeTitle          VARCHAR2(200) NOT NULL,
+    noticeContent        VARCHAR2(1000) NOT NULL,
+    noticewriter         VARCHAR2(50) DEFAULT '관리자',
+    noticeregdate        DATE DEFAULT SYSDATE,
+    noticeviews          NUMBER DEFAULT 0,
+    noticeCategory       VARCHAR2(30)
 );
 
 CREATE TABLE BOOK_REGISTATION_LOG (
