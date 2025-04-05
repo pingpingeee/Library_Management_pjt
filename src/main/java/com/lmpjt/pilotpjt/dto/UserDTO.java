@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class UserDTO {
 	private int userNumber; 
 	private String userId; 
 	private String userPw; 
@@ -15,10 +15,10 @@ public class User {
 	private String userEmail; 
 	private String userTel; 
 	private String userBirth; 
+	private String userZipCode;
 	private String userAddress;
+	private String userDetailAddress;
 	private int userBorrow; 
 	private int userAdmin; 
 	private String userRegdate;
-	private boolean remeberId; 
-
 }

@@ -3,14 +3,20 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.lgy.item_mybatis_oracle.dao.ItemDAO">
+<mapper namespace="com.lmpjt.pilotpjt.dao.BookDAO">
 
-    <insert id="write">
-    	insert into tbl_item(name, price, description) values(#{param1},#{param2},#{param3})
-    </insert>
-    
-    <select id="list" resultType="com.lgy.item_mybatis_oracle.dto.ItemDTO">
-        select name, price, description from tbl_item
-    </select>
-        
+	<insert id="insertBook">
+		insert into bookinfo(bookNumber, bookTitle, bookComent, bookWrite, bookPub,
+		bookDate, bookMajorCategory, bookSubCategory, bookCount)
+		values ((select nvl(max(bookNumber), 0)+1 from bookinfo),
+		#{book.bookTitle}, #{book.bookComent}, #{book.bookWrite}, #{book.bookPub},
+		#{book.bookDate}, #{book.bookMajorCategory}, #{book.bookSubCategory}, #{book.bookCount})
+	</insert>
+
+
+
+	<update id="updateBook"></update>
+	<select id="mainBookInfo"></select>
+	<select id="searchBookInfo"></select>
+
 </mapper>

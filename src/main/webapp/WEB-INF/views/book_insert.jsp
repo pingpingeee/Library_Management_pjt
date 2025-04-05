@@ -1,47 +1,99 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>µµ¼­ µî·Ï</title>
+<title>ë„ì„œ ë“±ë¡</title>
 <link rel="stylesheet" type="text/css" href="/pilotpjt/resources/css/book_insert.css">
+<script>
+    // ëŒ€ë¶„ë¥˜ì— ë”°ë¥¸ ì†Œë¶„ë¥˜ ë§¤í•‘
+    const subCategories = {
+        "ì†Œì„¤": ["í•œêµ­ì†Œì„¤", "ì™¸êµ­ì†Œì„¤", "ì—­ì‚¬ì†Œì„¤"],
+        "ê³¼í•™": ["ë¬¼ë¦¬í•™", "í™”í•™", "ìƒë¬¼í•™"],
+        "ì¸ë¬¸": ["ì² í•™", "ì‹¬ë¦¬í•™", "ì¢…êµ"],
+        "ê¸°ìˆ ": ["ì»´í“¨í„°", "ì „ì", "ê¸°ê³„"],
+        "ê¸°íƒ€": ["ì—ì„¸ì´", "ì—¬í–‰", "ìš”ë¦¬"]
+    };
+
+    function updateSubCategories() {
+        const mainSelect = document.getElementById("mainCategory");
+        const subSelect = document.getElementById("subCategory");
+        const selectedMain = mainSelect.value;
+
+        // ì†Œë¶„ë¥˜ ì´ˆê¸°í™”
+        subSelect.innerHTML = "";
+
+        if (selectedMain && subCategories[selectedMain]) {
+            subCategories[selectedMain].forEach(function(sub) {
+                const option = document.createElement("option");
+                option.value = sub;
+                option.text = sub;
+                subSelect.appendChild(option);
+            });
+        } else {
+            const option = document.createElement("option");
+            option.value = "";
+            option.text = "ì†Œë¶„ë¥˜ ì—†ìŒ";
+            subSelect.appendChild(option);
+        }
+    }
+</script>
 </head>
 <body>
-	<c:if test="${not empty error}">
-		<p class="error-message">${error}</p>
-	</c:if>
+<%
+// 	ì¹´í…Œê³ ë¦¬ ë¶€ë¶„ ì¸ì½”ë”©ì´ ê¹¨ì§;;;
+	request.setCharacterEncoding("utf-8");
+%>
    
    <form method="post" action="/pilotpjt/book_insert">
       <label>
-         Á¦¸ñ<input type="text" name="bookTitle" required placeholder="µµ¼­ Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä">
+         ì œëª©<input type="text" name="bookTitle" required placeholder="ë„ì„œ ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”">
       </label>
       <br>
       <label>
-         ³»¿ë<input type="text" name="bookComent" required placeholder="Ã¥ÀÇ °£·«ÇÑ ³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä">
+         ë‚´ìš©<input type="text" name="bookComent" required placeholder="ì±…ì˜ ê°„ëµí•œ ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”">
       </label>
       <br>
       <label>
-         ÀÛ°¡<input type="text" name="bookWriter" required placeholder="ÀÛ°¡ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä">
+         ì‘ê°€<input type="text" name="bookWrite" required placeholder="ì‘ê°€ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”">
       </label>
       <br>
       <label>
-         ÃâÆÇ»ç<input type="text" name="bookPub" required placeholder="ÃâÆÇ»ç ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä">
+         ì¶œíŒì‚¬<input type="text" name="bookPub" required placeholder="ì¶œíŒì‚¬ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”">
       </label>
       <br>
       <label>
-         ¹ßÇàÀÏ<input type="date" name="bookDate" required>
+         ë°œí–‰ì¼<input type="date" name="bookDate" required>
+      </label>
+      <br>
+      <!-- ëŒ€ë¶„ë¥˜ ì„ íƒ -->
+      <label>
+         ì¹´í…Œê³ ë¦¬(ëŒ€ë¶„ë¥˜)
+         <select id="mainCategory" name="bookMajorCategory" required onchange="updateSubCategories()">
+            <option value="">ì„ íƒí•˜ì„¸ìš”</option>
+            <option value="ì†Œì„¤">ì†Œì„¤</option>
+            <option value="ê³¼í•™">ê³¼í•™</option>
+            <option value="ì¸ë¬¸">ì¸ë¬¸</option>
+            <option value="ê¸°ìˆ ">ê¸°ìˆ </option>
+            <option value="ê¸°íƒ€">ê¸°íƒ€</option>
+         </select>
+      </label>
+      <br>
+
+      <!-- ì†Œë¶„ë¥˜ ì„ íƒ -->
+      <label>
+         ì¹´í…Œê³ ë¦¬(ì†Œë¶„ë¥˜)
+         <select id="subCategory" name="bookSubCategory" required>
+            <option value="">ì†Œë¶„ë¥˜ë¥¼ ì„ íƒí•˜ì„¸ìš”</option>
+         </select>
       </label>
       <br>
       <label>
-         Ä«Å×°í¸®<input type="text" name="bookCategory" required placeholder="µµ¼­ Ä«Å×°í¸®¸¦ ÀÔ·ÂÇÏ¼¼¿ä (¿¹: ¼Ò¼³, °úÇĞ)">
+         ì¬ê³ <input type="number" name="bookCount" required min="1" placeholder="ë³´ìœ  ì¬ê³  ìˆ˜ëŸ‰ì„ ì…ë ¥í•˜ì„¸ìš”">
       </label>
       <br>
-      <label>
-         Àç°í<input type="number" name="bookCount" required min="1" placeholder="º¸À¯ Àç°í ¼ö·®À» ÀÔ·ÂÇÏ¼¼¿ä">
-      </label>
-      <br>
-      <input type="submit" value="µî·Ï">
+      <input type="submit" value="ë“±ë¡">
    </form>
 </body>
 </html>

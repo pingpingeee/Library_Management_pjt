@@ -3,14 +3,35 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.lgy.item_mybatis_oracle.dao.ItemDAO">
+<mapper namespace="com.lmpjt.pilotpjt.dao.UserDAO">
 
-    <insert id="write">
-    	insert into tbl_item(name, price, description) values(#{param1},#{param2},#{param3})
-    </insert>
-    
-    <select id="list" resultType="com.lgy.item_mybatis_oracle.dto.ItemDTO">
-        select name, price, description from tbl_item
-    </select>
-        
+	<insert id="userJoin">
+	  INSERT INTO userinfo (
+	    userNumber, userId, userPw, userName, userTel,
+	    userEmail, userBirth, userZipCode, userAddress, userDetailAddress
+	  )
+	  VALUES (
+	    (SELECT NVL(MAX(userNumber), 0) + 1 FROM userinfo),
+	    #{userId}, #{userPw}, #{userName}, #{userTel},
+	    #{userEmail}, #{userBirth}, #{userZipCode}, #{userAddress}, #{userDetailAddress}
+	  )
+	</insert>
+
+	<select id="userLogin"
+		resultType="com.lmpjt.pilotpjt.dto.UserDTO">
+		select userPw from userinfo where userId=#{param1}
+	</select>
+	<select id="getUserInfo"
+		resultType="com.lmpjt.pilotpjt.dto.UserDTO">
+		select userId, userPw, userName, userTel, userEmail,
+		userBirth, userAddress, userDetailAddress,
+		userBorrow, userAdmin, userRegdate from
+		userinfo where userId=#{param1}
+	</select>
+	<update id="updateUserInfo">
+	</update>
+	<select id="checkId" resultType="com.lmpjt.pilotpjt.dto.UserDTO">
+		select userId from userinfo where userId=#{userId}
+	</select>
 </mapper>
+
