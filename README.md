@@ -11,25 +11,6 @@
 - Java version : 11
 - Windows 10, 11
 
-##### controller
-- UserController.java
-  유저 관련기능 (회원가입, 로그인, 유저 정보 관리)
-- BookController.java
-  도서 관련 기능 (도서 검색, 도서 정보 조회, 도서 수정, 도서 등록)
-
-##### model
-- UserDAO.java
-  유저 관련 로직 선언(interface)
-- BookDAO.java
-  도서 관련 로직 선언(interface)
-- UserDAOImpl.java
-  유저 관련 로직 구현
-- BookDAOImpl.java
-  도서 관련 로직 구현
-
-##### views
-- book_search.jsp
-  도서 검정
 ```
 GRANT CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, 
       CREATE SYNONYM, CREATE PROCEDURE, CREATE TRIGGER, CREATE MATERIALIZED VIEW 
@@ -157,7 +138,7 @@ CREATE TABLE BUY_RECORD (
 ```
 
 ## ERD
-![image](https://github.com/user-attachments/assets/e37eb2fd-e6f8-457a-8bf0-caaeecd9eebb)
+![image](https://github.com/user-attachments/assets/5c668ab5-4098-439b-a0d1-85609255b0c1)
 
 ## 로그인 & 회원가입 플로우차트
 ![image](https://github.com/user-attachments/assets/42c9b8b7-f470-4843-82bc-3ed59fce2352)
