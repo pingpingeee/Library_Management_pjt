@@ -41,81 +41,117 @@ ALTER USER bookmanager DEFAULT TABLESPACE USERS;
 ALTER USER bookmanager QUOTA UNLIMITED ON USERS;
 
 CREATE TABLE USERINFO (
-    U_NUMBER NUMBER(5) PRIMARY KEY, -- 유저 고유번호
-    U_ID VARCHAR2(30) NOT NULL, -- 유저 아이디
-    U_PW VARCHAR2(30) NOT NULL, -- 유저 비밀번호
-    U_NAME VARCHAR2(20) NOT NULL, -- 유저 이름
-    U_EMAIL VARCHAR2(50), -- 유저 이메일
-    U_TEL VARCHAR2(25), -- 유저 전화번호
-    U_BIRTH VARCHAR2(25), -- 유저 생일 (YYYYMMDD 형식)
-    U_ADDRESS VARCHAR2(150), -- 유저 주소
-    U_BORROW NUMBER(1) DEFAULT 3, -- 유저가 최대 빌릴 수 있는 수 (기본값 3)
-    U_ADMIN NUMBER(1) DEFAULT 0, -- 유저 관리자 여부 (0: 일반, 1: 관리자)
-    U_REGDATE DATE DEFAULT SYSDATE
+    userNumber      NUMBER PRIMARY KEY,
+    userId          VARCHAR2(50),
+    userPw          VARCHAR2(50),
+    userName        VARCHAR2(50),
+    userTel         VARCHAR2(20),
+    userEmail       VARCHAR2(100),
+    userBirth       VARCHAR2(20),
+    userAddress     VARCHAR2(100),
+    userDetailAddress VARCHAR2(100),
+    userBorrow      NUMBER DEFAULT 3,
+    userAdmin       NUMBER DEFAULT 0,
+    userRegdate     DATE DEFAULT SYSDATE
+);
+CREATE TABLE BOOKINFO (
+    bookNumber          NUMBER PRIMARY KEY,
+    bookTitle           VARCHAR2(100),
+    bookComent          VARCHAR2(255),
+    bookWrite           VARCHAR2(50),
+    bookPub             VARCHAR2(50),
+    bookDate            DATE,
+    bookMajorCategory   NVARCHAR2(50),
+    bookSubCategory     NVARCHAR2(50),
+    bookCount           NUMBER,
+    bookBorrowCount     NUMBER
 );
 
-CREATE TABLE BOOK (
-    B_NUMBER NUMBER(6) PRIMARY KEY, -- 고유번호
-    B_TITLE VARCHAR2 (50), -- 제목
-    B_COMENT VARCHAR2 (100), -- 짧은 내용
-    B_WRITER VARCHAR2(20), -- 저자
-    B_PUB VARCHAR2(30), -- 출판사
-    B_DATE VARCHAR2(100), -- 출판일자
-    B_CATEGORY VARCHAR2(50), -- 카테고리
-    B_COUNT NUMBER(1), -- 몇권남아있는지
-    B_BORROWCOUNT NUMBER(3) DEFAULT 0 -- 얼마나 빌렸는지
+CREATE TABLE notice (
+    noticeNum      NUMBER PRIMARY KEY,
+    title          VARCHAR2(200) NOT NULL,
+    noContent      VARCHAR2(1000) NOT NULL,
+    writer         VARCHAR2(50) DEFAULT '관리자',
+    regdate        DATE DEFAULT SYSDATE,
+    views          NUMBER DEFAULT 0
 );
 
-CREATE TABLE BOOK_BORROW(
-    BORROW_NUMBER NUMBER(5) PRIMARY KEY,
-    U_NUMBER NUMBER(5), -- 유저 고유번호
-    B_NUMBER NUMBER(6), -- 책 고유번호
-    B_BORROWDATE DATE, -- 빌린날짜
-    CONSTRAINT FK_BOOK_BORROW_USER FOREIGN KEY (U_NUMBER) REFERENCES USERINFO(U_NUMBER) ON DELETE CASCADE,
-    CONSTRAINT FK_BOOK_BORROW_BOOK FOREIGN KEY (B_NUMBER) REFERENCES BOOK(B_NUMBER) ON DELETE CASCADE
+CREATE TABLE BOOK_REGISTATION_LOG (
+    logNumber      NUMBER PRIMARY KEY,
+    userNumber  NUMBER,
+    bookNumber  NUMBER,
+    regDate     DATE DEFAULT SYSDATE,
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
 );
-
-CREATE TABLE BOOK_RETURN(
-    RETURN_NUMBER NUMBER(5) PRIMARY KEY,
-    U_NUMBER NUMBER(5), -- 유저 고유번호
-    B_NUMBER NUMBER(6), -- 책 고유번호
-    B_RETURNDATE DATE, -- 반납일자
-    CONSTRAINT FK_BOOK_RETURN_USER FOREIGN KEY (U_NUMBER) REFERENCES USERINFO(U_NUMBER) ON DELETE CASCADE,
-    CONSTRAINT FK_BOOK_RETURN_BOOK FOREIGN KEY (B_NUMBER) REFERENCES BOOK(B_NUMBER) ON DELETE CASCADE
-);
-
--- 도서 등록 내역 관리 테이블
-CREATE TABLE BOOK_REGISTRATION_LOG (
-    LOG_ID NUMBER(6) PRIMARY KEY, -- 로그 고유번호
-    U_NUMBER NUMBER(5) NOT NULL, -- 도서 등록을 한 관리자 USERINFO외례키
-    B_NUMBER NUMBER(6) NOT NULL, -- 등록된 도서 번호 BOOK 외례키
-    REG_DATE DATE DEFAULT SYSDATE, -- 등록일자
-    CONSTRAINT FK_BOOK_REG_USER FOREIGN KEY (U_NUMBER) REFERENCES USER(U_NUMBER) ON DELETE CASCADE,
-    CONSTRAINT FK_BOOK_REG_BOOK FOREIGN KEY (B_NUMBER) REFERENCES BOOK(B_NUMBER) ON DELETE CASCADE
-);
-
--- 게시판 테이블
 CREATE TABLE BOARD (
-    B_ID NUMBER(5) PRIMARY KEY, -- 게시글 고유번호
-    U_NUMBER NUMBER(5), -- 작성자 (USER 테이블 참조)
-    B_TITLE VARCHAR2(100), -- 게시글 제목
-    B_CONTENT CLOB, -- 게시글 내용
-    B_WRITEDATE DATE DEFAULT SYSDATE, -- 작성일
-    B_VIEWS NUMBER(5) DEFAULT 0, -- 조회수
-    B_LIKES NUMBER(5) DEFAULT 0, -- 좋아요 수
-    CONSTRAINT FK_BOARD_USER FOREIGN KEY (U_NUMBER) REFERENCES USER(U_NUMBER) ON DELETE CASCADE
+    boardNumber     NUMBER PRIMARY KEY,
+    userNumber      NUMBER,
+    boardTitle      VARCHAR2(100),
+    boardContent    VARCHAR2(1000),
+    boardWriteDate  DATE DEFAULT SYSDATE,
+    boardViews      NUMBER,
+    boardLikes      NUMBER,
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)
+);
+CREATE TABLE BOARD_COMMENT (
+    commentNumber       NUMBER PRIMARY KEY,
+    boardNumber         NUMBER,
+    userNumber          NUMBER,
+    commentContent      VARCHAR2(1000),
+    commentWriteDate    DATE DEFAULT SYSDATE,
+    FOREIGN KEY (boardNumber) REFERENCES BOARD(boardNumber),
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)
+);
+CREATE TABLE BOOK_BORROW (
+    borrowNumber        NUMBER PRIMARY KEY,
+    userNumber          NUMBER,
+    bookNumber          NUMBER,
+    bookBorrowDate      DATE DEFAULT SYSDATE,
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
+);
+CREATE TABLE BORROW_RECORD (
+    borrowRecordNumber  NUMBER PRIMARY KEY,
+    userNumber          NUMBER,
+    bookNumber          NUMBER,
+    borrowNumber        NUMBER,
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber),
+    FOREIGN KEY (borrowNumber) REFERENCES BOOK_BORROW(borrowNumber)
+);
+CREATE TABLE RETURN_RECORD (
+    returnNumber        NUMBER PRIMARY KEY,
+    userNumber          NUMBER,
+    bookNumber          NUMBER,
+    bookReturnDate      DATE DEFAULT SYSDATE,
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
+);
+CREATE TABLE SELL_BOOK (
+    sellNumber      NUMBER PRIMARY KEY,
+    bookNumber      NUMBER,
+    userNumber      NUMBER,
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber),
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)
+);
+CREATE TABLE SELL_RECORD (
+    sellRecordNumber    NUMBER PRIMARY KEY,
+    sellNumber          NUMBER,
+    userNumber          NUMBER,
+    bookNumber          NUMBER,
+    FOREIGN KEY (sellNumber) REFERENCES SELL_BOOK(sellNumber),
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
+);
+CREATE TABLE BUY_RECORD (
+    buyRecordNumber     NUMBER PRIMARY KEY,
+    userNumber          NUMBER,
+    bookNumber          NUMBER,
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
 );
 
--- 댓글 테이블
-CREATE TABLE COMMENT (
-    C_ID NUMBER(5) PRIMARY KEY, -- 댓글 고유번호
-    B_ID NUMBER(5), -- 어느 게시글의 댓글인지 (BOARD 참조)
-    U_NUMBER NUMBER(5), -- 작성자 (USER 테이블 참조)
-    C_CONTENT VARCHAR2(500), -- 댓글 내용
-    C_WRITEDATE DATE DEFAULT SYSDATE, -- 작성일
-    CONSTRAINT FK_COMMENT_BOARD FOREIGN KEY (B_ID) REFERENCES BOARD(B_ID) ON DELETE CASCADE,
-    CONSTRAINT FK_COMMENT_USER FOREIGN KEY (U_NUMBER) REFERENCES USER(U_NUMBER) ON DELETE CASCADE
-);
 ```
 
 ## ERD
