@@ -18,7 +18,6 @@
         
         <%
         UserDTO user = (UserDTO) session.getAttribute("loginUser");
-            
         if (user != null){
         %>
         

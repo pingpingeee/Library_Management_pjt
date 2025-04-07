@@ -23,7 +23,7 @@
 	</select>
 	<select id="getUserInfo"
 		resultType="com.lmpjt.pilotpjt.dto.UserDTO">
-		select userId, userPw, userName, userTel, userEmail,
+		select userNumber, userId, userPw, userName, userTel, userEmail,
 		userBirth, userZipCode, userAddress, userDetailAddress,
 		userBorrow, userAdmin, userRegdate from
 		userinfo where userId=#{userId}

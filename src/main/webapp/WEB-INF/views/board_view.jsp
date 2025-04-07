@@ -72,7 +72,7 @@
                     <tr>
                         <td class="board-number">${board.boardNumber}</td>
                         <td class="board-title-col">
-                            <a href="/pilotpjt/board_detail?boardNumber=${board.boardNumber}" class="title-link">${board.boardTitle}</a>
+                            <a href="board_detail_view?boardNumber=${board.boardNumber}" class="title-link">${board.boardTitle}</a>
                         </td>
                         <td class="board-author">${board.userName}</td>
                         <td class="board-date">${board.boardWriteDate}</td>

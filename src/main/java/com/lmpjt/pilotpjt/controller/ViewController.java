@@ -1,10 +1,13 @@
 package com.lmpjt.pilotpjt.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lmpjt.pilotpjt.dto.UserDTO;
 
@@ -82,15 +85,7 @@ public class ViewController {
 		return "join";
 	}
 	
-	// �Խ��� ���� ����
-	@RequestMapping("/board_view")
-	public String boardView() {
-		return "board_view";
-	}
-	@RequestMapping("/board_detail")
-	public String boardViewDetail() {
-		return "board_detail";
-	}
+	// board
 	@RequestMapping("/board_write")
 	public String boardViewWrite() {
 		return "board_write";

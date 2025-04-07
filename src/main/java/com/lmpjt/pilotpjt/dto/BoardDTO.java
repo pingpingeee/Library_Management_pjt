@@ -10,10 +10,13 @@ import lombok.NoArgsConstructor;
 public class BoardDTO {
 	private int boardNumber;
 	private int userNumber;
+	private String userName;
 	private String boardTitle;
 	private String boardContent;
 	private String boardWriteDate;
-	private int boardViews;
-	private int boardLikes;
+	private String boardViews;
+	private String boardLikes;
+	private String boardHit;
+
 
 }
