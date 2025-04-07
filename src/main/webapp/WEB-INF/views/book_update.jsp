@@ -5,6 +5,7 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+<script src="/pilotpjt/resources/js/book_update.js"></script>
 </head>
 <body>
 

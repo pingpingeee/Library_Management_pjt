@@ -13,6 +13,7 @@
     <title>게시판 - 잉크 트리</title>
     <link rel="stylesheet" type="text/css" href="/pilotpjt/resources/css/board_view.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="/pilotpjt/resources/js/baord_view.js"></script>
 </head>
 <body>
     <jsp:include page="header.jsp" />

@@ -7,25 +7,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>도서관리 시스템 - 회원가입</title>
 <link rel="stylesheet" type="text/css" href="/pilotpjt/resources/css/joinview.css">
+<script src="/pilotpjt/resources/js/join.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
 <script type="text/javascript">
-	function fn_submit() {
-		var formData = $("#joinForm").serialize();//form 요소 자체
+function fn_submit() {
+    var formData = $("#joinForm").serialize();
 
-		//비동기 전송방식의 jquery 함수
-		$.ajax({
-			type : "post",
-			data : formData,
-			url : "join",
-			success : function(data) {
-				alert("회원가입이 정상적으로 처리되었습니다.");
-				location.href="loginView"
-			},
-			error : function() {
-				alert("오류발생");
-			}
-		});
-	}
+    $.ajax({
+        type: "post",
+        data: formData,
+        url: "join",
+        success: function(data) {
+            alert("회원가입이 정상적으로 처리되었습니다.");
+            location.href = "loginView";
+        },
+        error: function(xhr) {
+            if (xhr.status === 409) {
+                alert("이미 존재하는 아이디입니다. 다른 아이디를 사용해주세요.");
+            } else {
+                alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+            }
+        }
+    });
+}
+
 </script>
 </head>
 <body>

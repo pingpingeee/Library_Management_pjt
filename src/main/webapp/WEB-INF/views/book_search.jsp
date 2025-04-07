@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="/pilotpjt/resources/js/book_search.js"></script>
 </head>
 <body>
 

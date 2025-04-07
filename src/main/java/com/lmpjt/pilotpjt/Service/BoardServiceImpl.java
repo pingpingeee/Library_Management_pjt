@@ -25,13 +25,13 @@ public class BoardServiceImpl implements BoardService {
 	public ArrayList<BoardDTO> boardView() {
 		BoardDAO dao = sqlSession.getMapper(BoardDAO.class);
 		ArrayList<BoardDTO> list = dao.boardView();
-		System.out.println("list22 : " + list);
 		return list;
 	}
 
 	@Override
 	public BoardDTO boardDetailView(HashMap<String, String> param) {
 		BoardDAO dao = sqlSession.getMapper(BoardDAO.class);
+		dao.boardHit(param);
 		BoardDTO dto = dao.boardDetailView(param);
 		return dto;
 	}
@@ -47,6 +47,21 @@ public class BoardServiceImpl implements BoardService {
 	public void boardDelete(HashMap<String, String> param) {
 		BoardDAO dao = sqlSession.getMapper(BoardDAO.class);
 		dao.boardDelete(param);
+	}
+
+	@Override
+	public boolean boardHasLiked(HashMap<String, String> param) {
+		BoardDAO dao = sqlSession.getMapper(BoardDAO.class);
+		return dao.boardCheckLiked(param) > 0;
+	}
+
+	@Override
+	public int boardAddLike(HashMap<String, String> param)  {
+		BoardDAO dao = sqlSession.getMapper(BoardDAO.class);
+		System.out.println("qweqwe" + param);
+		dao.boardAddLike(param);
+		dao.boardIncrementLike(param);
+		return dao.boardgetLike(param);
 	}
 
 }

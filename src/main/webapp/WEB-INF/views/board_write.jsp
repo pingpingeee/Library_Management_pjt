@@ -15,38 +15,8 @@
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
 	rel="stylesheet">
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
-<script type="text/javascript">
-	function fn_submit() {
-		const content = quill.root.innerHTML;
-		const plainText = quill.getText().trim();
+<script src="/pilotpjt/resources/js/baord_write.js"></script>
 
-		// 유효성 검사
-		if (plainText.length < 1) {
-			document.getElementById('contentError').textContent = '내용은 최소 10자 이상 입력해주세요.';
-			return;
-		} else {
-			document.getElementById('contentError').textContent = '';
-		}
-
-		document.getElementById('boardContent').value = content;
-
-		var formData = $("#frm").serialize();
-
-		$.ajax({
-			type : "post",
-			url : "board_write_ok",
-			data : formData,
-			success : function(data) {
-				alert("저장완료");
-				location.href = "board_view";
-			},
-			error : function() {
-				alert("오류발생");
-			}
-		});
-	}
-</script>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -66,7 +36,7 @@
 				<p class="form-description">자유롭게 의견을 나누고 소통해보세요.</p>
 			</div>
 
-<!-- 			<form id="frm" onsubmit="return validateForm()"> -->
+			<!-- 			<form id="frm" onsubmit="return validateForm()"> -->
 			<form id="frm">
 				<input type="hidden" name="userNumber"
 					value="<%=user.getUserNumber()%>"> <input type="hidden"
@@ -94,8 +64,37 @@
 			</form>
 		</div>
 	</div>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
+	<script type="text/javascript">
+		function fn_submit() {
+			const content = quill.root.innerHTML;
+			const plainText = quill.getText().trim();
 
-	<script>
+			// 유효성 검사
+			if (plainText.length < 1) {
+				document.getElementById('contentError').textContent = '내용은 최소 10자 이상 입력해주세요.';
+				return;
+			} else {
+				document.getElementById('contentError').textContent = '';
+			}
+
+			document.getElementById('boardContent').value = content;
+
+			var formData = $("#frm").serialize();
+
+			$.ajax({
+				type : "post",
+				url : "board_write_ok",
+				data : formData,
+				success : function(data) {
+					alert("저장완료");
+					location.href = "board_view";
+				},
+				error : function() {
+					alert("오류발생");
+				}
+			});
+		}
 		// Quill 에디터 초기화
 		var quill = new Quill('#editor', {
 			theme : 'snow',
@@ -117,5 +116,6 @@
 			}
 		});
 	</script>
+
 </body>
 </html>

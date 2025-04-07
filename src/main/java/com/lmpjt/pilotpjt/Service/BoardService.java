@@ -15,4 +15,8 @@ public interface BoardService {
 	public void boardModify(HashMap<String, String> param);
 
 	public void boardDelete(HashMap<String, String> param);
+	
+	public boolean boardHasLiked(HashMap<String, String>param);
+	public int boardAddLike(HashMap<String, String> param);
+	
 }

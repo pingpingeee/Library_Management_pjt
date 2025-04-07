@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>도서관리 시스템 - 로그인</title>
 <link rel="stylesheet" type="text/css" href="/pilotpjt/resources/css/loginview.css">
+<script src="/pilotpjt/resources/js/login.js"></script>
 </head>
 <body>
 	<jsp:include page="header.jsp" />

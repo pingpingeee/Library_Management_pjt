@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +32,9 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 //	@Autowired
 //	private SqlSession sqlSession;
-	
+
 	@Autowired
 	private UserService service;
-
 
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request, @RequestParam HashMap<String, String> param) {
@@ -56,18 +57,18 @@ public class UserController {
 	}
 
 	@RequestMapping("/join")
-	public String join(HttpServletRequest request, @RequestParam HashMap<String, String> param) {
-//		UserDAO dao = sqlSession.getMapper(UserDAO.class);
+	public ResponseEntity<String> join(HttpServletRequest request, @RequestParam HashMap<String, String> param) {
 
 		if (service.checkId(param) != null) {
+			
 		} else {
 			int re = service.userJoin(param);
 			if (re == 1) {
-				return "redirect:loginView";
+//				return "redirect:loginView";
+				return ResponseEntity.ok("available");
 			}
 		}
-		System.out.println("test4");
-		return "join";
+		return ResponseEntity.status(HttpStatus.CONFLICT).body("duplicate");
 	}
 
 	@RequestMapping("/user_info")

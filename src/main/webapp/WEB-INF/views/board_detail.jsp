@@ -11,9 +11,7 @@
     <title>${board.boardTitle} - 잉크 트리</title>
     <link rel="stylesheet" type="text/css" href="/pilotpjt/resources/css/board_detail.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-
-    </style>
+    <script src="/pilotpjt/resources/js/baord_detail.js"></script>
 </head>
 <body>
     <jsp:include page="header.jsp" />
@@ -114,34 +112,32 @@
         </div>
     </div>
     
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
     <script>
-        function likePost(boardNumber) {
-            // 추천 기능 처리를 위한 AJAX 호출
-            fetch('/pilotpjt/like_post', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'boardNumber=' + boardNumber
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // 추천 성공 시 UI 업데이트
-                    document.querySelector('.like-count').textContent = data.likeCount;
-                    document.querySelector('.like-button').classList.add('active');
-                } else if (data.message === 'login_required') {
-                    alert('추천하려면 로그인이 필요합니다.');
-                    location.href = '/pilotpjt/loginView';
+    function likePost(boardNumber) {
+        $.ajax({
+            type: "post",
+            url: "/pilotpjt/boardLikes",
+            data: { boardNumber: boardNumber },
+            success: function(data) {
+                let likeCountElement = $(".like-count");
+                let currentCount = parseInt(likeCountElement.text());
+                likeCountElement.text(currentCount + 1);
+
+                console.log(data); 
+            },
+            error: function(xhr) {
+                if (xhr.status === 409) {
+                    alert("이미 추천을 눌렀습니다.");
+                } else if (xhr.status === 401) {
+                    alert("로그인 후 추천을 누르실 수 있습니다.");
                 } else {
-                    alert('이미 추천한 게시글입니다.');
+                    alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('오류가 발생했습니다. 다시 시도해주세요.');
-            });
-        }
+            }
+        });
+    }
+
         
         function deletePost(boardNumber) {
             if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {

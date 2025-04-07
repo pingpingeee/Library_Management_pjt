@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BookDTO {
 	private int bookNumber;
+	private int bookIsbn;
 	private String bookTitle;
 	private String bookComent;
 	private String bookWrite; // 이거 이름 맞는지 주의
