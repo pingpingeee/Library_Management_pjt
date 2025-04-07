@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-//registerOK.jsp ¿ªÇÒ(Á¤º¸°¡ Á¦´ë·Î µé¾î¿Ô´ÂÁö ÁÖ°í¹Þ°í ¿ªÇÒÀ» ÇÑ´Ù.)
+//registerOK.jsp ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½Þ°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.)
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +23,11 @@ public class BookController {
 
 	@RequestMapping("/book_insert")
 	public String insertBook(HttpServletRequest request, BookDTO book) {
-		// ¼¼¼Ç¿¡¼­ ·Î±×ÀÎÇÑ À¯Àú Á¤º¸ °¡Á®¿À±â
 		HttpSession session = request.getSession();
 		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 
 		BookDAO dao = sqlSession.getMapper(BookDAO.class);
 
-		// ·Î±×ÀÎµÈ À¯Àú°¡ ¾øÀ» °æ¿ì Ã³¸®
 		if (loginUser == null) {
 			return "redirect:loginView";
 		}
@@ -42,7 +40,7 @@ public class BookController {
 //			mv.setViewName("redirect:/main");
 //		} else {
 //			mv.setViewName("book_insert");
-//			mv.addObject("error", "µµ¼­ µî·Ï¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù.");
+//			mv.addObject("error", "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 //		}
 	}
 
