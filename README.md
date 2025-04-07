@@ -21,6 +21,17 @@ TO bookmanager;
 ALTER USER bookmanager DEFAULT TABLESPACE USERS;
 ALTER USER bookmanager QUOTA UNLIMITED ON USERS;
 
+GRANT CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, 
+      CREATE SYNONYM, CREATE PROCEDURE, CREATE TRIGGER, CREATE MATERIALIZED VIEW 
+TO bookmanager;
+
+GRANT SELECT ANY TABLE, INSERT ANY TABLE, UPDATE ANY TABLE, DELETE ANY TABLE 
+TO bookmanager;
+ALTER USER bookmanager DEFAULT TABLESPACE USERS;
+ALTER USER bookmanager QUOTA UNLIMITED ON USERS;
+
+drop table userinfo;
+
 CREATE TABLE USERINFO (
     userNumber      NUMBER PRIMARY KEY,
     userId          VARCHAR2(50),
@@ -38,6 +49,7 @@ CREATE TABLE USERINFO (
 );
 CREATE TABLE BOOKINFO (
     bookNumber          NUMBER PRIMARY KEY,
+    bookIsbn            NUMBER DEFAULT 0,
     bookTitle           VARCHAR2(100),
     bookComent          VARCHAR2(255),
     bookWrite           VARCHAR2(50),
@@ -46,7 +58,7 @@ CREATE TABLE BOOKINFO (
     bookMajorCategory   NVARCHAR2(50),
     bookSubCategory     NVARCHAR2(50),
     bookCount           NUMBER,
-    bookBorrowCount     NUMBER
+    bookBorrowCount     NUMBER DEFAULT 0
 );
 
 CREATE TABLE NOTICE(
@@ -67,14 +79,18 @@ CREATE TABLE BOOK_REGISTATION_LOG (
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
 );
+
+drop table board;
 CREATE TABLE BOARD (
     boardNumber     NUMBER PRIMARY KEY,
     userNumber      NUMBER,
+    userName        VARCHAR2(50),
     boardTitle      VARCHAR2(100),
     boardContent    VARCHAR2(1000),
     boardWriteDate  DATE DEFAULT SYSDATE,
-    boardViews      NUMBER,
-    boardLikes      NUMBER,
+    boardHit        NUMBER DEFAULT 0,
+    boardViews      NUMBER DEFAULT 0,
+    boardLikes      NUMBER DEFAULT 0,
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)
 );
 CREATE TABLE BOARD_COMMENT (
