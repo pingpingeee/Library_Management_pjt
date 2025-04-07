@@ -21,17 +21,6 @@ TO bookmanager;
 ALTER USER bookmanager DEFAULT TABLESPACE USERS;
 ALTER USER bookmanager QUOTA UNLIMITED ON USERS;
 
-GRANT CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, 
-      CREATE SYNONYM, CREATE PROCEDURE, CREATE TRIGGER, CREATE MATERIALIZED VIEW 
-TO bookmanager;
-
-GRANT SELECT ANY TABLE, INSERT ANY TABLE, UPDATE ANY TABLE, DELETE ANY TABLE 
-TO bookmanager;
-ALTER USER bookmanager DEFAULT TABLESPACE USERS;
-ALTER USER bookmanager QUOTA UNLIMITED ON USERS;
-
-drop table userinfo;
-
 CREATE TABLE USERINFO (
     userNumber      NUMBER PRIMARY KEY,
     userId          VARCHAR2(50),
@@ -86,13 +75,16 @@ CREATE TABLE BOARD (
     userNumber      NUMBER,
     userName        VARCHAR2(50),
     boardTitle      VARCHAR2(100),
-    boardContent    VARCHAR2(1000),
+    boardContent    VARCHAR2(4000),
     boardWriteDate  DATE DEFAULT SYSDATE,
     boardHit        NUMBER DEFAULT 0,
     boardViews      NUMBER DEFAULT 0,
     boardLikes      NUMBER DEFAULT 0,
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)
 );
+
+DESC board;
+
 CREATE TABLE BOARD_COMMENT (
     commentNumber       NUMBER PRIMARY KEY,
     boardNumber         NUMBER,
@@ -150,6 +142,7 @@ CREATE TABLE BUY_RECORD (
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
 );
+
 
 
 ```
