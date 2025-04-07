@@ -69,7 +69,6 @@ CREATE TABLE BOOK_REGISTATION_LOG (
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
 );
 
-drop table board;
 CREATE TABLE BOARD (
     boardNumber     NUMBER PRIMARY KEY,
     userNumber      NUMBER,
@@ -83,7 +82,11 @@ CREATE TABLE BOARD (
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)
 );
 
-DESC board;
+CREATE TABLE board_likes (
+    boardNumber number,
+    userNumber number,
+    PRIMARY KEY (boardNumber, userNumber)
+);
 
 CREATE TABLE BOARD_COMMENT (
     commentNumber       NUMBER PRIMARY KEY,
