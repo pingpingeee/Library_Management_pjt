@@ -7,6 +7,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>도서관리 시스템 - 회원가입</title>
 <link rel="stylesheet" type="text/css" href="/pilotpjt/resources/css/joinview.css">
+<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
+<script type="text/javascript">
+	function fn_submit() {
+		var formData = $("#joinForm").serialize();//form 요소 자체
+
+		//비동기 전송방식의 jquery 함수
+		$.ajax({
+			type : "post",
+			data : formData,
+			url : "join",
+			success : function(data) {
+				alert("회원가입이 정상적으로 처리되었습니다.");
+				location.href="loginView"
+			},
+			error : function() {
+				alert("오류발생");
+			}
+		});
+	}
+</script>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -24,7 +44,8 @@
 		    </div>
 		</div>
 		
-		<form method="post" action="/pilotpjt/join" id="joinForm">
+<!-- 		<form method="post" action="/pilotpjt/join" id="joinForm"> -->
+		<form id="joinForm">
 			<div class="form-group">
 				<label>아이디 <span class="required-mark">*</span></label>
 				<input type="text" name="userId"
@@ -198,7 +219,8 @@
 			</div>
 			
 			<div class="button-group">
-				<input type="submit" value="회원가입" class="btn btn-primary">
+<!-- 				<input type="submit" value="회원가입" class="btn btn-primary"> -->
+				<input type="button" value="회원가입" class="btn btn-primary" onclick="fn_submit()">
 				<input type="button" value="뒤로가기" onclick="location='/pilotpjt/loginView'" class="btn btn-secondary">
 			</div>
 		</form>

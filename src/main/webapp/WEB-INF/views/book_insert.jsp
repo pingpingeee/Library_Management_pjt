@@ -39,6 +39,27 @@
         }
     }
 </script>
+
+<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
+<script type="text/javascript">
+	function fn_submit() {
+		var formData = $("#frm").serialize();//form 요소 자체
+
+		//비동기 전송방식의 jquery 함수
+		$.ajax({
+			type : "post",
+			data : formData,
+			url : "book_insert",
+			success : function(data) {
+				alert("저장완료");
+				location.href="admin_view"
+			},
+			error : function() {
+				alert("오류발생");
+			}
+		});
+	}
+</script>
 </head>
 <body>
 <%
@@ -46,7 +67,8 @@
 	request.setCharacterEncoding("utf-8");
 %>
    
-   <form method="post" action="/pilotpjt/book_insert">
+<!--    <form method="post" action="book_insert"> -->
+   <form id="frm">
       <label>
          제목<input type="text" name="bookTitle" required placeholder="도서 제목을 입력하세요">
       </label>
@@ -93,7 +115,8 @@
          재고<input type="number" name="bookCount" required min="1" placeholder="보유 재고 수량을 입력하세요">
       </label>
       <br>
-      <input type="submit" value="등록">
+<!--       <input type="submit" value="등록"> -->
+      <input type="button" value="등록" onclick="fn_submit()">
    </form>
 </body>
 </html>

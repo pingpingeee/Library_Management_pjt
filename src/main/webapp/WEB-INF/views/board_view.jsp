@@ -106,7 +106,6 @@
                 </div>
             </c:if>
         </div>
-        <a href="board_write">글쓰기</a>
     </div>
     
     <script>

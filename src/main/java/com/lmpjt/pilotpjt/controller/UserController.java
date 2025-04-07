@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lmpjt.pilotpjt.Service.UserService;
 import com.lmpjt.pilotpjt.dao.UserDAO;
 import com.lmpjt.pilotpjt.dto.UserDTO;
 
@@ -27,25 +28,20 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class UserController {
-
-//	servlet-context �� �ִ� sqlSession ��ü ����
+//	@Autowired
+//	private SqlSession sqlSession;
+	
 	@Autowired
-	private SqlSession sqlSession;
+	private UserService service;
 
-	// ����
-//	@RequestMapping("/mainView")
-//	public String mainView() {
-//		return "main";
-//	}
 
-	// �α��� ��û ó��
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request, @RequestParam HashMap<String, String> param) {
-		UserDAO dao = sqlSession.getMapper(UserDAO.class);
+//		UserDAO dao = sqlSession.getMapper(UserDAO.class);
 
-		ArrayList<UserDTO> dtos = dao.userLogin(param);
+		ArrayList<UserDTO> dtos = service.userLogin(param);
 
-		UserDTO dto = dao.getUserInfo(param);
+		UserDTO dto = service.getUserInfo(param);
 
 		if (dtos.isEmpty()) {
 			return "redirect:loginView";
@@ -61,11 +57,11 @@ public class UserController {
 
 	@RequestMapping("/join")
 	public String join(HttpServletRequest request, @RequestParam HashMap<String, String> param) {
-		UserDAO dao = sqlSession.getMapper(UserDAO.class);
+//		UserDAO dao = sqlSession.getMapper(UserDAO.class);
 
-		if (dao.checkId(param) != null) {
+		if (service.checkId(param) != null) {
 		} else {
-			int re = dao.userJoin(param);
+			int re = service.userJoin(param);
 			if (re == 1) {
 				return "redirect:loginView";
 			}

@@ -9,8 +9,8 @@
 		insert into bookinfo(bookNumber, bookTitle, bookComent, bookWrite, bookPub,
 		bookDate, bookMajorCategory, bookSubCategory, bookCount)
 		values ((select nvl(max(bookNumber), 0)+1 from bookinfo),
-		#{book.bookTitle}, #{book.bookComent}, #{book.bookWrite}, #{book.bookPub},
-		#{book.bookDate}, #{book.bookMajorCategory}, #{book.bookSubCategory}, #{book.bookCount})
+		#{bookTitle}, #{bookComent}, #{bookWrite}, #{bookPub},
+		#{bookDate}, #{bookMajorCategory}, #{bookSubCategory}, #{bookCount})
 	</insert>
 
 

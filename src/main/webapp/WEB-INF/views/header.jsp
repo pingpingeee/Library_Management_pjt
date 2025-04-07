@@ -28,7 +28,7 @@
             </div>
 
             <nav class="nav-links">
-                <a href="admin_notice" class="nav-link <%= currentPage.contains("notice_view") ? "active" : "" %>">
+                <a href="admin_notice" class="nav-link <%= currentPage.contains("admin_notice") ? "active" : "" %>">
                     <i class="nav-icon fa-solid fa-bullhorn"></i>
                     <span>공지사항</span>
                 </a>
@@ -142,6 +142,7 @@
                 }
             });
         });
+        
     </script>
 </body>
 </html>

@@ -10,13 +10,18 @@ import com.lmpjt.pilotpjt.dto.UserDTO;
 
 @Controller
 public class ViewController {
-	// ¸ÞÀÎ ·»´õ
+	
 	@RequestMapping("/main")
 	public String getMainBookInfo() {
+//		HttpSession session = request.getSession();
+//		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+//		if (loginUser == null) {
+//			return "redirect:loginView";
+//		}
 		return "main";
 	}
 
-	// ¾îµå¹Î °ü·Ã ·»´õ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping("/admin_view")
 	public String adminView() {
 		return "admin_view";
@@ -37,7 +42,7 @@ public class ViewController {
 		return "admin_notice_detail";
 	}
 
-	// Ã¥°ü·Á ºä ·»´õ
+	// Ã¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping("/book_insert_view")
 	public String insertBookView() {
 		return "book_insert";
@@ -53,8 +58,8 @@ public class ViewController {
 		return "book_update";
 	}
 
-	// À¯Àú °ü·Ã ·»´õ
-	// ·Î±×ÀÎ È­¸é ·»´õ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½Î±ï¿½ï¿½ï¿½ È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping("/loginView")
 	public String loginPage() {
 		return "login";
@@ -64,20 +69,20 @@ public class ViewController {
 		return "mypage";
 	}
 
-	// ·Î±×¾Æ¿ô
+	// ï¿½Î±×¾Æ¿ï¿½
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "login";
 	}
 
-	// È¸¿ø°¡ÀÔ ºä
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	@RequestMapping("/joinView")
 	public String join() {
 		return "join";
 	}
 	
-	// °Ô½ÃÆÇ °ü·Ã ·»´õ
+	// ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping("/board_view")
 	public String boardView() {
 		return "board_view";
