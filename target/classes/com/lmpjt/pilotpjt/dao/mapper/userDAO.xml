@@ -19,14 +19,14 @@
 
 	<select id="userLogin"
 		resultType="com.lmpjt.pilotpjt.dto.UserDTO">
-		select userPw from userinfo where userId=#{param1}
+		select userPw from userinfo where userId=#{userId}
 	</select>
 	<select id="getUserInfo"
 		resultType="com.lmpjt.pilotpjt.dto.UserDTO">
 		select userId, userPw, userName, userTel, userEmail,
 		userBirth, userZipCode, userAddress, userDetailAddress,
 		userBorrow, userAdmin, userRegdate from
-		userinfo where userId=#{param1}
+		userinfo where userId=#{userId}
 	</select>
 	<update id="updateUserInfo">
 	</update>

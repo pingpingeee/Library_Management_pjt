@@ -3,6 +3,7 @@ package com.lmpjt.pilotpjt.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lmpjt.pilotpjt.dao.UserDAO;
@@ -26,73 +28,49 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserController {
 
-//	servlet-context ¿¡ ÀÖ´Â sqlSession °´Ã¼ ¿¬°á
+//	servlet-context ï¿½ï¿½ ï¿½Ö´ï¿½ sqlSession ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 	@Autowired
 	private SqlSession sqlSession;
 
-	// ¸ÞÀÎ
+	// ï¿½ï¿½ï¿½ï¿½
 //	@RequestMapping("/mainView")
 //	public String mainView() {
 //		return "main";
 //	}
 
-	// ·Î±×ÀÎ ¿äÃ» Ã³¸®
+	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» Ã³ï¿½ï¿½
 	@RequestMapping("/login")
-	public String login(HttpServletRequest request, Model model) {
+	public String login(HttpServletRequest request, @RequestParam HashMap<String, String> param) {
 		UserDAO dao = sqlSession.getMapper(UserDAO.class);
-		String userId = request.getParameter("userId");
-		String userPw = request.getParameter("userPw");
 
-		ArrayList<UserDTO> dtos = dao.userLogin(userId, userPw);
+		ArrayList<UserDTO> dtos = dao.userLogin(param);
 
-		UserDTO dto = dao.getUserInfo(userId);
-		System.out.println(dto);
-		
+		UserDTO dto = dao.getUserInfo(param);
+
 		if (dtos.isEmpty()) {
 			return "redirect:loginView";
 		} else {
-			if (userPw.equals(dtos.get(0).getUserPw())) {
-				HttpSession session = request.getSession(); // ¼¼¼Ç »ý¼º
-				session.setAttribute("loginUser", dto); // Å° : loginUser¿¡ user °´Ã¼ ´ãÀ½
+			if (param.get("userPw").equals(dtos.get(0).getUserPw())) {
+				HttpSession session = request.getSession();
+				session.setAttribute("loginUser", dto);
 				return "redirect:main";
 			}
 			return "redirect:loginView";
 		}
 	}
 
-//	È¸¿ø°¡ÀÔ ¿äÃ» Ã³¸®
 	@RequestMapping("/join")
-	public String join(HttpServletRequest request, UserDTO dto) {
+	public String join(HttpServletRequest request, @RequestParam HashMap<String, String> param) {
 		UserDAO dao = sqlSession.getMapper(UserDAO.class);
-//		String userId = request.getParameter("userId");
-//		String userPw = request.getParameter("userPw");		
-//		String userName = request.getParameter("userName");		
-//		String userEmail = request.getParameter("userEmail");		
-//		String userTel = request.getParameter("userTel");		
-//		String userBirth = request.getParameter("userBirth");		
-//		String userAddress = request.getParameter("userAddress");
-//		String userDetailAddress = request.getParameter("userDetailAddress");
-//		String userZipCode = request.getParameter("userZipCode");
-//		System.out.println(userId);
-//		System.out.println(userPw);
-//		System.out.println(userName);
-//		System.out.println(userEmail);
-//		System.out.println(userTel);
-//		System.out.println(userBirth);
-//		System.out.println(userAddress);
-//		System.out.println(userDetailAddress);
-//		System.out.println(userZipCode);
 
-		if (dao.checkId(request.getParameter("userId")) != null) {
-			// ÀÌ¹Ì »ç¿ëÁßÀÎ ¾ÆÀÌµð È­¸é Ã³¸® ¾î¶»°Ô?
-			System.out.println("join => ¾ÆÀÌµð Áßº¹ Ã¼Å©");
+		if (dao.checkId(param) != null) {
 		} else {
-			int re = dao.userJoin(dto);
+			int re = dao.userJoin(param);
 			if (re == 1) {
-				// ¼º°ø È­¸é Ã³¸® ¾î¶»°Ô?
 				return "redirect:loginView";
 			}
 		}
+		System.out.println("test4");
 		return "join";
 	}
 
