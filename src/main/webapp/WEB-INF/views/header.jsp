@@ -7,12 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>잉크 트리 - 도서관리 시스템</title>
-    <link rel="stylesheet" type="text/css" href="/pilotpjt/resources/css/header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" type="text/css" href="/pilotpjt/resources/css/header.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="/pilotpjt/resources/js/header.js"></script>
 </head>
 <body>
     <%
@@ -28,7 +27,11 @@
                 </a>
             </div>
 
-            <nav class="nav-links">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav class="nav-links" id="navLinks">
                 <a href="admin_notice" class="nav-link <%= currentPage.contains("admin_notice") ? "active" : "" %>">
                     <i class="nav-icon fa-solid fa-bullhorn"></i>
                     <span>공지사항</span>
@@ -45,17 +48,28 @@
                 </a>
                 
                 <% if (user != null) { %>
-                <a href="/pilotpjt/my_books" class="nav-link <%= currentPage.contains("my_books") ? "active" : "" %>">
+                <a href="/pilotpjt/mypage" class="nav-link <%= currentPage.contains("my_books") ? "active" : "" %>">
                     <i class="nav-icon fa-solid fa-book-open-reader"></i>
-                    <span>내 대출현황</span>
+                    <span>마이페이지</span>
                 </a>
                 <% } %>
+                
+                <div class="mobile-auth" id="mobileAuth" style="display: none;">
+                    <% if (user == null) { %>
+                    <a href="/pilotpjt/loginView" class="auth-link login-link">
+                        <i class="fa-solid fa-right-to-bracket"></i> 로그인
+                    </a>
+                    <a href="/pilotpjt/joinView" class="auth-link register-link">
+                        <i class="fa-solid fa-user-plus"></i> 회원가입
+                    </a>
+                    <% } %>
+                </div>
             </nav>
 
             <div class="user-menu">
                 <% if (user != null) { %>
-                <div class="user-dropdown">
-                    <button class="dropdown-toggle">
+                <div class="user-dropdown" id="userDropdown">
+                    <button class="dropdown-toggle" id="dropdownToggle">
                         <div class="user-avatar">
                             <%= user.getUserName().substring(0, 1) %>
                         </div>
@@ -116,8 +130,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const dropdownToggle = document.querySelector('.dropdown-toggle');
-            const userDropdown = document.querySelector('.user-dropdown');
+            // User dropdown functionality
+            const dropdownToggle = document.getElementById('dropdownToggle');
+            const userDropdown = document.getElementById('userDropdown');
             
             if (dropdownToggle) {
                 dropdownToggle.addEventListener('click', function(e) {
@@ -125,15 +140,38 @@
                     userDropdown.classList.toggle('active');
                 });
                 
-                // 드롭다운 외부 클릭 시 닫기
+                // Close dropdown when clicking outside
                 document.addEventListener('click', function(e) {
-                    if (!userDropdown.contains(e.target)) {
+                    if (userDropdown && !userDropdown.contains(e.target)) {
                         userDropdown.classList.remove('active');
                     }
                 });
             }
 
-            // 스크롤 시 헤더 스타일 변경
+            // Mobile menu functionality
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const navLinks = document.getElementById('navLinks');
+            const mobileAuth = document.getElementById('mobileAuth');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    
+                    // Toggle icon between bars and times
+                    const icon = mobileMenuToggle.querySelector('i');
+                    if (navLinks.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                        if (mobileAuth) mobileAuth.style.display = 'flex';
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                        if (mobileAuth) mobileAuth.style.display = 'none';
+                    }
+                });
+            }
+
+            // Header scroll effect
             const header = document.querySelector('.top-header');
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 10) {
@@ -142,8 +180,23 @@
                     header.classList.remove('scrolled');
                 }
             });
+            
+            // Check initial scroll position
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            }
+            
+            // Close mobile menu on window resize if screen becomes larger
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                    if (mobileAuth) mobileAuth.style.display = 'none';
+                }
+            });
         });
-        
     </script>
 </body>
 </html>

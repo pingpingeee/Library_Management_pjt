@@ -1,8 +1,8 @@
 package com.lmpjt.pilotpjt.Service;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,15 +28,6 @@ public class BookServiceImpl implements BookService {
 		BookDAO dao = sqlSession.getMapper(BookDAO.class);
 		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 
-		// 세션 전체 값
-//		Enumeration<String> names = session.getAttributeNames();
-//		while (names.hasMoreElements()) {
-//		    String name = names.nextElement();
-//		    Object value = session.getAttribute(name);
-//		    System.out.println("세션 속성명: " + name + ", 값: " + value);
-//		}
-//		
-
 		if (loginUser.getUserAdmin() == 1) {
 			dao.insertBook(param);	
 		} else {
@@ -50,13 +41,14 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<BookDTO> mainBookInfo() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<BookDTO> mainBookInfo() {
+		BookDAO dao = sqlSession.getMapper(BookDAO.class);		
+		ArrayList<BookDTO> list = dao.mainBookInfo();
+		return list;
 	}
 
 	@Override
-	public List<BookDTO> searchBookInfo() {
+	public ArrayList<BookDTO> searchBookInfo() {
 		// TODO Auto-generated method stub
 		return null;
 	}

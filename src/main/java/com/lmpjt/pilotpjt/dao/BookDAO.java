@@ -1,5 +1,6 @@
 package com.lmpjt.pilotpjt.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +15,6 @@ public interface BookDAO {
 //	public List<BookDTO> searchBookInfo();
 	public void insertBook(HashMap<String, String> param); 
 	public void updateBook(HashMap<String, String> param);
-	public List<BookDTO> mainBookInfo();
-	public List<BookDTO> searchBookInfo();
+	public ArrayList<BookDTO> mainBookInfo();
+	public ArrayList<BookDTO> searchBookInfo();
 }

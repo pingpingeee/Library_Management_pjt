@@ -1,54 +1,42 @@
 package com.lmpjt.pilotpjt.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.lmpjt.pilotpjt.Service.BookService;
+import com.lmpjt.pilotpjt.Service.UtilService;
+import com.lmpjt.pilotpjt.dto.BookDTO;
 import com.lmpjt.pilotpjt.dto.UserDTO;
 
 @Controller
 public class ViewController {
+	@Autowired
+	private UtilService utilService;
+	@Autowired
+	private BookService bookSerivce;
 	
 	@RequestMapping("/main")
-	public String getMainBookInfo() {
-//		HttpSession session = request.getSession();
-//		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-//		if (loginUser == null) {
-//			return "redirect:loginView";
-//		}
+	public String getMainBookInfo(Model model) {
+		model.addAttribute("totalBooks", 102422+utilService.getTotalBooks());
+		model.addAttribute("totalUsers", 21233+utilService.getTotalUsers());
+		model.addAttribute("borrowedBooks", 4422+utilService.getBorrowedBooks());
+		model.addAttribute("overdueBooks", 1324+utilService.getOverdueBooks());
+		model.addAttribute("bookList", bookSerivce.mainBookInfo());
+		
+		ArrayList<BookDTO> bookList = bookSerivce.mainBookInfo();
+	    for (BookDTO book : bookList) {
+	        System.out.println("asdf : " + book.getBookTitle() + " / ¼ö·®: " + book.getBookCount());
+	    }
 		return "main";
-	}
-
-	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-	@RequestMapping("/admin_view")
-	public String adminView() {
-		return "admin_view";
-	}
-
-	@RequestMapping("/admin_notice")
-	public String adminNoti() {
-		return "admin_notice";
-	}
-
-	@RequestMapping("/admin_notice_write")
-	public String adminNotiWrite() {
-		return "admin_notice_write";
-	}
-
-	@RequestMapping("/admin_notice_detail")
-	public String adminNotiDetail() {
-		return "admin_notice_detail";
-	}
-
-	// Ã¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-	@RequestMapping("/book_insert_view")
-	public String insertBookView() {
-		return "book_insert";
 	}
 
 	@RequestMapping("/search_book_view")
@@ -56,13 +44,6 @@ public class ViewController {
 		return "book_search";
 	}
 
-	@RequestMapping("/update_book_view")
-	public String updateBook() {
-		return "book_update";
-	}
-
-	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-	// ï¿½Î±ï¿½ï¿½ï¿½ È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping("/loginView")
 	public String loginPage() {
 		return "login";
@@ -72,14 +53,12 @@ public class ViewController {
 		return "mypage";
 	}
 
-	// ï¿½Î±×¾Æ¿ï¿½
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "login";
 	}
 
-	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	@RequestMapping("/joinView")
 	public String join() {
 		return "join";
