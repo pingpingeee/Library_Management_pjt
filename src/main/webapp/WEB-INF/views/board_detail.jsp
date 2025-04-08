@@ -80,8 +80,9 @@
             <% if (user != null) { %>
             <div class="comment-form">
                 <form action="/pilotpjt/add_comment" method="post">
-                    <input type="hidden" name="boardNumber" value="${board.boardNumber}">
-                    <textarea name="commentContent" class="comment-textarea" placeholder="댓글을 작성해주세요"></textarea>
+<%--                     <input type="hidden" name="boardNumber" value="${board.boardNumber}"> --%>
+<%--                     <input type="hidden" name="useName" value="<%= user.getUserNumber()%>"> --%>
+                    <textarea name="boardComment" class="comment-textarea" placeholder="댓글을 작성해주세요"></textarea>
                     <button type="submit" class="comment-submit">댓글 작성</button>
                     <div style="clear: both;"></div>
                 </form>
@@ -103,7 +104,7 @@
                     <div class="comment-item">
                         <div class="comment-header">
                             <div class="comment-author">${comment.userName}</div>
-                            <div class="comment-date">${comment.commentDate}</div>
+                            <div class="comment-date">${comment.commentWriteDate}</div>
                         </div>
                         <div class="comment-content">${comment.commentContent}</div>
                     </div>

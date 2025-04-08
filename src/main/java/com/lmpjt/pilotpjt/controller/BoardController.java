@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lmpjt.pilotpjt.Service.BoardCommentService;
 import com.lmpjt.pilotpjt.Service.BoardService;
+import com.lmpjt.pilotpjt.dto.BoardCommentDTO;
 import com.lmpjt.pilotpjt.dto.BoardDTO;
 import com.lmpjt.pilotpjt.dto.UserDTO;
 
@@ -22,11 +24,15 @@ import com.lmpjt.pilotpjt.dto.UserDTO;
 public class BoardController {
 	@Autowired
 	private BoardService service;
+	
+	@Autowired
+	private BoardCommentService bcService;
 
 	@RequestMapping("/board_view")
 	public String boardView(Model model) {
 		ArrayList<BoardDTO> list = service.boardView();
 		model.addAttribute("boardList", list);
+		
 		return "board_view";
 	}
 
@@ -40,7 +46,10 @@ public class BoardController {
 	@RequestMapping("/board_detail_view")
 	public String boardViewDetail(@RequestParam HashMap<String, String> param, Model model) {
 		BoardDTO dto = service.boardDetailView(param);
+		ArrayList<BoardCommentDTO> commentList = bcService.bcView(param);
+		
 		model.addAttribute("board", dto);
+		model.addAttribute("commentList", commentList);
 		return "board_detail";
 	}
 
@@ -48,7 +57,7 @@ public class BoardController {
 	public ResponseEntity<String> boardLikes(@RequestParam HashMap<String, String> param, HttpSession session) {
 		UserDTO user = (UserDTO) session.getAttribute("loginUser");
 		if (user == null) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("·Î±×ÀÎÇÊ¿ä");
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ï¿½Î±ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½");
 		}
 		int boardNumber = Integer.parseInt(param.get("boardNumber"));
 		int userNumber = user.getUserNumber();
@@ -56,13 +65,13 @@ public class BoardController {
 		param.put("userNumber", String.valueOf(userNumber));
 
 		if (service.boardHasLiked(param)) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("ÀÌ¹Ì ÃßÃµ ´©¸§");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("ï¿½Ì¹ï¿½ ï¿½ï¿½Ãµ ï¿½ï¿½ï¿½ï¿½");
 		}
 		try {
 			service.boardAddLike(param);
-			return ResponseEntity.ok("ÃßÃµ ¿Ï·á");
+			return ResponseEntity.ok("ï¿½ï¿½Ãµ ï¿½Ï·ï¿½");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("¼­¹ö ¿À·ù ¹ß»ý");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½");
 		}
 	}
 }
