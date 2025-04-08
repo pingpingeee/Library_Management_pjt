@@ -27,4 +27,10 @@ public interface BookDAO {
 
 	public void bookReturn(HashMap<String, String> param);
 
+	public int getBorrowedCount(HashMap<String, String> param);
+	public int getOverdueCount(HashMap<String, String> param);
+	public int getReturnedCount(HashMap<String, String> param);
+	
+	public ArrayList<BookDTO> isReturned(HashMap<String, String> param);	
+	
 }
