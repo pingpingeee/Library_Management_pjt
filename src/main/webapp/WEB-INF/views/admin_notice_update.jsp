@@ -37,7 +37,7 @@
                 <div class="form-group">
                     <label for="category" class="form-label">카테고리</label>
                     <select id="category" name="noticeCategory" class="form-select" required>
-                        <option value="" selected disabled hidden>카테고리 선택</option>
+                        <option value="" selected disabled hidden>${notice.noticeCategory}</option>
                         <option value="important">중요 공지</option>
                         <option value="event">이벤트</option>
                         <option value="info">안내</option>
@@ -47,13 +47,15 @@
                 
                 <div class="form-group">
                     <label for="title" class="form-label">제목</label>
-                    <input type="text" id="title" name="noticeTitle" class="form-input" placeholder="공지사항 제목을 입력하세요" required>
+                    <input type="text" id="title" name="noticeTitle" class="form-input" placeholder="공지사항 제목을 입력하세요" value="${notice.noticeTitle}" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="editor" class="form-label">내용</label>
                     <input type="hidden" name="noticeContent" id="noticeContent">
-                    <div id="editor" class="editor-container"></div>
+                    <input type="hidden" name="noticeNum" id="noticeNum" value="${notice.noticeNum}">
+                    
+                    <div id="editor" class="editor-container">${notice.noticeContent}</div>
                     <div id="contentError" class="error-message"></div>
                 </div>
                 
@@ -80,7 +82,7 @@
                     <button type="button" class="action-btn cancel-btn" onclick="location.href='admin_notice'">
                         <i class="fas fa-times"></i> 취소
                     </button>
-                    <button type="button" class="action-btn submit-btn" onclick="admin_submit()">
+                    <button type="button" class="action-btn submit-btn" onclick="admin_update()">
                         <i class="fas fa-check"></i> 등록하기
                     </button>
                 </div>
@@ -89,7 +91,7 @@
     </div>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
 	<script type="text/javascript">
-		function admin_submit() {
+		function admin_update() {
 			const content = quill.root.innerHTML;
 			const plainText = quill.getText().trim();
 
@@ -107,7 +109,7 @@
 
 			$.ajax({
 				type : "post",
-				url : "admin_write_ok",
+				url : "admin_update_ok",
 				data : formData,
 				success : function(data) {
 					alert("저장완료");
@@ -119,7 +121,7 @@
 			});
 		}
 
-        // Quill 에디터 초기화
+        // Quill 에디터 초기화 
         var quill = new Quill('#editor', {
             theme: 'snow',
             placeholder: '내용을 입력하세요...',

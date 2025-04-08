@@ -27,8 +27,9 @@
 	            <div class="stat-icon blue">
 	                <i class="fas fa-bullhorn"></i>
 	            </div>
+	         
 	            <div class="stat-info">
-	                <div class="stat-value">값넣어야함</div>
+	                <div class="stat-value">${countAll}</div>
 	                <div class="stat-label">전체 공지</div>
 	            </div>
 	        </div>
@@ -38,7 +39,7 @@
 	                <i class="fas fa-exclamation-circle"></i>
 	            </div>
 	            <div class="stat-info">
-	                <div class="stat-value">값넣어야함</div>
+	                <div class="stat-value">${countImportant}</div>
 	                <div class="stat-label">중요 공지</div>
 	            </div>
 	        </div>
@@ -48,7 +49,7 @@
 	                <i class="fas fa-calendar-alt"></i>
 	            </div>
 	            <div class="stat-info">
-	                <div class="stat-value">값넣어야함</div>
+	                <div class="stat-value">${countEvent}</div>
 	                <div class="stat-label">이벤트</div>
 	            </div>
 	        </div>
@@ -58,8 +59,8 @@
 	                <i class="fas fa-clock"></i>
 	            </div>
 	            <div class="stat-info">
-	                <div class="stat-value">값넣어야함</div>
-	                <div class="stat-label">새 공지</div>
+	                <div class="stat-value">${countUpdate}</div>
+	                <div class="stat-label">업데이트</div>
 	            </div>
 	        </div>
 	    </div>
@@ -102,47 +103,45 @@
 	    <c:choose>
 	        <c:when test="${not empty noticeList}">
 	            <c:forEach items="${noticeList}" var="notice">
-	                <div class="notice-card ${notice.fixed ? 'fixed-notice' : ''}">
-	                    <a href="/pilotpjt/notice_detail?id=${notice.id}" class="notice-link">
+<%-- 	            <div class="notice-card ${notice.fixed ? 'fixed-notice' : ''}"> --%>
+	                <div class="notice-card">
+	                    <a href="/pilotpjt/admin_notice_detail?noticeNum=${notice.noticeNum}" class="notice-link">
 	                        <div class="notice-content">
 	                            <c:choose>
-	                                <c:when test="${notice.category == 'important'}">
+	                                <c:when test="${notice.noticeCategory == 'important'}">
 	                                    <span class="notice-category category-important">중요 공지</span>
 	                                </c:when>
-	                                <c:when test="${notice.category == 'event'}">
+	                                <c:when test="${notice.noticeCategory == 'event'}">
 	                                    <span class="notice-category category-event">이벤트</span>
 	                                </c:when>
-	                                <c:when test="${notice.category == 'info'}">
+	                                <c:when test="${notice.noticeCategory == 'info'}">
 	                                    <span class="notice-category category-info">안내</span>
 	                                </c:when>
-	                                <c:when test="${notice.category == 'update'}">
+	                                <c:when test="${notice.noticeCategory == 'update'}">
 	                                    <span class="notice-category category-update">업데이트</span>
 	                                </c:when>
 	                            </c:choose>
 	                            
 	                            <h3 class="notice-title">
-	                                ${notice.title}
-	                                <c:if test="${notice.isNew}">
-	                                    <span class="new-badge">NEW</span>
-	                                </c:if>
+	                                ${notice.noticeTitle}
 	                            </h3>
 	                            
-	                            <p class="notice-excerpt">${notice.content}</p>
+	                            <p class="notice-excerpt">${notice.noticeContent}</p>
 	                            
 	                            <div class="notice-meta">
 	                                <div class="meta-left">
 	                                    <div class="meta-item">
 	                                        <i class="fas fa-user meta-icon"></i>
-	                                        <span>${notice.writer}</span>
+	                                        <span>${notice.noticeWriter}</span>
 	                                    </div>
 	                                    <div class="meta-item">
 	                                        <i class="fas fa-calendar meta-icon"></i>
-	                                        <span><fmt:formatDate value="${notice.regDate}" pattern="yyyy-MM-dd"/></span>
+	                                        <span>${notice.noticeRegdate}</span>
 	                                    </div>
 	                                </div>
 	                                <div class="meta-item">
 	                                    <i class="fas fa-eye meta-icon"></i>
-	                                    <span>${notice.viewCount}</span>
+	                                    <span>${notice.noticeViews}</span>
 	                                </div>
 	                            </div>
 	                        </div>
