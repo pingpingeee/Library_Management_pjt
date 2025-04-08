@@ -50,7 +50,7 @@ function fn_submit() {
 					<input type="text" class="search-input-main" id="searchKeyword"
 						name="searchKeyword" value="${param.searchKeyword}"
 						placeholder="도서명, 저자, ISBN 또는 출판사를 입력하세요">
-					<button type="submit" class="search-button-main">
+					<button type="button" class="search-button-main" onclick="fn_submit()">
 						<i class="fas fa-search"></i>
 					</button>
 				</div>
@@ -117,14 +117,14 @@ function fn_submit() {
 					</div>
 				</div>
 
-				<div class="search-actions">
-					<button type="reset" class="reset-button">
-						<i class="fas fa-undo"></i> 초기화
-					</button>
-					<button type="button" class="search-button" onclick="fn_submit()">
-						<i class="fas fa-search"></i> 검색
-					</button>
-				</div>
+<!-- 				<div class="search-actions"> -->
+<!-- 					<button type="reset" class="reset-button"> -->
+<!-- 						<i class="fas fa-undo"></i> 초기화 -->
+<!-- 					</button> -->
+<!-- 					<button type="button" class="search-button" onclick="fn_submit()"> -->
+<!-- 						<i class="fas fa-search"></i> 검색 -->
+<!-- 					</button> -->
+<!-- 				</div> -->
 			</form>
 		</div>
 

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lmpjt.pilotpjt.Service.BookService;
@@ -24,19 +25,14 @@ import com.lmpjt.pilotpjt.dto.UserDTO;
 
 @Controller
 public class BookController {
-//	@Autowired
-//	private SqlSession sqlSession;
 
 	@Autowired
 	private BookService service;
 	
 	@RequestMapping("/book_insert")
 	public String insertBook(HttpServletRequest request,@RequestParam HashMap<String, String> param) {
-//		BookDAO dao = sqlSession.getMapper(BookDAO.class);
 		service.insertBook(param);
 		
-//		dao.insertBook(book, loginUser.getUserAdmin());
-//		dao.insertBook(param);
 		return "admin_view";
 	}
 
@@ -44,16 +40,18 @@ public class BookController {
 	public String updateBookView(BookDTO book) {
 		return "book_update";
 	}
-
+	
+	@ResponseBody
 	@RequestMapping("/book_search_view")
 	public String searchBookView(@RequestParam HashMap<String, String>param, Model model) {
-
+		List<BookDTO> result = service.searchBookInfo(param);
+		model.addAttribute("bookList", result);
 		return "book_search";
 	}
 	
 	@RequestMapping("/book_search")
 	public String searchBook(@RequestParam HashMap<String, String>param, Model model) {
 
-		return "redirect:book_search";
+		return "book_search";
 	}
 }

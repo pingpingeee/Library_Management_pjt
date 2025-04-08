@@ -15,18 +15,20 @@
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/pilotpjt/resources/css/main.css">
+<link rel="stylesheet" type="text/css"
+	href="/pilotpjt/resources/css/book_search.css">
 <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
 <script type="text/javascript">
 function fn_submit() {
     var formData = $("#search-form").serialize(); // 모든 폼 요소 직렬화
-
+    console.log("test");
     $.ajax({
-        type: "GET", // GET으로 검색 요청
-        url: "search_book", // Ajax용 별도의 URL (Controller에서 처리 필요)
+        type: "GET",
+        url: "search_book",
         data: formData,
-        dataType: "json", // 결과를 JSON으로 받는다고 가정
         success: function(data) {
-            renderSearchResults(data);
+            alert("요청성공");
+        	location.href = "book_search_view";
         },
         error: function(xhr) {
             alert("검색 요청 중 오류가 발생했습니다.");
@@ -58,17 +60,93 @@ function fn_submit() {
 			</div>
 		</div>
 
-		<!-- Search Box at the top -->
-		<div class="search-box">
-			<h3>
-				<i class="fas fa-search"></i> 도서 검색
-			</h3>
-			<form action="/pilotpjt/book_search" method="GET" class="search-form">
-				<input type="text" name="keyword" placeholder="도서명, 저자, 출판사 등으로 검색"
-					class="search-input">
-				<button type="button" class="search-button">
-					<i class="fas fa-search" onclick="fn_submit()"></i> 검색
-				</button>
+<div class="container">
+		<div class="search-header">
+			<h1 class="search-title">
+				<i class="fas fa-book"></i> 도서 검색
+			</h1>
+
+			<form class="search-form" action="/pilotpjt/book_search" method="get">
+				<!-- 메인 검색창 -->
+				<div class="search-main">
+					<input type="text" class="search-input-main" id="searchKeyword"
+						name="searchKeyword" value="${param.searchKeyword}"
+						placeholder="도서명, 저자, ISBN 또는 출판사를 입력하세요">
+					<button type="button" class="search-button-main" onclick="fn_submit()">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+
+				<!-- 필터 옵션 -->
+				<div class="search-filters">
+					<div class="search-filter">
+						<label class="filter-label" for="searchType">검색 유형</label> <select
+							class="filter-select" id="searchType" name="searchType">
+							<option value="title"
+								${param.searchType == 'title' ? 'selected' : ''}>도서명</option>
+							<option value="author"
+								${param.searchType == 'author' ? 'selected' : ''}>저자</option>
+							<option value="isbn"
+								${param.searchType == 'isbn' ? 'selected' : ''}>ISBN</option>
+							<option value="publisher"
+								${param.searchType == 'publisher' ? 'selected' : ''}>출판사</option>
+						</select>
+					</div>
+
+					<div class="search-filter">
+						<label class="filter-label" for="majorCategory">대분류</label> <select
+							class="filter-select" id="majorCategory" name="majorCategory">
+							<option value="">전체</option>
+							<option value="000"
+								${param.majorCategory == '000' ? 'selected' : ''}>000 -
+								총류</option>
+							<option value="100"
+								${param.majorCategory == '100' ? 'selected' : ''}>100 -
+								철학</option>
+							<option value="200"
+								${param.majorCategory == '200' ? 'selected' : ''}>200 -
+								종교</option>
+							<option value="300"
+								${param.majorCategory == '300' ? 'selected' : ''}>300 -
+								사회학</option>
+							<option value="400"
+								${param.majorCategory == '400' ? 'selected' : ''}>400 -
+								자연과학</option>
+							<option value="500"
+								${param.majorCategory == '500' ? 'selected' : ''}>500 -
+								기술과학</option>
+							<option value="600"
+								${param.majorCategory == '600' ? 'selected' : ''}>600 -
+								예술</option>
+							<option value="700"
+								${param.majorCategory == '700' ? 'selected' : ''}>700 -
+								언어</option>
+							<option value="800"
+								${param.majorCategory == '800' ? 'selected' : ''}>800 -
+								문학</option>
+							<option value="900"
+								${param.majorCategory == '900' ? 'selected' : ''}>900 -
+								역사</option>
+						</select>
+					</div>
+
+					<div class="search-filter">
+						<label class="filter-label" for="subCategory">중분류</label> <select
+							class="filter-select" id="subCategory" name="subCategory">
+							<option value="">전체</option>
+							<!-- 대분류에 따라 동적으로 변경될 수 있습니다 -->
+						</select>
+					</div>
+				</div>
+
+<!-- 				<div class="search-actions"> -->
+<!-- 					<button type="reset" class="reset-button"> -->
+<!-- 						<i class="fas fa-undo"></i> 초기화 -->
+<!-- 					</button> -->
+<!-- 					<button type="button" class="search-button" onclick="fn_submit()"> -->
+<!-- 						<i class="fas fa-search"></i> 검색 -->
+<!-- 					</button> -->
+<!-- 				</div> -->
 			</form>
 		</div>
 
@@ -195,55 +273,6 @@ function fn_submit() {
 						</div>
 					</c:if>
 				</c:forEach>
-
-				<!-- 				<div class="book-card"> -->
-				<!-- 					<div class="book-cover"> -->
-				<!-- 						<img src="/pilotpjt/resources/images/book1.jpg" alt="도서 표지" -->
-				<!-- 							onerror="this.src='/pilotpjt/resources/images/default-book.jpg'; this.onerror=null;"> -->
-				<!-- 					</div> -->
-				<!-- 					<div class="book-info"> -->
-				<%-- 						<h3 class="book-title">${bookTitle }Model로값 넣어줘야함</h3> --%>
-				<%-- 						<p class="book-author">${bookWrite }</p> --%>
-				<%-- 						<span class="book-status status-available">${bookCount}</span> --%>
-				<!-- 					</div> -->
-				<!-- 				</div> -->
-
-
-				<!-- 				<div class="book-card"> -->
-				<!-- 					<div class="book-cover"> -->
-				<!-- 						<img src="/pilotpjt/resources/images/book2.jpg" alt="도서 표지" -->
-				<!-- 							onerror="this.src='/pilotpjt/resources/images/default-book.jpg'; this.onerror=null;"> -->
-				<!-- 					</div> -->
-				<!-- 					<div class="book-info"> -->
-				<!-- 						<h3 class="book-title">객체지향의 사실과 오해</h3> -->
-				<!-- 						<p class="book-author">조영호</p> -->
-				<!-- 						<span class="book-status status-borrowed">대출 중</span> -->
-				<!-- 					</div> -->
-				<!-- 				</div> -->
-
-				<!-- 				<div class="book-card"> -->
-				<!-- 					<div class="book-cover"> -->
-				<!-- 						<img src="/pilotpjt/resources/images/book3.jpg" alt="도서 표지" -->
-				<!-- 							onerror="this.src='/pilotpjt/resources/images/default-book.jpg'; this.onerror=null;"> -->
-				<!-- 					</div> -->
-				<!-- 					<div class="book-info"> -->
-				<!-- 						<h3 class="book-title">이것이 자바다</h3> -->
-				<!-- 						<p class="book-author">신용권</p> -->
-				<!-- 						<span class="book-status status-available">대출 가능</span> -->
-				<!-- 					</div> -->
-				<!-- 				</div> -->
-
-				<!-- 				<div class="book-card"> -->
-				<!-- 					<div class="book-cover"> -->
-				<!-- 						<img src="/pilotpjt/resources/images/book4.jpg" alt="도서 표지" -->
-				<!-- 							onerror="this.src='/pilotpjt/resources/images/default-book.jpg'; this.onerror=null;"> -->
-				<!-- 					</div> -->
-				<!-- 					<div class="book-info"> -->
-				<!-- 						<h3 class="book-title">모던 자바스크립트 Deep Dive</h3> -->
-				<!-- 						<p class="book-author">이웅모</p> -->
-				<!-- 						<span class="book-status status-available">대출 가능</span> -->
-				<!-- 					</div> -->
-				<!-- 				</div> -->
 			</div>
 		</div>
 
@@ -292,6 +321,83 @@ function fn_submit() {
                 requestAnimationFrame(animateValue);
             });
         });
+        // 대분류에 따른 소분류 옵션 변경
+        document.getElementById('majorCategory').addEventListener('change', function() {
+            const majorCategory = this.value;
+            const subCategorySelect = document.getElementById('subCategory');
+            
+            // 기존 옵션 제거
+            subCategorySelect.innerHTML = '<option value="">전체</option>';
+            
+            // 대분류에 따른 소분류 옵션 추가
+if (majorCategory === '000') {
+	addSubCategories(['010 도서관․서지학', '020 문헌정보학', '030 백과사전', '040 강연․수필․연설문집', '050 일반학회․단체․박물관', '060 일반전집', '070 신문․언론․저널리즘', '080 일반전집․총서', '090 향토자료']);
+} else if (majorCategory === '100') {
+	addSubCategories(['110 형이상학', '120 인식론․인과론․인간학', '130 세계', '140 경학', '150 동양철학․사상', '160 서양철학', '170 논리학', '180 윤리학', '190 윤리․도덕교육']);
+} else if (majorCategory === '200') {
+	addSubCategories(['210 비교종교', '220 불교', '230 기독교', '240 도교', '250 천도교', '260 신도', '270 힌두교․브라만교', '280 회교(이슬람교)', '290 기타 제종교']);
+} else if (majorCategory === '300') {
+	addSubCategories(['310 통계학', '320 경제학', '330 사회학․사회문제', '340 정치학', '350 행정학', '360 법학', '370 교육학', '380 풍속․민속학', '390 국방․군사학']);
+} else if (majorCategory === '400') {
+	addSubCategories(['410 수학', '420 물리학', '430 화학', '440 천문학', '450 지학', '460 생명과학', '470 식물학', '480 동물학', '490 기타 자연과학']);
+} else if (majorCategory === '500') {
+	addSubCategories(['510 의학', '520 일반공학․공학일반', '530 기계공학', '540 전기․전자공학', '550 건축공학', '560 화학공학', '570 제조업', '580 생활과학', '590 기타 기술과학']);
+} else if (majorCategory === '600') {
+	addSubCategories(['610 건축', '620 조각․조형예술', '630 회화', '640 서예', '650 사진․인쇄', '660 음악', '670 공연예술․매체예술', '680 오락․스포츠', '690 기타 예술']);
+} else if (majorCategory === '700') {
+	addSubCategories(['710 한국어', '720 중국어', '730 일본어', '740 영어', '750 독일어', '760 프랑스어', '770 스페인어', '780 기타 언어']);
+} else if (majorCategory === '800') {
+	addSubCategories(['810 한국문학', '820 중국문학', '830 일본문학', '840 영어문학', '850 독일문학', '860 프랑스문학', '870 스페인문학', '880 기타 문학']);
+} else if (majorCategory === '900') {
+	addSubCategories(['910 한국사', '920 동양사', '930 서양사', '940 역사이론', '950 지리학', '960 지도․여행', '970 문화사', '980 민속사', '990 기타 역사']);
+}
+
+            
+            // 현재 URL에서 선택된 소분류가 있으면 선택 상태로 만들기
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedSubCategory = urlParams.get('subCategory');
+            if (selectedSubCategory) {
+                for (let i = 0; i < subCategorySelect.options.length; i++) {
+                    if (subCategorySelect.options[i].value === selectedSubCategory) {
+                        subCategorySelect.options[i].selected = true;
+                        break;
+                    }
+                }
+            }
+        });
+        
+        // 소분류 옵션 추가 함수
+        function addSubCategories(categories) {
+            const subCategorySelect = document.getElementById('subCategory');
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                subCategorySelect.appendChild(option);
+            });
+        }
+        
+        // 페이지 로드 시 대분류에 따른 소분류 설정
+        window.addEventListener('DOMContentLoaded', function() {
+            const majorCategorySelect = document.getElementById('majorCategory');
+            if (majorCategorySelect.value) {
+                majorCategorySelect.dispatchEvent(new Event('change'));
+            }
+        });
+        
+        // 정렬 기능
+        function sortBooks(sortType) {
+            // 정렬 버튼 활성화 상태 변경
+            document.querySelectorAll('.sort-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 실제 구현 시 서버로 정렬 요청을 보내거나 클라이언트에서 정렬 처리
+            const currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('sort', sortType);
+            window.location.href = currentUrl.toString();
+        }
     </script>
 </body>
 </html>

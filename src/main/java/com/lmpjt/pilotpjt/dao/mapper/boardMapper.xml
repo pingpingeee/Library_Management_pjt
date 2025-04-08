@@ -24,11 +24,10 @@
 
 	<select id="boardDetailView"
 		resultType="com.lmpjt.pilotpjt.dto.BoardDTO">
-		select boardNumber, userNumber, boardTitle, boardContent,
-		boardWriteDate, boardHit, boardViews, boardLikes, userName
-		from board
-		where
-		boardNumber=#{boardNumber}
+		select boardNumber, userNumber, userName, boardTitle,
+		boardContent, boardWriteDate, boardHit, boardViews, boardLikes
+		from
+		board where boardNumber=#{boardNumber}
 	</select>
 
 	<update id="boardModify"> update board set boardTitle=#{boardTitle},
