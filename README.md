@@ -38,7 +38,7 @@ CREATE TABLE USERINFO (
 );
 CREATE TABLE BOOKINFO (
     bookNumber          NUMBER PRIMARY KEY,
-    bookIsbn            NUMBER(20) DEFAULT 0,
+    bookIsbn            VARCHAR2(50) DEFAULT 0,
     bookTitle           VARCHAR2(400),
     bookComent          VARCHAR2(4000),
     bookWrite           VARCHAR2(100),
@@ -65,8 +65,8 @@ CREATE TABLE BOOK_REGISTATION_LOG (
     userNumber  NUMBER,
     bookNumber  NUMBER,
     regDate     DATE DEFAULT SYSDATE,
-    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
-    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber) ON DELETE CASCADE,
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE
 );
 
 CREATE TABLE BOARD (
@@ -79,7 +79,7 @@ CREATE TABLE BOARD (
     boardHit        NUMBER DEFAULT 0,
     boardViews      NUMBER DEFAULT 0,
     boardLikes      NUMBER DEFAULT 0,
-    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE
 );
 
 CREATE TABLE board_likes (
@@ -90,60 +90,62 @@ CREATE TABLE board_likes (
 
 CREATE TABLE BOARD_COMMENT (
     commentNumber       NUMBER PRIMARY KEY,
+    commentSubNumber    NUMBER,
+    commentSubStepNumber NUMBER,
     boardNumber         NUMBER,
     userNumber          NUMBER,
     commentContent      VARCHAR2(4000),
     commentWriteDate    DATE DEFAULT SYSDATE,
-    FOREIGN KEY (boardNumber) REFERENCES BOARD(boardNumber),
-    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)
+    FOREIGN KEY (boardNumber) REFERENCES BOARD(boardNumber)ON DELETE CASCADE,
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE
 );
 CREATE TABLE BOOK_BORROW (
     borrowNumber        NUMBER PRIMARY KEY,
     userNumber          NUMBER,
     bookNumber          NUMBER,
     bookBorrowDate      DATE DEFAULT SYSDATE,
-    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
-    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE,
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE
 );
 CREATE TABLE BORROW_RECORD (
     borrowRecordNumber  NUMBER PRIMARY KEY,
     userNumber          NUMBER,
     bookNumber          NUMBER,
     borrowNumber        NUMBER,
-    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
-    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber),
-    FOREIGN KEY (borrowNumber) REFERENCES BOOK_BORROW(borrowNumber)
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE,
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE,
+    FOREIGN KEY (borrowNumber) REFERENCES BOOK_BORROW(borrowNumber)ON DELETE CASCADE
 );
 CREATE TABLE RETURN_RECORD (
     returnNumber        NUMBER PRIMARY KEY,
     userNumber          NUMBER,
     bookNumber          NUMBER,
     bookReturnDate      DATE DEFAULT SYSDATE,
-    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
-    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE,
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE
 );
 CREATE TABLE SELL_BOOK (
     sellNumber      NUMBER PRIMARY KEY,
     bookNumber      NUMBER,
     userNumber      NUMBER,
-    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber),
-    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE,
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE
 );
 CREATE TABLE SELL_RECORD (
     sellRecordNumber    NUMBER PRIMARY KEY,
     sellNumber          NUMBER,
     userNumber          NUMBER,
     bookNumber          NUMBER,
-    FOREIGN KEY (sellNumber) REFERENCES SELL_BOOK(sellNumber),
-    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
-    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
+    FOREIGN KEY (sellNumber) REFERENCES SELL_BOOK(sellNumber)ON DELETE CASCADE,
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE,
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE
 );
 CREATE TABLE BUY_RECORD (
     buyRecordNumber     NUMBER PRIMARY KEY,
     userNumber          NUMBER,
     bookNumber          NUMBER,
-    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
-    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE,
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE
 );
 ```
 
