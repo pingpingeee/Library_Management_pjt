@@ -23,38 +23,38 @@ ALTER USER bookmanager QUOTA UNLIMITED ON USERS;
 
 CREATE TABLE USERINFO (
     userNumber      NUMBER PRIMARY KEY,
-    userId          VARCHAR2(50),
-    userPw          VARCHAR2(50),
-    userName        VARCHAR2(50),
+    userId          VARCHAR2(100),
+    userPw          VARCHAR2(100),
+    userName        VARCHAR2(100),
     userTel         VARCHAR2(20),
-    userEmail       VARCHAR2(100),
-    userBirth       VARCHAR2(20),
+    userEmail       VARCHAR2(200),
+    userBirth       VARCHAR2(50),
     userZipCode     VARCHAR2(50),
-    userAddress     VARCHAR2(100),
-    userDetailAddress VARCHAR2(100),
+    userAddress     VARCHAR2(300),
+    userDetailAddress VARCHAR2(500),
     userBorrow      NUMBER DEFAULT 3,
     userAdmin       NUMBER DEFAULT 0,
     userRegdate     DATE DEFAULT SYSDATE
 );
 CREATE TABLE BOOKINFO (
     bookNumber          NUMBER PRIMARY KEY,
-    bookIsbn            NUMBER DEFAULT 0,
-    bookTitle           VARCHAR2(100),
-    bookComent          VARCHAR2(255),
-    bookWrite           VARCHAR2(50),
-    bookPub             VARCHAR2(50),
+    bookIsbn            NUMBER(20) DEFAULT 0,
+    bookTitle           VARCHAR2(400),
+    bookComent          VARCHAR2(4000),
+    bookWrite           VARCHAR2(100),
+    bookPub             VARCHAR2(100),
     bookDate            DATE,
-    bookMajorCategory   NVARCHAR2(50),
-    bookSubCategory     NVARCHAR2(50),
+    bookMajorCategory   NVARCHAR2(100),
+    bookSubCategory     NVARCHAR2(100),
     bookCount           NUMBER,
     bookBorrowCount     NUMBER DEFAULT 0
 );
 
 CREATE TABLE NOTICE(
     noticeNum            NUMBER PRIMARY KEY,
-    noticeTitle          VARCHAR2(200) NOT NULL,
-    noticeContent        VARCHAR2(1000) NOT NULL,
-    noticewriter         VARCHAR2(50) DEFAULT '관리자',
+    noticeTitle          VARCHAR2(500) NOT NULL,
+    noticeContent        VARCHAR2(4000) NOT NULL,
+    noticewriter         VARCHAR2(100) DEFAULT '관리자',
     noticeregdate        DATE DEFAULT SYSDATE,
     noticeviews          NUMBER DEFAULT 0,
     noticeCategory       VARCHAR2(30)
@@ -73,7 +73,7 @@ CREATE TABLE BOARD (
     boardNumber     NUMBER PRIMARY KEY,
     userNumber      NUMBER,
     userName        VARCHAR2(50),
-    boardTitle      VARCHAR2(100),
+    boardTitle      VARCHAR2(1000),
     boardContent    VARCHAR2(4000),
     boardWriteDate  DATE DEFAULT SYSDATE,
     boardHit        NUMBER DEFAULT 0,
@@ -92,7 +92,7 @@ CREATE TABLE BOARD_COMMENT (
     commentNumber       NUMBER PRIMARY KEY,
     boardNumber         NUMBER,
     userNumber          NUMBER,
-    commentContent      VARCHAR2(1000),
+    commentContent      VARCHAR2(4000),
     commentWriteDate    DATE DEFAULT SYSDATE,
     FOREIGN KEY (boardNumber) REFERENCES BOARD(boardNumber),
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)
@@ -145,9 +145,6 @@ CREATE TABLE BUY_RECORD (
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
 );
-
-
-
 ```
 
 ## ERD
