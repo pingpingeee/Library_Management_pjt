@@ -5,30 +5,48 @@
 
 <mapper namespace="com.lmpjt.pilotpjt.dao.BoardCommentDAO">
 
-	<select id="bcView"
-		resultType="com.lmpjt.pilotpjt.dto.BoardCommentDTO">
-		select commentNumber, boardNumber, userNumber, userName,
-		commentContent, commentWriteDate from board_comment where boardNumber=#{boardNumber}
-	</select>
+    <select id="bcView"
+        resultType="com.lmpjt.pilotpjt.dto.BoardCommentDTO">
+        select commentNumber, commentSubNumber, commentSubStepNumber, 
+        boardNumber, userNumber, userName, commentContent, commentWriteDate 
+        from board_comment 
+        where boardNumber=#{boardNumber}
+        order by commentNumber, commentSubStepNumber
+    </select>
 
-	<insert id="bcWrite">
-		insert into board_comment (commentNumber,
-		boardNumber, userNumber, userName, commentContent) values ((SELECT
-		NVL(MAX(commentNumber), 0) + 1
-		FROM board_comment), #{boardNumber},
-		#{userNumber}, #{userName}, #{commentContent})
-	</insert>
+    <!-- 일반 댓글 작성 -->
+    <insert id="bcWrite">
+        insert into board_comment (
+            commentNumber, commentSubNumber, commentSubStepNumber,
+            boardNumber, userNumber, userName, commentContent
+        ) values (
+            (SELECT NVL(MAX(commentNumber), 0) + 1 FROM board_comment), 
+            #{commentSubNumber}, #{commentSubStepNumber},
+            #{boardNumber}, #{userNumber}, #{userName}, #{commentContent}
+        )
+    </insert>
 
-	<update id="bcModify">
-		update board_comment set commentNumber=#{commentNumber},
-		boardNumber=#{boardNumber}, userNumber=#{userNumber}, 
-		userName=#{userName}, commentContent=#{commentContent} 
-		where commentNumber=#{commentNumber}
-	</update>
+    <!-- 대댓글 작성 -->
+    <insert id="bcReplyWrite">
+        insert into board_comment (
+            commentNumber, commentSubNumber, commentSubStepNumber,
+            boardNumber, userNumber, userName, commentContent
+        ) values (
+            (SELECT NVL(MAX(commentNumber), 0) + 1 FROM board_comment), 
+            #{commentSubNumber}, 
+            (SELECT NVL(MAX(commentSubStepNumber), 0) + 1 FROM board_comment WHERE commentSubNumber = #{commentSubNumber}),
+            #{boardNumber}, #{userNumber}, #{userName}, #{commentContent}
+        )
+    </insert>
 
-	<update id="boardDelete">
-		delete from board_comment where commentNumber=#{commentNumber}
-	</update>
+    <update id="bcModify">
+        update board_comment set 
+        commentContent=#{commentContent} 
+        where commentNumber=#{commentNumber}
+    </update>
 
+    <delete id="boardDelete">
+        delete from board_comment where commentNumber=#{commentNumber}
+    </delete>
 
 </mapper>
