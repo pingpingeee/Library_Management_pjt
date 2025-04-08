@@ -32,7 +32,8 @@ CREATE TABLE USERINFO (
     userZipCode     VARCHAR2(50),
     userAddress     VARCHAR2(300),
     userDetailAddress VARCHAR2(500),
-    userBorrow      NUMBER DEFAULT 3,
+    userBorrow      NUMBER DEFAULT 0,
+    userCanBorrow      NUMBER DEFAULT 5,
     userAdmin       NUMBER DEFAULT 0,
     userRegdate     DATE DEFAULT SYSDATE
 );
@@ -81,24 +82,38 @@ CREATE TABLE BOARD (
     boardLikes      NUMBER DEFAULT 0,
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE
 );
-
+drop table board_likes;
 CREATE TABLE board_likes (
     boardNumber number,
     userNumber number,
     PRIMARY KEY (boardNumber, userNumber)
 );
 
+drop table board_comment;
 CREATE TABLE BOARD_COMMENT (
     commentNumber       NUMBER PRIMARY KEY,
     commentSubNumber    NUMBER,
     commentSubStepNumber NUMBER,
     boardNumber         NUMBER,
     userNumber          NUMBER,
+    userName            VARCHAR2(50),
     commentContent      VARCHAR2(4000),
-    commentWriteDate    DATE DEFAULT SYSDATE,
-    FOREIGN KEY (boardNumber) REFERENCES BOARD(boardNumber)ON DELETE CASCADE,
-    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE
+    commentWriteDate    DATE DEFAULT SYSDATE
 );
+
+ALTER TABLE BOARD_COMMENT
+ADD CONSTRAINT fk_comment_board
+FOREIGN KEY (boardNumber)
+REFERENCES BOARD(boardNumber)
+ON DELETE CASCADE;
+
+ALTER TABLE BOARD_COMMENT
+ADD CONSTRAINT fk_comment_user
+FOREIGN KEY (userNumber)
+REFERENCES USERINFO(userNumber)
+ON DELETE CASCADE;
+DESC board_comment;
+
 CREATE TABLE BOOK_BORROW (
     borrowNumber        NUMBER PRIMARY KEY,
     userNumber          NUMBER,
@@ -147,6 +162,7 @@ CREATE TABLE BUY_RECORD (
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE,
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE
 );
+
 ```
 
 ## ERD
