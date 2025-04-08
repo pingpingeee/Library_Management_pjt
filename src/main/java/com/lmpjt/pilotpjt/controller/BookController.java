@@ -28,11 +28,11 @@ public class BookController {
 
 	@Autowired
 	private BookService service;
-	
+
 	@RequestMapping("/book_insert")
-	public String insertBook(HttpServletRequest request,@RequestParam HashMap<String, String> param) {
+	public String insertBook(HttpServletRequest request, @RequestParam HashMap<String, String> param) {
 		service.insertBook(param);
-		
+
 		return "admin_view";
 	}
 
@@ -40,20 +40,24 @@ public class BookController {
 	public String updateBookView(BookDTO book) {
 		return "book_update";
 	}
-	
+
 	@RequestMapping("/book_search_view")
-	public String searchBookView(@RequestParam HashMap<String, String>param, Model model) {
-		List<BookDTO> result = service.searchBookInfo(param);
-		System.out.println("파라미터 확인: " + param);
-		model.addAttribute("bookList", result);
+	public String searchBookView(@RequestParam HashMap<String, String> param, Model model) {
+		List<BookDTO> list = service.searchBookInfo(param);
+		model.addAttribute("bookList", list);
 		return "book_search";
 	}
-	
-	@RequestMapping("/book_search")
-	public String searchBook(@RequestParam HashMap<String, String>param, Model model) {
-		List<BookDTO> result = service.searchBookInfo(param);
-		System.out.println("파라미터 확인123: " + param);
-		model.addAttribute("bookList", result);
-		return "book_search";
+
+	@RequestMapping("/book_detail")
+	public String bookDetail(@RequestParam HashMap<String, String> param, Model model) {
+		BookDTO dto = service.bookDetailInfo(param);
+		System.out.println("param : " + param);
+		System.out.println("result : " + dto);
+		model.addAttribute("book", dto);
+		return "book_detail";
+	}
+	@RequestMapping("/user_book_borrowing")
+	public String userBookBorrowing(BookDTO book) {
+		return "user_book_borrowing";
 	}
 }

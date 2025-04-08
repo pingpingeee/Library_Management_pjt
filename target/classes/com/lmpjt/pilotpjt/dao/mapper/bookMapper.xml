@@ -66,6 +66,13 @@
 
 		ORDER BY bookTitle ASC
 	</select>
+	<select id="bookDetailInfo"
+		resultType="com.lmpjt.pilotpjt.dto.BookDTO">
+		select bookNumber, bookIsbn, bookTitle, bookComent, bookWrite,
+		bookPub, bookDate, bookMajorCategory, bookSubCategory, bookCount,
+		bookBorrowCount
+		from bookinfo where bookNumber=#{bookNumber}
+	</select>
 
 
 </mapper>

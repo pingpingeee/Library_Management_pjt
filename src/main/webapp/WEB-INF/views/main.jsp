@@ -210,7 +210,8 @@ function fn_submit() {
 					<div class="feature-content">
 						<h3>내 대출 현황</h3>
 						<p>현재 대출 중인 도서와 반납 예정일을 확인하세요.</p>
-						<a href="/pilotpjt/my_books" class="btn-sm">바로가기</a>
+<!-- 						<a href="mypage?tab=history" class="btn-sm">바로가기</a> -->
+						<a href="user_book_borrowing" class="btn-sm">바로가기</a>
 					</div>
 				</div>
 
@@ -221,7 +222,7 @@ function fn_submit() {
 					<div class="feature-content">
 						<h3>도서 대출</h3>
 						<p>원하는 도서를 대출하여 이용하세요.</p>
-						<a href="/pilotpjt/book_borrow" class="btn-sm">바로가기</a>
+						<a href="book_search_view" class="btn-sm">바로가기</a>
 					</div>
 				</div>
 
@@ -315,7 +316,7 @@ function fn_submit() {
 			} else {
 			%>
 			<div class="login-section">
-				<h2>도서관리 시스템에 오신 것을 환영합니다</h2>
+				<h2>잉크트리에 오신 것을 환영합니다</h2>
 				<p>
 					잉크 트리 도서관리 시스템은 다양한 도서를 검색하고 대출할 수 있는 서비스를 제공합니다.<br>서비스를
 					이용하시려면 로그인이 필요합니다.

@@ -29,7 +29,7 @@ function fn_submit() {
     var formData = $("#search-form").serialize(); // 모든 폼 요소 직렬화
     $.ajax({
         type: "GET",
-        url: "book_search",
+        url: "book_search_view",
         data: formData,
         success: function(data) {
             // 결과 페이지로 이동하거나, 결과를 동적으로 처리해도 OK

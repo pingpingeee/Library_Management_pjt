@@ -55,4 +55,11 @@ public class BookServiceImpl implements BookService {
 		return list;
 	}
 
+	@Override
+	public BookDTO bookDetailInfo(HashMap<String, String> param) {
+		BookDAO dao = sqlSession.getMapper(BookDAO.class);
+		BookDTO dto = dao.bookDetailInfo(param);
+		return dto;
+	}
+
 }

@@ -13,6 +13,37 @@
     <link rel="stylesheet" type="text/css" href="/pilotpjt/resources/css/mypage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="/pilotpjt/resources/js/mypage.js"></script>
+<script>
+    function showTab(tabId) {
+        const tabs = document.querySelectorAll('.tab-content');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        tabs.forEach(tab => tab.classList.remove('active'));
+        menuItems.forEach(item => item.classList.remove('active'));
+
+        const targetTab = document.getElementById(tabId + '-tab');
+        if (targetTab) {
+            targetTab.classList.add('active');
+        }
+
+        const activeMenuItem = document.querySelector(`.menu-item[onclick="showTab('${tabId}')"]`);
+        if (activeMenuItem) {
+            activeMenuItem.classList.add('active');
+        }
+    }
+
+    // 페이지 로드 시 URL 파라미터를 보고 탭 자동 전환
+    window.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tab = urlParams.get("tab");
+
+        if (tab) {
+            showTab(tab);  // 여기서 함수 재사용
+        }
+    });
+</script>
+
+    
 </head>
 <body>
     <jsp:include page="header.jsp" />
@@ -158,7 +189,8 @@
                         <!-- 예시 데이터: 실제로는 DB에서 가져온 데이터로 대체해야 합니다 -->
                         <div class="book-item">
                             <div class="book-cover">
-                                <img src="/pilotpjt/resources/images/book_cover1.jpg" alt="책 표지" onerror="this.src='/pilotpjt/resources/images/default-book.png'">
+<!--                                 <img src="/pilotpjt/resources/images/book_cover1.jpg" alt="책 표지" onerror="this.src='/pilotpjt/resources/images/default-book.png'"> -->
+								<i class="fas fa-book"></i>
                             </div>
                             <div class="book-info">
                                 <div class="book-title">해리 포터와 마법사의 돌</div>
@@ -173,7 +205,8 @@
                         
                         <div class="book-item">
                             <div class="book-cover">
-                                <img src="/pilotpjt/resources/images/book_cover2.jpg" alt="책 표지" onerror="this.src='/pilotpjt/resources/images/default-book.png'">
+<!--                                 <img src="/pilotpjt/resources/images/book_cover2.jpg" alt="책 표지" onerror="this.src='/pilotpjt/resources/images/default-book.png'"> -->
+								<i class="fas fa-book"></i>
                             </div>
                             <div class="book-info">
                                 <div class="book-title">어린 왕자</div>
@@ -216,7 +249,8 @@
                                 <!-- 예시 데이터: 실제로는 DB에서 가져온 데이터로 대체해야 합니다 -->
                                 <div class="book-item">
                                     <div class="book-cover">
-                                        <img src="/pilotpjt/resources/images/book_cover3.jpg" alt="책 표지" onerror="this.src='/pilotpjt/resources/images/default-book.png'">
+<!--                                         <img src="/pilotpjt/resources/images/book_cover3.jpg" alt="책 표지" onerror="this.src='/pilotpjt/resources/images/default-book.png'"> -->
+								<i class="fas fa-book"></i>
                                     </div>
                                     <div class="book-info">
                                         <div class="book-title">데미안</div>
@@ -231,7 +265,8 @@
                                 
                                 <div class="book-item">
                                     <div class="book-cover">
-                                        <img src="/pilotpjt/resources/images/book_cover4.jpg" alt="책 표지" onerror="this.src='/pilotpjt/resources/images/default-book.png'">
+<!--                                         <img src="/pilotpjt/resources/images/book_cover4.jpg" alt="책 표지" onerror="this.src='/pilotpjt/resources/images/default-book.png'"> -->
+										<i class="fas fa-book"></i>
                                     </div>
                                     <div class="book-info">
                                         <div class="book-title">1984</div>
@@ -250,7 +285,8 @@
                             <div class="book-list">
                                 <div class="book-item">
                                     <div class="book-cover">
-                                        <img src="/pilotpjt/resources/images/book_cover3.jpg" alt="책 표지" onerror="this.src='/pilotpjt/resources/images/default-book.png'">
+<!--                                         <img src="/pilotpjt/resources/images/book_cover3.jpg" alt="책 표지" onerror="this.src='/pilotpjt/resources/images/default-book.png'"> -->
+										<i class="fas fa-book"></i>
                                     </div>
                                     <div class="book-info">
                                         <div class="book-title">데미안</div>
@@ -269,7 +305,8 @@
                             <div class="book-list">
                                 <div class="book-item">
                                     <div class="book-cover">
-                                        <img src="/pilotpjt/resources/images/book_cover4.jpg" alt="책 표지" onerror="this.src='/pilotpjt/resources/images/default-book.png'">
+<!--                                         <img src="/pilotpjt/resources/images/book_cover4.jpg" alt="책 표지" onerror="this.src='/pilotpjt/resources/images/default-book.png'"> -->
+										<i class="fas fa-book"></i>
                                     </div>
                                     <div class="book-info">
                                         <div class="book-title">1984</div>
