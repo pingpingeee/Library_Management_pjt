@@ -321,16 +321,6 @@ body {
 	font-weight: 500;
 }
 
-.status-available {
-	background-color: #d1fae5;
-	color: #065f46;
-}
-
-.status-borrowed {
-	background-color: #fee2e2;
-	color: #b91c1c;
-}
-
 /* Login Section */
 .login-section {
 	background-color: white;

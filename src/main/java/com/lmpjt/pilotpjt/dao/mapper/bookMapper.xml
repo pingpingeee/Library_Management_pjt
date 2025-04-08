@@ -33,6 +33,38 @@
 	<select id="searchBookInfo"
 		resultType="com.lmpjt.pilotpjt.dto.BookDTO" parameterType="map">
 
+		SELECT *
+		FROM bookinfo
+		WHERE 1=1
+
+		<choose>
+			<when
+				test="searchType == 'title' and searchKeyword != null and searchKeyword != ''">
+				AND bookTitle LIKE '%' || #{searchKeyword} || '%'
+			</when>
+			<when
+				test="searchType == 'author' and searchKeyword != null and searchKeyword != ''">
+				AND bookWrite LIKE '%' || #{searchKeyword} || '%'
+			</when>
+			<when
+				test="searchType == 'isbn' and searchKeyword != null and searchKeyword != ''">
+				AND bookIsbn LIKE '%' || #{searchKeyword} || '%'
+			</when>
+			<when
+				test="searchType == 'publisher' and searchKeyword != null and searchKeyword != ''">
+				AND bookPub LIKE '%' || #{searchKeyword} || '%'
+			</when>
+		</choose>
+
+		<if test="majorCategory != null and majorCategory != ''">
+			AND bookMajorCategory = #{majorCategory}
+		</if>
+
+		<if test="subCategory != null and subCategory != ''">
+			AND bookSubCategory = #{subCategory}
+		</if>
+
+		ORDER BY bookTitle ASC
 	</select>
 
 

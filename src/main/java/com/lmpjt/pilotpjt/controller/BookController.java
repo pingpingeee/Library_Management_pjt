@@ -41,17 +41,19 @@ public class BookController {
 		return "book_update";
 	}
 	
-	@ResponseBody
 	@RequestMapping("/book_search_view")
 	public String searchBookView(@RequestParam HashMap<String, String>param, Model model) {
 		List<BookDTO> result = service.searchBookInfo(param);
+		System.out.println("파라미터 확인: " + param);
 		model.addAttribute("bookList", result);
 		return "book_search";
 	}
 	
 	@RequestMapping("/book_search")
 	public String searchBook(@RequestParam HashMap<String, String>param, Model model) {
-
+		List<BookDTO> result = service.searchBookInfo(param);
+		System.out.println("파라미터 확인123: " + param);
+		model.addAttribute("bookList", result);
 		return "book_search";
 	}
 }

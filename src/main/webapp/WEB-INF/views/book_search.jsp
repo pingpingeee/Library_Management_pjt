@@ -17,18 +17,25 @@
 	rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
+    // 폼 제출 시 엔터 입력을 막고 fn_submit 호출
+    $("#search-form").on("submit", function(e) {
+        e.preventDefault();  // 새로고침 방지
+        fn_submit();         // 검색 함수 호출
+    });
+});
+
 function fn_submit() {
     var formData = $("#search-form").serialize(); // 모든 폼 요소 직렬화
-
     $.ajax({
-        type: "GET", // GET으로 검색 요청
-        url: "search_book", // Ajax용 별도의 URL (Controller에서 처리 필요)
+        type: "GET",
+        url: "book_search",
         data: formData,
-        dataType: "json", // 결과를 JSON으로 받는다고 가정
         success: function(data) {
-            renderSearchResults(data);
+            // 결과 페이지로 이동하거나, 결과를 동적으로 처리해도 OK
+            location.href = "book_search_view?" + formData;
         },
-        error: function() {
+        error: function(xhr) {
             alert("검색 요청 중 오류가 발생했습니다.");
         }
     });
@@ -44,7 +51,7 @@ function fn_submit() {
 				<i class="fas fa-book"></i> 도서 검색
 			</h1>
 
-			<form class="search-form" action="/pilotpjt/book_search" method="get">
+			<form class="search-form" id="search-form">
 				<!-- 메인 검색창 -->
 				<div class="search-main">
 					<input type="text" class="search-input-main" id="searchKeyword"
@@ -154,7 +161,9 @@ function fn_submit() {
 						<c:forEach items="${bookList}" var="book">
 							<div class="book-card">
 								<div class="book-cover">
-									<!-- 실제 구현 시 도서 이미지 경로를 사용하세요 -->
+									<!-- 실제 구현 시 도서 이미지 경로를 사용해야함 -->
+<!-- 									<img src="/pilotpjt/resources/images/book1.jpg" alt="도서 표지" -->
+<!-- 										onerror="this.src='/pilotpjt/resources/images/default-book.jpg'; this.onerror=null;"> -->
 									<div class="book-cover-placeholder">
 										<i class="fas fa-book"></i>
 									</div>
@@ -177,10 +186,9 @@ function fn_submit() {
 									</div>
 
 									<div class="book-status">
-										<div
-											class="book-availability ${book.bookCount - book.bookBorrowcount > 0 ? 'available' : 'unavailable'}">
+										<div class="book-availability ${book.bookCount > 0 ? 'available' : 'unavailable'}">
 											<c:choose>
-												<c:when test="${book.bookCount - book.bookBorrowcount > 0}">
+												<c:when test="${book.bookCount > 0}">
 													<i class="fas fa-check-circle"></i> 대출 가능
                                                 </c:when>
 												<c:otherwise>
