@@ -15,7 +15,25 @@
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/pilotpjt/resources/css/main.css">
+<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
+<script type="text/javascript">
+function fn_submit() {
+    var formData = $("#search-form").serialize(); // 모든 폼 요소 직렬화
 
+    $.ajax({
+        type: "GET", // GET으로 검색 요청
+        url: "search_book", // Ajax용 별도의 URL (Controller에서 처리 필요)
+        data: formData,
+        dataType: "json", // 결과를 JSON으로 받는다고 가정
+        success: function(data) {
+            renderSearchResults(data);
+        },
+        error: function(xhr) {
+            alert("검색 요청 중 오류가 발생했습니다.");
+        }
+    });
+}
+</script>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -48,8 +66,8 @@
 			<form action="/pilotpjt/book_search" method="GET" class="search-form">
 				<input type="text" name="keyword" placeholder="도서명, 저자, 출판사 등으로 검색"
 					class="search-input">
-				<button type="submit" class="search-button">
-					<i class="fas fa-search"></i> 검색
+				<button type="button" class="search-button">
+					<i class="fas fa-search" onclick="fn_submit()"></i> 검색
 				</button>
 			</form>
 		</div>

@@ -126,7 +126,7 @@
 	                                ${notice.noticeTitle}
 	                            </h3>
 	                            
-	                            <p class="notice-excerpt">${notice.noticeContent}</p>
+	                            <p class="notice-excerpt">${notice.noticeContent }</p>
 	                            
 	                            <div class="notice-meta">
 	                                <div class="meta-left">

@@ -48,9 +48,11 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public ArrayList<BookDTO> searchBookInfo() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<BookDTO> searchBookInfo(HashMap<String, String>param) {
+		BookDAO dao = sqlSession.getMapper(BookDAO.class);		
+		ArrayList<BookDTO> list = dao.searchBookInfo(param);
+		
+		return list;
 	}
 
 }

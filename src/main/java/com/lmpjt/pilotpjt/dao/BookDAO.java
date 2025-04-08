@@ -16,12 +16,12 @@ public interface BookDAO {
 	public void insertBook(HashMap<String, String> param); 
 	public void updateBook(HashMap<String, String> param);
 	public ArrayList<BookDTO> mainBookInfo();
-	public ArrayList<BookDTO> searchBookInfo();
+	public ArrayList<BookDTO> searchBookInfo(HashMap<String, String> param);
 
-	// ´ëÃâÀº book_borrow Å×ÀÌºí¿¡ »ðÀÔµÊ°ú µ¿½Ã¿¡ borrow_record Å×ÀÌºí¿¡ »ðÀÔµË´Ï´Ù.
-	public void bookBorrow(HashMap<String, String> param); // ´ëÃâ ÇÊ¿ä ½Ã ¹ÝÈ¯ °ª º¯°æ
-	// ¹Ý³³Àº book_borrow Å×ÀÌºí¿¡¼­ ÇØ´ç °ªÀ» »èÁ¦ ÇÏ°í return_record Å×ÀÌºí·Î »ðÀÔ µË´Ï´Ù.
-	public void bookReturn(HashMap<String, String> param); // ¹Ý³³ ÇÊ¿ä ½Ã ¹ÝÈ¯ °ª º¯°æ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ book_borrow ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ÔµÊ°ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ borrow_record ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ÔµË´Ï´ï¿½.
+	public void bookBorrow(HashMap<String, String> param); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½Ý³ï¿½ï¿½ï¿½ book_borrow ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï°ï¿½ return_record ï¿½ï¿½ï¿½Ìºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë´Ï´ï¿½.
+	public void bookReturn(HashMap<String, String> param); // ï¿½Ý³ï¿½ ï¿½Ê¿ï¿½ ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	
 	
 }

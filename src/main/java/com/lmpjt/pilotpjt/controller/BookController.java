@@ -1,6 +1,8 @@
 package com.lmpjt.pilotpjt.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,7 +34,6 @@ public class BookController {
 	public String insertBook(HttpServletRequest request,@RequestParam HashMap<String, String> param) {
 //		BookDAO dao = sqlSession.getMapper(BookDAO.class);
 		service.insertBook(param);
-
 		
 //		dao.insertBook(book, loginUser.getUserAdmin());
 //		dao.insertBook(param);
@@ -44,8 +45,15 @@ public class BookController {
 		return "book_update";
 	}
 
-	@RequestMapping("/search_book")
-	public String searchBook(String title) {
+	@RequestMapping("/book_search_view")
+	public String searchBookView(@RequestParam HashMap<String, String>param, Model model) {
+
 		return "book_search";
+	}
+	
+	@RequestMapping("/book_search")
+	public String searchBook(@RequestParam HashMap<String, String>param, Model model) {
+
+		return "redirect:book_search";
 	}
 }

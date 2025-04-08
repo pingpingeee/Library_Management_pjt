@@ -23,12 +23,17 @@
 		FROM (
 		SELECT *
 		FROM bookinfo
-		ORDER BY bookBorrowCount DESC
+		ORDER BY bookBorrowCount
+		DESC
 		)
 		WHERE ROWNUM &lt;= 10
 	</select>
 
 
-	<select id="searchBookInfo"></select>
+	<select id="searchBookInfo"
+		resultType="com.lmpjt.pilotpjt.dto.BookDTO" parameterType="map">
+
+	</select>
+
 
 </mapper>

@@ -21,5 +21,5 @@ public class BookDTO {
 	private String bookSubCategory;	
 	private int bookCount;
 	private int bookBorrowcount; 
-
+	private String keyword;
 }

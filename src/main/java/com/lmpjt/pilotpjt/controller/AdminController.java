@@ -33,6 +33,12 @@ public class AdminController {
 	@RequestMapping("/admin_notice")
 	public String adminNoti(Model model) {
 		ArrayList<NoticeDTO> list = admin_service.NoticeView();
+	    for (NoticeDTO dto : list) {
+	        String content = dto.getNoticeContent();
+	        if (content != null && content.length() > 30) {
+	            dto.setNoticeContent(content.substring(0, 30) + "...");
+	        }
+	    }
 		model.addAttribute("noticeList", list);
 		
 		int countImportant = 0;

@@ -39,10 +39,6 @@ public class ViewController {
 		return "main";
 	}
 
-	@RequestMapping("/search_book_view")
-	public String searchBookView() {
-		return "book_search";
-	}
 
 	@RequestMapping("/loginView")
 	public String loginPage() {
