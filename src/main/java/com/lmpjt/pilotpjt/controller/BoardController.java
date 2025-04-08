@@ -24,7 +24,7 @@ import com.lmpjt.pilotpjt.dto.UserDTO;
 public class BoardController {
 	@Autowired
 	private BoardService service;
-	
+
 	@Autowired
 	private BoardCommentService bcService;
 
@@ -32,7 +32,7 @@ public class BoardController {
 	public String boardView(Model model) {
 		ArrayList<BoardDTO> list = service.boardView();
 		model.addAttribute("boardList", list);
-		
+
 		return "board_view";
 	}
 
@@ -43,11 +43,31 @@ public class BoardController {
 		return "board_view";
 	}
 
+	@RequestMapping("/delete_post")
+	public String boardViewDelete(@RequestParam HashMap<String, String> param) {
+		service.boardDelete(param);
+
+		return "board_view";
+	}
+
+	@RequestMapping("/board_update_ok")
+	public String boardViewUpdate(@RequestParam HashMap<String, String> param) {
+		service.boardModify(param);
+		return "board_view";
+	}
+
+	@RequestMapping("/board_update")
+	public String boardViewUpdate(@RequestParam HashMap<String, String> param, Model model) {
+		BoardDTO dto = service.boardDetailView(param);
+		model.addAttribute("board", dto);
+		return "board_update";
+	}
+
 	@RequestMapping("/board_detail_view")
 	public String boardViewDetail(@RequestParam HashMap<String, String> param, Model model) {
 		BoardDTO dto = service.boardDetailView(param);
 		ArrayList<BoardCommentDTO> commentList = bcService.bcView(param);
-		
+
 		model.addAttribute("board", dto);
 		model.addAttribute("commentList", commentList);
 		return "board_detail";
@@ -74,12 +94,12 @@ public class BoardController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("���� ���� �߻�");
 		}
 	}
-	
+
 	@RequestMapping("/comment_write_ok")
 	public String commentWriteOk(@RequestParam HashMap<String, String> param) {
 		bcService.bcWrite(param);
-	    String boardNumber = param.get("boardNumber");
-	    
-	    return "redirect:/board_detail_view?boardNumber=" + boardNumber;
+		String boardNumber = param.get("boardNumber");
+
+		return "redirect:/board_detail_view?boardNumber=" + boardNumber;
 	}
 }

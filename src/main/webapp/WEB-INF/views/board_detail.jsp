@@ -160,9 +160,10 @@
                     
                     if (user != null && (user.getUserNumber() == board.getUserNumber() || user.getUserAdmin() == 1)) { 
                     %>
-                    <button class="action-button edit-button" onclick="location.href='/pilotpjt/board_edit?boardNumber=${board.boardNumber}'">
-                        <i class="fas fa-edit"></i> 수정
-                    </button>
+					<button class="action-button edit-button"
+						onclick="location.href='/pilotpjt/board_update?boardNumber=${board.boardNumber}'">
+						<i class="fas fa-edit"></i> 수정
+					</button>
                     <button class="action-button delete-button" onclick="deletePost(${board.boardNumber})">
                         <i class="fas fa-trash"></i> 삭제
                     </button>
@@ -299,7 +300,18 @@
     
     function deletePost(boardNumber) {
         if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
-            location.href = '/pilotpjt/delete_post?boardNumber=' + boardNumber;
+            $.ajax({
+                type: "post",
+                url: "delete_post",
+                data: { boardNumber: boardNumber },
+                success: function(data) {
+                	alert("정상적으로 삭제되었습니다.");
+                	location.href = "board_view";
+                },
+                error: function() {
+                	alert("오류 발생");
+                }
+            });
         }
     }
     
