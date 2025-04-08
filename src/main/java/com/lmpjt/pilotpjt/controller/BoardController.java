@@ -74,4 +74,12 @@ public class BoardController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("���� ���� �߻�");
 		}
 	}
+	
+	@RequestMapping("/comment_write_ok")
+	public String commentWriteOk(@RequestParam HashMap<String, String> param) {
+		bcService.bcWrite(param);
+	    String boardNumber = param.get("boardNumber");
+	    
+	    return "redirect:/board_detail_view?boardNumber=" + boardNumber;
+	}
 }

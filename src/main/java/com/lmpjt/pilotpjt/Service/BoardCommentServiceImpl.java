@@ -19,7 +19,6 @@ public class BoardCommentServiceImpl implements BoardCommentService {
 	public ArrayList<BoardCommentDTO> bcView(HashMap<String, String> param) {
 		BoardCommentDAO dao = sqlSession.getMapper(BoardCommentDAO.class);
 		
-		System.out.println(param);
 		ArrayList<BoardCommentDTO> list = dao.bcView(param);
 		return list;
 	}
@@ -27,7 +26,8 @@ public class BoardCommentServiceImpl implements BoardCommentService {
 	@Override
 	public void bcWrite(HashMap<String, String> param) {
 		BoardCommentDAO dao = sqlSession.getMapper(BoardCommentDAO.class);
-		dao.bcWrite(param);		
+		System.out.println("service : " + param);
+		dao.bcWrite(param);
 	}
 
 	@Override

@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BoardDTO {
 	private int boardNumber;
-	private int boardSubNumber;
 	private int userNumber;
 	private String userName;
 	private String boardTitle;
@@ -18,6 +17,4 @@ public class BoardDTO {
 	private String boardViews;
 	private String boardLikes;
 	private String boardHit;
-
-
 }

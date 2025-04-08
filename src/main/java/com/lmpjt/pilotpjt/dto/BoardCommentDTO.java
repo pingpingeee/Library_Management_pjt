@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardCommentDTO {
+	private int commentNumber;
+	private int commentSubNumber;
 	private int boardNumber;
 	private int userNumber;
 	private String userName;

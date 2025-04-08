@@ -76,13 +76,14 @@
         
         <div class="comments-section">
             <h2 class="comments-header">댓글</h2>
-            
+
             <% if (user != null) { %>
             <div class="comment-form">
-                <form action="/pilotpjt/add_comment" method="post">
-<%--                     <input type="hidden" name="boardNumber" value="${board.boardNumber}"> --%>
-<%--                     <input type="hidden" name="useName" value="<%= user.getUserNumber()%>"> --%>
-                    <textarea name="boardComment" class="comment-textarea" placeholder="댓글을 작성해주세요"></textarea>
+                <form action="/pilotpjt/comment_write_ok" method="post">
+                    <input type="hidden" name="boardNumber" value="${board.boardNumber}">
+                    <input type="hidden" name="userNumber" value="<%= user.getUserNumber()%>">
+                    <input type="hidden" name="userName" value="<%= user.getUserName()%>">
+                    <textarea name="commentContent" class="comment-textarea" placeholder="댓글을 작성해주세요"></textarea>
                     <button type="submit" class="comment-submit">댓글 작성</button>
                     <div style="clear: both;"></div>
                 </form>

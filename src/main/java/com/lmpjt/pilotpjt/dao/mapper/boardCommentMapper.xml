@@ -16,7 +16,7 @@
 		boardNumber, userNumber, userName, commentContent) values ((SELECT
 		NVL(MAX(commentNumber), 0) + 1
 		FROM board_comment), #{boardNumber},
-		#{userNumber}, #{commentContent})
+		#{userNumber}, #{userName}, #{commentContent})
 	</insert>
 
 	<update id="bcModify">
