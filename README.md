@@ -38,7 +38,7 @@ CREATE TABLE USERINFO (
 );
 CREATE TABLE BOOKINFO (
     bookNumber          NUMBER PRIMARY KEY,
-    bookIsbn            NUMBER(20) DEFAULT 0,
+    bookIsbn            VARCHAR2(50) DEFAULT 0,
     bookTitle           VARCHAR2(400),
     bookComent          VARCHAR2(4000),
     bookWrite           VARCHAR2(100),
