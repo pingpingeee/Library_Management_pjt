@@ -16,4 +16,8 @@ public interface BookService {
 	public ArrayList<BookDTO> searchBookInfo(HashMap<String, String> param);
 
 	public BookDTO bookDetailInfo(HashMap<String, String> param);
+	
+	public void bookBorrow(HashMap<String, String> param);
+
+	public void bookReturn(HashMap<String, String> param);
 }

@@ -73,6 +73,11 @@
 		bookBorrowCount
 		from bookinfo where bookNumber=#{bookNumber}
 	</select>
-
+	
+	<insert id="bookBorrow">
+		insert into book_borrow(BORROWNUMBER, USERNUMBER, BOOKNUMBER)
+		values ((select nvl(max(BORROWRECORDNUMBER), 0)+1
+		from borrow_record),${userNumber},${bookNumber})
+	</insert>
 
 </mapper>

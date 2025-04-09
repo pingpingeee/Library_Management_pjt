@@ -91,7 +91,7 @@
 						<div class="book-actions">
 							<c:choose>
 								<c:when test="${book.bookCount > 0}">
-									<a href="/pilotpjt/borrow?bookNumber=${book.bookNumber}"
+									<a href="book_borrow?bookNumber=${book.bookNumber}"
 										class="book-action-button borrow-button"> <i
 										class="fas fa-hand-holding"></i> 대출하기
 									</a>
