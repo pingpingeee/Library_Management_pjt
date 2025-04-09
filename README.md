@@ -82,14 +82,13 @@ CREATE TABLE BOARD (
     boardLikes      NUMBER DEFAULT 0,
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE
 );
-drop table board_likes;
+
 CREATE TABLE board_likes (
     boardNumber number,
     userNumber number,
     PRIMARY KEY (boardNumber, userNumber)
 );
 
-drop table board_comment;
 CREATE TABLE BOARD_COMMENT (
     commentNumber       NUMBER PRIMARY KEY,
     commentSubNumber    NUMBER,
@@ -127,6 +126,7 @@ CREATE TABLE BORROW_RECORD (
     userNumber          NUMBER,
     bookNumber          NUMBER,
     borrowNumber        NUMBER,
+    bookBorrowDate      DATE,
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE,
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE,
     FOREIGN KEY (borrowNumber) REFERENCES BOOK_BORROW(borrowNumber)ON DELETE CASCADE
@@ -163,6 +163,74 @@ CREATE TABLE BUY_RECORD (
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE
 );
 
+create or replace TRIGGER trg_after_book_borrow_insert
+AFTER INSERT ON BOOK_BORROW
+FOR EACH ROW
+DECLARE
+    v_bookcount     NUMBER;
+    v_usercanborrow NUMBER;
+    ex_no_stock     EXCEPTION;
+    ex_no_quota     EXCEPTION;
+BEGIN
+    -- 책 재고 확인
+    SELECT BOOKCOUNT INTO v_bookcount
+    FROM BOOKINFO
+    WHERE BOOKNUMBER = :NEW.BOOKNUMBER;
+
+    -- 사용자 대출 가능 횟수 확인
+    SELECT USERCANBORROW INTO v_usercanborrow
+    FROM USERINFO
+    WHERE USERNUMBER = :NEW.USERNUMBER;
+
+    -- 예외 조건 검사
+    IF v_bookcount <= 0 THEN
+        RAISE ex_no_stock;
+    ELSIF v_usercanborrow <= 0 THEN
+        RAISE ex_no_quota;
+    END IF;
+
+    -- BOOKINFO 업데이트
+    UPDATE BOOKINFO
+    SET
+        BOOKBORROWCOUNT = BOOKBORROWCOUNT + 1,
+        BOOKCOUNT = BOOKCOUNT - 1
+    WHERE BOOKNUMBER = :NEW.BOOKNUMBER;
+
+    -- USERINFO 업데이트
+    UPDATE USERINFO
+    SET
+        USERCANBORROW = USERCANBORROW - 1,
+        USERBORROW = USERBORROW + 1
+    WHERE USERNUMBER = :NEW.USERNUMBER;
+
+EXCEPTION
+    WHEN ex_no_stock THEN
+        RAISE_APPLICATION_ERROR(-20001, '도서 재고가 부족하여 대출할 수 없습니다.');
+    WHEN ex_no_quota THEN
+        RAISE_APPLICATION_ERROR(-20002, '회원의 대출 가능 권수가 0입니다.');
+    WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(-20003, '트리거 처리 중 오류 발생: ' || SQLERRM);
+END;
+
+
+create or replace TRIGGER trg_insert_borrow_record
+AFTER INSERT ON book_borrow
+FOR EACH ROW
+BEGIN
+    INSERT INTO borrow_record (
+        borrowrecordnumber,
+        usernumber,
+        booknumber,
+        borrownumber
+    ) VALUES (
+        borrowrecord_seq.NEXTVAL,   -- 시퀀스로 생성
+        :NEW.usernumber,            -- book_borrow에서 가져온 값
+        :NEW.booknumber,
+        :NEW.borrownumber
+    );
+END;
+
+CREATE SEQUENCE  "BOOKMANAGER"."BORROWRECORD_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 20 NOCACHE  NOORDER  NOCYCLE 
 ```
 
 ## ERD
