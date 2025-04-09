@@ -237,8 +237,9 @@ CREATE SEQUENCE  "BOOKMANAGER"."BORROWRECORD_SEQ"  MINVALUE 1 MAXVALUE 999999999
 ![image](https://github.com/user-attachments/assets/5c668ab5-4098-439b-a0d1-85609255b0c1)
 
 ## 로그인 & 회원가입 플로우차트
-![image](https://github.com/user-attachments/assets/42c9b8b7-f470-4843-82bc-3ed59fce2352)
+![image](https://github.com/user-attachments/assets/4042bba2-7485-47e2-ab54-9bbd5991b108)
 
 ## 도서 등록 플로우차트
-![image](https://github.com/user-attachments/assets/ddda9356-1cb5-4e6b-aa1d-6a7f0d169dc4)
+![image](https://github.com/user-attachments/assets/1a6076e6-6014-438a-b477-9cc63ff3ed8f)
+
 
