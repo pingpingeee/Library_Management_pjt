@@ -62,26 +62,26 @@ public class BookController {
 	public String bookBorrow(@RequestParam HashMap<String, String> param, HttpServletRequest request, Model model) {
 		UserDTO user = (UserDTO) request.getSession().getAttribute("loginUser");
 		if (user == null) {
-	        return "redirect:main"; // ·Î±×ÀÎ
+	        return "redirect:main"; // ï¿½Î±ï¿½ï¿½ï¿½
 	    }
 		int userNumber = user.getUserNumber();
 		
-	    param.put("userNumber", String.valueOf(userNumber)); // À¯Àú¹øÈ£ param¿¡ Ãß°¡
+	    param.put("userNumber", String.valueOf(userNumber)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ paramï¿½ï¿½ ï¿½ß°ï¿½
 	    try {
 	        service.bookBorrow(param);
 	    } catch (Exception e) {
-	        e.printStackTrace(); // ÄÜ¼Ö¿¡¼­ ÀÚ¼¼È÷ È®ÀÎ
+	        e.printStackTrace(); // ï¿½Ü¼Ö¿ï¿½ï¿½ï¿½ ï¿½Ú¼ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 
 	        String message = e.getMessage();
 	        if (message != null && message.contains("ORA-20002")) {
-	            model.addAttribute("errorMsg", "È¸¿øÀÇ ´ëÃâ °¡´É ±Ç¼ö°¡ 0ÀÔ´Ï´Ù.");
+	            model.addAttribute("errorMsg", "UserCanBorrow = 0");
 	        } else if (message != null && message.contains("ORA-20001")) {
-	            model.addAttribute("errorMsg", "Ã¥ÀÇ ³²Àº ¼ö·®ÀÌ ¾ø½À´Ï´Ù.");
+	            model.addAttribute("errorMsg", "BookCount = 0");
 	        } else {
-	            model.addAttribute("errorMsg", "¿À·ù ¹ß»ý: " + message);
+	            model.addAttribute("errorMsg", "Other Error = " + message);
 	        }
 
-	        model.addAttribute("bookNumber", param.get("bookNumber")); // ´Ù½Ã book_detail¿¡ Àü´Þ
+	        model.addAttribute("bookNumber", param.get("bookNumber")); // ï¿½Ù½ï¿½ book_detailï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	        return "book_detail";
 	    }
 

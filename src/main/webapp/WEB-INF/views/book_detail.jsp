@@ -145,9 +145,10 @@
 			</div>
 		</c:if>
 	</div>
-
-	<script>
-		// 필요한 JavaScript 코드 추가
-	</script>
+   <c:if test="${not empty errorMsg}">
+    <script>
+        alert("${errorMsg}");
+    </script>
+    </c:if>
 </body>
 </html>
