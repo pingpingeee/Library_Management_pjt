@@ -117,6 +117,7 @@ input[readonly] {
 input:invalid ~ .error-message {
   display: block;
 }
+
 /* 주소 검색 */
 .address-search {
   display: flex;

@@ -36,7 +36,7 @@
 <!-- 	request.setCharacterEncoding("utf-8");); -->
 <!-- 	%>--> 
 	 
-	<form method="post" action="book_insert">
+<!-- 	<form method="post" action="book_insert"> -->
 		<form id="frm">
 			<h1>도서 등록 페이지</h1>
 

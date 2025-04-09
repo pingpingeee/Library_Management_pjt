@@ -53,6 +53,14 @@ function fn_submit() {
 		if (user != null) {
 		%>
 
+		<div class="slider-container">
+		  <div class="image-slider">
+		    <div class="slide"><img src="/pilotpjt/resources/images/test1.png" alt="슬라이드 1"></div>
+		    <div class="slide"><img src="/pilotpjt/resources/images/test2.png" alt="슬라이드 2"></div>
+		    <div class="slide"><img src="../pilotpjt/resources/images/test3.png" alt="슬라이드 3"></div>
+		  </div>
+		</div>
+
 		<div class="welcome-banner">
 			<div class="welcome-text">
 				<h1>
@@ -333,6 +341,7 @@ function fn_submit() {
 			%>
 		</div>
 
+		
 		<script>
         document.addEventListener('DOMContentLoaded', function() {
             // Animate statistics numbers
@@ -434,6 +443,23 @@ if (majorCategory === '000') {
             currentUrl.searchParams.set('sort', sortType);
             window.location.href = currentUrl.toString();
         }
+//         슬라이드
+        $(document).ready(function() {
+        	  // 첫 번째 슬라이드 활성화
+        	  $('.slide:first-child').addClass('active');
+        	  
+        	  // 슬라이드 자동 전환 함수
+        	  function nextSlide() {
+        	    var currentSlide = $('.slide.active');
+        	    var nextSlide = currentSlide.next('.slide').length ? currentSlide.next('.slide') : $('.slide:first-child');
+        	    
+        	    currentSlide.removeClass('active');
+        	    nextSlide.addClass('active');
+        	  }
+        	  
+        	  // 3초마다 슬라이드 전환
+        	  setInterval(nextSlide, 3000);
+        	});
     </script>
 </body>
 </html>
