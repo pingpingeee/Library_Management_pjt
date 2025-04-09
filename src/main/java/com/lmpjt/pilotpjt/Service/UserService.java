@@ -11,4 +11,5 @@ public interface UserService {
 	public UserDTO checkId(HashMap<String, String> param); 
 	public UserDTO getUserInfo(HashMap<String, String> param); 
 	public int updateUserInfo(HashMap<String, String> param);
+	public int updateUserPwInfo(HashMap<String, String> param);
 }

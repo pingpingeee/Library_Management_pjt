@@ -6,15 +6,15 @@
 <mapper namespace="com.lmpjt.pilotpjt.dao.UserDAO">
 
 	<insert id="userJoin">
-	  INSERT INTO userinfo (
-	    userNumber, userId, userPw, userName, userTel,
-	    userEmail, userBirth, userZipCode, userAddress, userDetailAddress
-	  )
-	  VALUES (
-	    (SELECT NVL(MAX(userNumber), 0) + 1 FROM userinfo),
-	    #{userId}, #{userPw}, #{userName}, #{userTel},
-	    #{userEmail}, #{userBirth}, #{userZipCode}, #{userAddress}, #{userDetailAddress}
-	  )
+		INSERT INTO userinfo (
+		userNumber, userId, userPw, userName, userTel,
+		userEmail, userBirth, userZipCode, userAddress, userDetailAddress
+		)
+		VALUES (
+		(SELECT NVL(MAX(userNumber), 0) + 1 FROM userinfo),
+		#{userId}, #{userPw}, #{userName}, #{userTel},
+		#{userEmail}, #{userBirth}, #{userZipCode}, #{userAddress}, #{userDetailAddress}
+		)
 	</insert>
 
 	<select id="userLogin"
@@ -23,15 +23,22 @@
 	</select>
 	<select id="getUserInfo"
 		resultType="com.lmpjt.pilotpjt.dto.UserDTO">
-		select userNumber, userId, userPw, userName, userTel, userEmail,
+		select userNumber, userId, userPw, userName, userTel,
+		userEmail,
 		userBirth, userZipCode, userAddress, userDetailAddress,
 		userBorrow, userAdmin, userRegdate from
 		userinfo where userId=#{userId}
 	</select>
-	<update id="updateUserInfo">
-	</update>
+	<update id="updateUserInfo"> update userinfo set userNumber=#{userNumber},
+		userId=#{userId}, userName=#{userName}, userTel=#{userTel} ,
+		userEmail=#{userEmail}, userZipCode=#{userZipCode},
+		userAddress=#{userAddress}, userDetailAddress=#{userDetailAddress}
+		where userNumber=#{userNumber} </update>
+	<update id="updateUserPwInfo"> update userinfo set userPw=#{userNewPw} where
+		userNumber=#{userNumber} </update>
 	<select id="checkId" resultType="com.lmpjt.pilotpjt.dto.UserDTO">
-		select userId from userinfo where userId=#{userId}
+		select userId from userinfo
+		where userId=#{userId}
 	</select>
 </mapper>
 

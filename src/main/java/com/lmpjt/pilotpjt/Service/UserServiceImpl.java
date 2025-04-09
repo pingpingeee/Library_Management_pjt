@@ -50,4 +50,11 @@ public class UserServiceImpl implements UserService{
 		int re = dao.updateUserInfo(param);
 		return re;
 	}
+
+	@Override
+	public int updateUserPwInfo(HashMap<String, String> param) {
+		UserDAO dao = sqlSession.getMapper(UserDAO.class);
+		int re = dao.updateUserPwInfo(param);
+		return re;
+	}
 }

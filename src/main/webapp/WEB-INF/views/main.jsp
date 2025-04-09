@@ -234,7 +234,7 @@ function fn_submit() {
 					</div>
 				</div>
 
-				<div class="feature-card">
+				<div class="feature-card">z
 					<div class="feature-icon">
 						<i class="fas fa-star"></i>
 					</div>
