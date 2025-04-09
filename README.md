@@ -82,14 +82,13 @@ CREATE TABLE BOARD (
     boardLikes      NUMBER DEFAULT 0,
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE
 );
-drop table board_likes;
+
 CREATE TABLE board_likes (
     boardNumber number,
     userNumber number,
     PRIMARY KEY (boardNumber, userNumber)
 );
 
-drop table board_comment;
 CREATE TABLE BOARD_COMMENT (
     commentNumber       NUMBER PRIMARY KEY,
     commentSubNumber    NUMBER,
@@ -127,6 +126,7 @@ CREATE TABLE BORROW_RECORD (
     userNumber          NUMBER,
     bookNumber          NUMBER,
     borrowNumber        NUMBER,
+    bookBorrowDate      DATE,
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE,
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE,
     FOREIGN KEY (borrowNumber) REFERENCES BOOK_BORROW(borrowNumber)ON DELETE CASCADE
