@@ -141,6 +141,7 @@ CREATE TABLE RETURN_RECORD (
     bookTitle           VARCHAR2 (400),
     bookWrite           VARCHAR2 (100),
     bookReturnDate      DATE DEFAULT SYSDATE,
+    bookJoinKey         NUMBER,
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
 );
@@ -266,7 +267,6 @@ BEGIN
     
 END;
 
-
 create or replace TRIGGER before_return_record_insert
 BEFORE INSERT ON return_record
 FOR EACH ROW
@@ -275,6 +275,7 @@ DECLARE
     v_borrowNumber NUMBER;
     v_booktitle varchar2(400);
     v_bookwrite varchar2(100);
+    v_borrowRecordNumber number;
     ex_no_borrow EXCEPTION;
 BEGIN
     -- 해당 대출 정보 유무 확인
@@ -289,8 +290,15 @@ BEGIN
     from bookinfo
     where bookNumber = :NEW.bookNumber;
     
+     -- 새로운 borrowRecordNumber 미리 생성
+    SELECT NVL(MAX(borrowRecordNumber), 0) + 1
+    INTO v_borrowRecordNumber
+    FROM borrow_record;
+    
+    
     :NEW.booktitle := v_booktitle;
     :NEW.bookwrite := v_bookwrite;
+    :NEW.bookjoinkey := v_borrowRecordNumber;
 
     -- 먼저 BORROW_RECORD에 기록
     INSERT INTO borrow_record (
@@ -302,7 +310,7 @@ BEGIN
         bookwrite
     )
     VALUES (
-        (SELECT NVL(MAX(borrowRecordNumber), 0) + 1 FROM borrow_record),
+        v_borrowRecordNumber,
         :NEW.userNumber,
         :NEW.bookNumber,
         v_borrowDate,
@@ -319,7 +327,6 @@ EXCEPTION
     WHEN NO_DATA_FOUND THEN
         RAISE_APPLICATION_ERROR(-20004, '대출 정보가 존재하지 않아 반납할 수 없습니다.');
 END;
-
 
 ```
 
