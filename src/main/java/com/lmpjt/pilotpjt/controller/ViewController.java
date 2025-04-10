@@ -32,10 +32,6 @@ public class ViewController {
 		model.addAttribute("overdueBooks", 1324+utilService.getOverdueBooks());
 		model.addAttribute("bookList", bookSerivce.mainBookInfo());
 		
-//		ArrayList<BookDTO> bookList = bookSerivce.mainBookInfo();
-//	    for (BookDTO book : bookList) {
-//	        System.out.println("asdf : " + book.getBookTitle() + " / ����: " + book.getBookCount());
-//	    }
 		return "main";
 	}
 

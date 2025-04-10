@@ -63,15 +63,11 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public void bookBorrow(HashMap<String, String> param) {
-		// TODO Auto-generated method stub
 		BookDAO dao = sqlSession.getMapper(BookDAO.class);
 		dao.bookBorrow(param);
 	}
 
 	@Override
 	public void bookReturn(HashMap<String, String> param) {
-		// TODO Auto-generated method stub
-
 	}
-
 }

@@ -30,15 +30,11 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class UserController {
-//	@Autowired
-//	private SqlSession sqlSession;
-
 	@Autowired
 	private UserService service;
 
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request, @RequestParam HashMap<String, String> param) {
-//		UserDAO dao = sqlSession.getMapper(UserDAO.class);
 
 		ArrayList<UserDTO> dtos = service.userLogin(param);
 
@@ -64,7 +60,6 @@ public class UserController {
 		} else {
 			int re = service.userJoin(param);
 			if (re == 1) {
-//				return "redirect:loginView";
 				return ResponseEntity.ok("available");
 			}
 		}
@@ -84,7 +79,6 @@ public class UserController {
 	public String updateUserInfo(@RequestParam HashMap<String, String> param, HttpSession session)
 	{
 		int result = service.updateUserInfo(param);
-//		service.updateUserInfo(param);
 		if (result > 0)
 		{
 			session.invalidate(); // 세션 초기화 → 자동 로그아웃
@@ -119,8 +113,6 @@ public class UserController {
 		} 
 		else
 		{			
-//			return "/mypage?tab=history"; // 실패 시 다시 수정 화면
-//			return "/mypage"; // 실패 시 다시 수정 화면
 			model.addAttribute("errorMsg", "현재 비밀번호가 일치하지 않습니다.");
 	        model.addAttribute("userPw", inputPw);
 	        model.addAttribute("userNewPw", newPw);

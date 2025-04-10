@@ -56,7 +56,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int boardAddLike(HashMap<String, String> param)  {
+	public int boardAddLike(HashMap<String, String> param) {
 		BoardDAO dao = sqlSession.getMapper(BoardDAO.class);
 		System.out.println("qweqwe" + param);
 		dao.boardAddLike(param);

@@ -82,7 +82,6 @@ public class BoardController {
 		}
 		int boardNumber = Integer.parseInt(param.get("boardNumber"));
 		int userNumber = user.getUserNumber();
-//		param.put("boardNumber", String.valueOf(boardNumber)); 
 		param.put("userNumber", String.valueOf(userNumber));
 
 		if (service.boardHasLiked(param)) {
@@ -99,7 +98,7 @@ public class BoardController {
 	@RequestMapping("/comment_write_ok")
 	public String commentWriteOk(@RequestParam HashMap<String, String> param) {
 		String boardNumber = param.get("boardNumber");
-		if(param.get("commentContent") == "") {
+		if (param.get("commentContent") == "") {
 			return "redirect:/board_detail_view?boardNumber=" + boardNumber;
 		}
 		bcService.bcWrite(param);

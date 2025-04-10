@@ -7,15 +7,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${book.bookTitle} - 도서 상세 정보 - 잉크 트리</title>
+<title>${book.bookTitle}-도서상세정보- 잉크 트리</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
 	rel="stylesheet">
-<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="/pilotpjt/resources/css/book_detail.css">
+<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
+<script type="text/javascript">
+	function fn_submit() {
+		const form = document.getElementById("frm");
+
+		if (!form.checkValidity()) {
+			form.reportValidity();
+			return;
+		}
+
+		const formData = $("#frm").serialize();
+
+		$.ajax({
+			type : "post",
+			url : "book_borrow",
+			data : formData,
+			success : function(responseText) {
+				// 성공 처리
+				if (responseText === "successBorrow") {
+					alert("도서 대출이 성공적으로 완료되었습니다!");
+					location.href = "book_detail?bookNumber="
+							+ $("#bookNumber").val();
+				} else {
+					alert("알 수 없는 응답: " + responseText);
+				}
+			},
+			error : function(xhr) {
+				const msg = xhr.responseText;
+				switch (msg) {
+				case "noUser":
+					alert("로그인이 필요합니다.");
+					break;
+				case "userInfoError":
+					alert("회원 정보가 올바르지 않아 대출에 실패했습니다.");
+					break;
+				case "userCanBorrowOver":
+					alert("대출 가능 권수를 초과했습니다.");
+					break;
+				case "alreadyBorrow":
+					alert("이미 빌린 책입니다.");
+					break;
+				case "serverError":
+				case "unexpectedServerError":
+					alert("서버 오류가 발생했습니다.");
+					break;
+				default:
+					alert("알 수 없는 오류: " + msg);
+				}
+			}
+		});
+	}
+</script>
+
+
 </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -34,7 +87,8 @@
 						<!-- 실제 구현 시 도서 이미지 경로를 사용해야함 -->
 						<!-- <img src="/pilotpjt/resources/images/books/${book.bookNumber}.jpg" alt="${book.bookTitle}" 
                             onerror="this.style.display='none'; document.getElementById('placeholder-${book.bookNumber}').style.display='flex';"> -->
-						<div class="book-cover-placeholder" id="placeholder-${book.bookNumber}">
+						<div class="book-cover-placeholder"
+							id="placeholder-${book.bookNumber}">
 							<i class="fas fa-book"></i>
 						</div>
 					</div>
@@ -53,7 +107,8 @@
 							</div>
 							<div class="book-meta-item">
 								<span class="meta-label">출판일</span> <span class="meta-value">
-									<fmt:formatDate value="${book.bookDate}" pattern="yyyy년 MM월 dd일" />
+									<fmt:formatDate value="${book.bookDate}"
+										pattern="yyyy년 MM월 dd일" />
 								</span>
 							</div>
 							<div class="book-meta-item">
@@ -84,32 +139,36 @@
 								<i class="fas fa-book"></i> 보유 수량: ${book.bookCount}권
 							</div>
 							<div class="book-count">
-								<i class="fas fa-chart-line"></i> 대출 횟수: ${book.bookBorrowcount}회
+								<i class="fas fa-chart-line"></i> 대출 횟수:
+								${book.bookBorrowcount}회
 							</div>
 						</div>
 
 						<div class="book-actions">
-							<c:choose>
-								<c:when test="${book.bookCount > 0}">
-									<a href="book_borrow?bookNumber=${book.bookNumber}"
-										class="book-action-button borrow-button"> <i
-										class="fas fa-hand-holding"></i> 대출하기
-									</a>
-								</c:when>
-								<c:otherwise>
-									<button class="book-action-button borrow-button" disabled>
-										<i class="fas fa-hand-holding"></i> 대출 불가
-									</button>
-								</c:otherwise>
-							</c:choose>
-							<a href="/pilotpjt/add_wishlist?bookNumber=${book.bookNumber}"
-								class="book-action-button wishlist-button"> <i
-								class="fas fa-heart"></i> 위시리스트에 추가
-<!-- 							</a> <a href="javascript:history.back()" -->
-							</a> <a href="javascript:history.back()"
-								class="book-action-button back-button"> <i
-								class="fas fa-arrow-left"></i> 목록으로 돌아가기
-							</a>
+							<form id="frm">
+							<input type="hidden" name="bookNumber" id="bookNumber" value="${book.bookNumber}">
+								<c:choose>
+									<c:when test="${book.bookCount > 0}">
+										<%-- 	<a href="book_borrow?bookNumber=${book.bookNumber}" --%>
+										<!-- 	class="book-action-button borrow-button"> <i -->
+										<!-- 	class="fas fa-hand-holding"></i> 대출하기 -->
+										<!-- 	</a> -->
+										<input type="button" value="대출하기" onclick="fn_submit()">
+									</c:when>
+									<c:otherwise>
+										<button class="book-action-button borrow-button" disabled>
+											<i class="fas fa-hand-holding"></i> 대출 불가
+										</button>
+									</c:otherwise>
+								</c:choose>
+								<a href="/pilotpjt/add_wishlist?bookNumber=${book.bookNumber}"
+									class="book-action-button wishlist-button"> <i
+									class="fas fa-heart"></i> 위시리스트에 추가
+								</a> <a href="javascript:history.back()"
+									class="book-action-button back-button"> <i
+									class="fas fa-arrow-left"></i> 목록으로 돌아가기
+								</a>
+							</form>
 						</div>
 					</div>
 
@@ -146,19 +205,19 @@
 			</div>
 		</c:if>
 	</div>
-<!-- 대출 불가 사유 alert 후 location을 통해 다시 book_detail 페이지로 전환됨 -->
-<c:if test="${not empty errorMsg}">
-    <script>
-        alert("${errorMsg}");
-        window.location.href = "book_detail?bookNumber=${bookNumber}";
-    </script>
-</c:if>
-<!-- 대출 완료 alert 후 book_detail 페이지 전환 -->
-<c:if test="${not empty successMSG}">
-    <script>
-        alert("${successMSG}");
-        window.location.href = "book_detail?bookNumber=${bookNumber}";
-    </script>
-</c:if>
+	<!-- 대출 불가 사유 alert 후 location을 통해 다시 book_detail 페이지로 전환됨 -->
+	<c:if test="${not empty errorMsg}">
+		<script>
+			alert("${errorMsg}");
+			window.location.href = "book_detail?bookNumber=${bookNumber}";
+		</script>
+	</c:if>
+	<!-- 대출 완료 alert 후 book_detail 페이지 전환 -->
+	<c:if test="${not empty successMSG}">
+		<script>
+			alert("${successMSG}");
+			window.location.href = "book_detail?bookNumber=${bookNumber}";
+		</script>
+	</c:if>
 </body>
 </html>

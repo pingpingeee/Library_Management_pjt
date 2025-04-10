@@ -19,6 +19,6 @@ public class UtilController {
         model.addAttribute("borrowedBooks", utilService.getBorrowedBooks());
         model.addAttribute("overdueBooks", utilService.getOverdueBooks());
 
-        return "dashboard";  // dashboard.jsp ∑Œ ¿Ãµø
+        return "dashboard";
     }
 }

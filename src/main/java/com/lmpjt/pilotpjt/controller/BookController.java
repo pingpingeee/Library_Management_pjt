@@ -3,13 +3,15 @@ package com.lmpjt.pilotpjt.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,14 +40,12 @@ public class BookController {
 	}
 
 	@RequestMapping("/update_book")
-	public String updateBookView(@RequestParam HashMap<String, String> param, BookDTO book, Model model)
-	{
+	public String updateBookView(@RequestParam HashMap<String, String> param, BookDTO book, Model model) {
 		book = service.bookDetailInfo(param);
 		model.addAttribute("book", book);
 		return "book_update";
 	}
-	
-	
+
 	@RequestMapping("/update_book_ok")
 	public String updateBook(@RequestParam HashMap<String, String> param) {
 
@@ -69,37 +69,34 @@ public class BookController {
 		model.addAttribute("book", dto);
 		return "book_detail";
 	}
-	
-	@RequestMapping("/book_borrow")
-	public String bookBorrow(@RequestParam HashMap<String, String> param, HttpServletRequest request, Model model) {
-	    UserDTO user = (UserDTO) request.getSession().getAttribute("loginUser");
-	    if (user == null) {
-	        return "redirect:main"; // 로그인 안 되어 있으면 메인으로 이동
-	    }
-	    int userNumber = user.getUserNumber();
-	    
-	    param.put("userNumber", String.valueOf(userNumber)); // 사용자 번호를 param에 추가
-	    try {
-	        service.bookBorrow(param);
-	    } catch (Exception e) {
-	        //e.printStackTrace(); // 개발 시 에러 확인용
-	        // db에서 발생한 사용자 정의 예외 처리
-	        String message = e.getMessage();
-	        if (message != null && message.contains("ORA-20001")) {
-	        	model.addAttribute("errorMsg", "회원 정보가 올바르지 않아 대출에 실패했습니다.");
-	        } else if (message != null && message.contains("ORA-20002")) {
-	        	model.addAttribute("errorMsg", "대출 가능 권수를 초과했습니다.");
-	        } else if (message != null && message.contains("ORA-20004")) {
-	            model.addAttribute("errorMsg", "이미 빌린 책 입니다.");
-	        } else {
-	            model.addAttribute("errorMsg", "알 수 없는 오류: " + message);
-	        }
 
-	        model.addAttribute("bookNumber", param.get("bookNumber")); // 다시 book_detail로 돌아가기 위한 값
-	        return "book_detail";
-	    }
-	    model.addAttribute("bookNumber", param.get("bookNumber")); // 다시 book_detail로 돌아가기 위한 값
-	    model.addAttribute("successMSG", "도서 대출이 성공적으로 완료되었습니다!"); 
-	    return "book_detail";
+	@RequestMapping("/book_borrow")
+	public ResponseEntity<String> bookBorrow(@RequestParam HashMap<String, String> param, HttpServletRequest request) {
+		UserDTO user = (UserDTO) request.getSession().getAttribute("loginUser");
+
+		if (user == null) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("noUser");
+		}
+
+		param.put("userNumber", String.valueOf(user.getUserNumber()));
+
+		try {
+			service.bookBorrow(param);
+			return ResponseEntity.ok("successBorrow");
+		} catch (Exception e) {
+			e.printStackTrace();
+			String msg = (e.getMessage() != null) ? e.getMessage() : "";
+
+			if (msg.contains("ORA-20001")) {
+				return ResponseEntity.status(HttpStatus.CONFLICT).body("userInfoError");
+			} else if (msg.contains("ORA-20002")) {
+				return ResponseEntity.status(HttpStatus.CONFLICT).body("userCanBorrowOver");
+			} else if (msg.contains("ORA-20004")) {
+				return ResponseEntity.status(HttpStatus.CONFLICT).body("alreadyBorrow");
+			}
+
+			// ❗ 조건 다 안 맞을 때를 위한 기본 응답
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("unexpectedServerError");
+		}
 	}
 }
