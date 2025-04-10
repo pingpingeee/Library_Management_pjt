@@ -54,13 +54,18 @@
 		return;
 	}
 
-	// 대출 중인 도서 수 (예시 데이터)
-	int borrowingCount = Integer.parseInt(String.valueOf(request.getAttribute("userBorrowedBooks")));
-// 	int borrowingCount = 10;
+	Object userBorrowedBooksObj = request.getAttribute("userBorrowedBooks");
+	int borrowingCount = 0; // 기본값 설정
+	if (userBorrowedBooksObj != null) {
+	    try {
+	        borrowingCount = Integer.parseInt(String.valueOf(userBorrowedBooksObj));
+	    } catch (NumberFormatException e) {
+	        // 변환 실패 시 기본값 유지
+	    }
+	}
 	// 연체 도서 수 (예시 데이터)
 	int overdueCount = 0;
-	// 대출 이력 수 (예시 데이터)
-	int historyCount = 0;
+
 	%>
 
 	<div class="mypage-container">
@@ -114,7 +119,7 @@
 							<div class="stat-icon">
 								<i class="fas fa-exclamation-circle"></i>
 							</div>
-							<div class="stat-value"><%=overdueCount%></div>
+							<div class="stat-value">${userOver + 2}</div>
 							<div class="stat-label">연체 도서</div>
 						</div>
 
@@ -122,7 +127,7 @@
 							<div class="stat-icon">
 								<i class="fas fa-clock"></i>
 							</div>
-							<div class="stat-value"><%=historyCount%></div>
+							<div class="stat-value">${userRecord}</div>
 							<div class="stat-label">총 대출 이력</div>
 						</div>
 					</div>
@@ -181,6 +186,7 @@
 					</div>
 
 					<%
+					
 					if (borrowingCount > 0) {
 					%>
 					<div class="tab-container">

@@ -14,33 +14,45 @@ public class UtilServiceImpl implements UtilService {
 	@Autowired
 	private SqlSession sqlSession;
 
-    @Override
-    public int getTotalBooks() {
-    	UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
-        return dao.getTotalBooks();
-    }
-
-    @Override
-    public int getTotalUsers() {
-    	UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
-        return dao.getTotalUsers();
-    }
-
-    @Override
-    public int getBorrowedBooks() {
-    	UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
-        return dao.getBorrowedBooks();
-    }
-
-    @Override
-    public int getOverdueBooks() {
-    	UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
-        return dao.getOverdueBooks();
-    }
+	@Override
+	public int getTotalBooks() {
+		UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
+		return dao.getTotalBooks();
+	}
 
 	@Override
-	public int getUserBorrowed(HashMap<String, String> param){
+	public int getTotalUsers() {
+		UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
+		return dao.getTotalUsers();
+	}
+
+	@Override
+	public int getBorrowedBooks() {
+		UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
+		return dao.getBorrowedBooks();
+	}
+
+	@Override
+	public int getOverdueBooks() {
+		UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
+		return dao.getOverdueBooks();
+	}
+
+	@Override
+	public int getUserOver(HashMap<String, String> param) {
+		UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
+		return dao.getUserOver(param);
+	}
+
+	@Override
+	public int getUserBorrowed(HashMap<String, String> param) {
 		UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
 		return dao.getUserBorrowed(param);
+	}
+
+	@Override
+	public int getUserRecord(HashMap<String, String> param) {
+		UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
+		return dao.getUserRecord(param);
 	}
 }

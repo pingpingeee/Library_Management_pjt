@@ -7,5 +7,7 @@ public interface UtilService {
     public int getTotalUsers();
     public int getBorrowedBooks();
     public int getOverdueBooks();
+    public int getUserOver(HashMap<String, String> param);
     public int getUserBorrowed(HashMap<String, String> param);
+    public int getUserRecord(HashMap<String, String> param);
 }

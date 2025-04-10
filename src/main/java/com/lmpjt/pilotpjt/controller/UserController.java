@@ -87,9 +87,13 @@ public class UserController {
 		ArrayList<BookRecordDTO> bookBorrowedList = bookService.bookBorrowed(param);
 		ArrayList<BookRecordDTO> bookBorrowList = bookService.bookBorrowRecord(param);
 		int userBorrowedBooks = utilSerivce.getUserBorrowed(param);
+		int userRecord = utilSerivce.getUserRecord(param);
+		int userOver = utilSerivce.getUserOver(param);
 		model.addAttribute("bookBorrowedList", bookBorrowedList);
 		model.addAttribute("bookBorrowList", bookBorrowList);
 		model.addAttribute("userBorrowedBooks", userBorrowedBooks);
+		model.addAttribute("userRecord", userRecord);	
+		model.addAttribute("userOver", userOver);
 		
 		return "mypage";
 	}
