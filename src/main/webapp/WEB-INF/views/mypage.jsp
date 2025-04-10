@@ -184,11 +184,12 @@ function return_submit(button){
 					if (borrowingCount > 0) {
 					%>
 					<div class="book-list">
-					
 						<c:forEach var="book" items="${bookBorrowedList}">
 							<div class="book-item">
 								<div class="book-cover">
-									표지
+									<div class="book-cover-placeholder">
+										<i class="fas fa-book"></i>
+									</div>
 								</div>
 								<div class="book-info">
 									<div class="book-title">${book.bookTitle}</div>
@@ -235,95 +236,78 @@ function return_submit(button){
 					<div class="tab-container">
 						<div class="tab-buttons">
 							<button class="tab-button active" onclick="showHistoryTab('all')">전체</button>
-							<button class="tab-button" onclick="showHistoryTab('returned')">반납
-								완료</button>
-							<button class="tab-button" onclick="showHistoryTab('overdue')">연체
-								이력</button>
-						</div>
-
+							<button class="tab-button" onclick="showHistoryTab('returned')">반납기록</button>
+							<button class="tab-button" onclick="showHistoryTab('overdue')">대출기록</button>
+						</div>	
 
 						<!-- 전체기록 -->
 						<div id="all-history" class="tab-content active">
 							<div class="book-list">
-								<!-- 예시 데이터: 실제로는 DB에서 가져온 데이터로 대체해야 합니다 -->
-								<div class="book-item">
-									<div class="book-cover">
-									<div class="book-cover-placeholder">
-										<i class="fas fa-book"></i>
-									</div>
-									</div>
-									<div class="book-info">
-										<div class="book-title">데미안</div>
-										<div class="book-author">헤르만 헤세</div>
-										<div class="book-dates">
-											<span>대출일: 2023-04-15</span> <span>반납일: 2023-04-28</span>
+								<c:forEach var="bookAllRecord" items="${bookAllList}">
+									<div class="book-item">
+										<div class="book-cover">
+											<div class="book-cover-placeholder">
+												<i class="fas fa-book"></i>
+											</div>
+										</div>
+										<div class="book-info">
+											<div class="book-title">${bookAllRecord.bookTitle}</div>
+											<div class="book-author">${bookAllRecord.bookWrite}</div>
+											<div class="book-dates">
+												<span>대출일 : ${bookAllRecord.bookBorrowDate}</span>
+												<span>반납일 : ${bookAllRecord.bookReturnDate}</span>
+											</div>
 										</div>
 									</div>
-									<div class="book-status status-returned">반납 완료</div>
-								</div>
-
-								<div class="book-item">
-									<div class="book-cover">
-									<div class="book-cover-placeholder">
-										<i class="fas fa-book"></i>
-									</div>
-									</div>
-									<div class="book-info">
-										<div class="book-title">1984</div>
-										<div class="book-author">조지 오웰</div>
-										<div class="book-dates">
-											<span>대출일: 2023-03-20</span> <span>반납일: 2023-04-05</span>
-										</div>
-									</div>
-									<div class="book-status status-overdue">연체 반납 (2일)</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 
 						<!-- 반납완료 -->
 						<div id="returned-history" class="tab-content">
 							<div class="book-list">
-								<div class="book-item">
-									<div class="book-cover">
-									<div class="book-cover-placeholder">
-										<i class="fas fa-book"></i>
-									</div>
-									</div>
-									<div class="book-info">
-										<div class="book-title">데미안</div>
-										<div class="book-author">헤르만 헤세</div>
-										<div class="book-dates">
-											<span>대출일: 2023-04-15</span> <span>반납일: 2023-04-28</span>
+								<c:forEach var="bookReturnRecord" items="${bookReturnList}">
+									<div class="book-item">
+										<div class="book-cover">
+											<div class="book-cover-placeholder">
+												<i class="fas fa-book"></i>
+											</div>
+										</div>
+										<div class="book-info">
+											<div class="book-title">${bookReturnRecord.bookTitle}</div>
+											<div class="book-author">${bookReturnRecord.bookWrite}</div>
+											<div class="book-dates">
+												<span>대출일 : ${bookReturnRecord.bookBorrowDate}</span>
+												<span>반납일 : ${bookReturnRecord.bookReturnDate}</span>
+											</div>
 										</div>
 									</div>
-									<div class="book-status status-returned">반납 완료</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 						
 						<!-- 연체이력 -->
 						<div id="overdue-history" class="tab-content">
 							<div class="book-list">
-								<div class="book-item">
-									<div class="book-cover">
-									<div class="book-cover-placeholder">
-										<i class="fas fa-book"></i>
-									</div>
-									</div>
-									<div class="book-info">
-										<div class="book-title">1984</div>
-										<div class="book-author">조지 오웰</div>
-										<div class="book-dates">
-											<span>대출일: 2023-03-20</span> <span>반납일: 2023-04-05</span>
+								<c:forEach var="bookBorrowRecord" items="${bookBorrowList}">
+									<div class="book-item">
+										<div class="book-cover">
+											<div class="book-cover-placeholder">
+												<i class="fas fa-book"></i>
+											</div>
+										</div>
+										<div class="book-info">
+											<div class="book-title">${bookBorrowRecord.bookTitle}</div>
+											<div class="book-author">${bookBorrowRecord.bookWrite}</div>
+											<div class="book-dates">
+												<span>대출일 : ${bookBorrowRecord.bookBorrowDate}</span>
+												<span>반납일 : ${bookBorrowRecord.bookReturnDate}</span>
+											</div>
 										</div>
 									</div>
-									<div class="book-status status-overdue">연체 반납 (2일)</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
-						
-						
-						
 					</div>
 				</div>
 

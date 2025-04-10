@@ -66,6 +66,7 @@
                 </div>
             </nav>
 
+
             <div class="user-menu">
                 <% if (user != null) { %>
                 <div class="user-dropdown" id="userDropdown">

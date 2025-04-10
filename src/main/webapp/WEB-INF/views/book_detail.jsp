@@ -1,3 +1,5 @@
+<%@page import="com.lmpjt.pilotpjt.dto.BookDTO"%>
+<%@page import="com.lmpjt.pilotpjt.dto.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -142,6 +144,23 @@
 								<i class="fas fa-chart-line"></i> 대출 횟수:
 								${book.bookBorrowcount}회
 							</div>
+								<%
+								UserDTO user = (UserDTO) session.getAttribute("loginUser");
+								BookDTO book = (BookDTO) request.getAttribute("book");
+			
+								if (user != null && user.getUserAdmin() == 1) {
+								%>
+								<button class="action-button edit-button"
+									onclick="location.href='/pilotpjt/update_book?bookNumber=${book.bookNumber}'">
+									<i class="fas fa-edit"></i> 수정
+								</button>
+								<button class="action-button delete-button"
+									onclick="deletePost(${book.bookNumber})">
+									<i class="fas fa-trash"></i> 삭제
+								</button>
+								<%
+								}
+								%>
 						</div>
 
 						<div class="book-actions">
