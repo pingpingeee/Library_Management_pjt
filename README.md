@@ -117,7 +117,10 @@ CREATE TABLE BOOK_BORROW (
     borrowNumber        NUMBER PRIMARY KEY,
     userNumber          NUMBER,
     bookNumber          NUMBER,
+    bookTitle           VARCHAR2 (400),
+    bookWrite           VARCHAR2 (100),
     bookBorrowDate      DATE DEFAULT SYSDATE,
+    bookReturnDate      DATE,
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE,
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE
 );
@@ -125,6 +128,8 @@ CREATE TABLE BORROW_RECORD (
     borrowRecordNumber  NUMBER PRIMARY KEY,
     userNumber          NUMBER,
     bookNumber          NUMBER,
+    bookTitle           VARCHAR2 (400),
+    bookWrite           VARCHAR2 (100),
     bookBorrowDate      DATE,
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
@@ -133,6 +138,8 @@ CREATE TABLE RETURN_RECORD (
     returnNumber        NUMBER PRIMARY KEY,
     userNumber          NUMBER,
     bookNumber          NUMBER,
+    bookTitle           VARCHAR2 (400),
+    bookWrite           VARCHAR2 (100),
     bookReturnDate      DATE DEFAULT SYSDATE,
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
@@ -162,7 +169,12 @@ CREATE TABLE BUY_RECORD (
 );
 
 
+--------------------------------------------- 시퀀스 드래그로 개별 컴파일
+CREATE SEQUENCE  "BOOKMANAGER"."BORROWRECORD_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 15 NOCACHE  NOORDER  NOCYCLE
+
+
 --------------------------------------------- 트리거 드래그로 개별 컴파일
+
 create or replace TRIGGER trg_after_book_borrow_insert
 -- AFTER 에서 BEFORE로 바뀜
 -- 중복 대출 체크(조회)를 위해 before로 수정
@@ -172,20 +184,27 @@ DECLARE
     v_bookcount     NUMBER;
     v_usercanborrow NUMBER;
     v_count    NUMBER;
+    v_booktitle     varchar2(400);
+    v_bookwrite     varchar2(100);
     ex_no_stock     EXCEPTION;
     ex_no_quota     EXCEPTION;
     ex_already_borrowed EXCEPTION;
 BEGIN
-    -- 책 재고 확인
-    SELECT BOOKCOUNT INTO v_bookcount
+    -- 책 재고, 제목, 저자 확인
+    SELECT BOOKCOUNT, booktitle, bookwrite INTO v_bookcount, v_booktitle, v_bookwrite
     FROM BOOKINFO
     WHERE BOOKNUMBER = :NEW.BOOKNUMBER;
-
+    
+    
+    :NEW.booktitle := v_booktitle;
+    :NEW.bookwrite := v_bookwrite;
+    :NEW.bookReturnDate := SYSDATE + 30;
+    
     -- 사용자 대출 가능 횟수 확인
     SELECT USERCANBORROW INTO v_usercanborrow
     FROM USERINFO
     WHERE USERNUMBER = :NEW.USERNUMBER;
-    
+
     -- 중복 대출 체크
     SELECT COUNT(*) INTO v_count
     FROM BOOK_BORROW
@@ -228,12 +247,10 @@ EXCEPTION
         RAISE_APPLICATION_ERROR(-20003, '트리거 처리 중 오류 발생: ' || SQLERRM);
 END;
 
-CREATE SEQUENCE  "BOOKMANAGER"."BORROWRECORD_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE 
-
-
 create or replace TRIGGER after_return_record_insert
 after INSERT ON return_record
 FOR EACH ROW
+
 BEGIN
      -- BOOKINFO 업데이트
     UPDATE BOOKINFO
@@ -246,6 +263,7 @@ BEGIN
     SET
         USERCANBORROW = USERCANBORROW + 1
     WHERE USERNUMBER = :NEW.USERNUMBER;
+    
 END;
 
 
@@ -255,6 +273,8 @@ FOR EACH ROW
 DECLARE
     v_borrowDate DATE;
     v_borrowNumber NUMBER;
+    v_booktitle varchar2(400);
+    v_bookwrite varchar2(100);
     ex_no_borrow EXCEPTION;
 BEGIN
     -- 해당 대출 정보 유무 확인
@@ -263,19 +283,31 @@ BEGIN
     FROM book_borrow
     WHERE bookNumber = :NEW.bookNumber
       AND userNumber = :NEW.userNumber;
+      
+    select booktitle, bookwrite
+    into v_booktitle, v_bookwrite
+    from bookinfo
+    where bookNumber = :NEW.bookNumber;
+    
+    :NEW.booktitle := v_booktitle;
+    :NEW.bookwrite := v_bookwrite;
 
     -- 먼저 BORROW_RECORD에 기록
     INSERT INTO borrow_record (
         borrowRecordNumber,
         userNumber,
         bookNumber,
-        bookBorrowDate
+        bookBorrowDate,
+        booktitle,
+        bookwrite
     )
     VALUES (
         (SELECT NVL(MAX(borrowRecordNumber), 0) + 1 FROM borrow_record),
         :NEW.userNumber,
         :NEW.bookNumber,
-        v_borrowDate
+        v_borrowDate,
+        v_booktitle,
+        v_bookwrite
     );
 
     -- 그 다음 BOOK_BORROW에서 삭제
@@ -287,6 +319,7 @@ EXCEPTION
     WHEN NO_DATA_FOUND THEN
         RAISE_APPLICATION_ERROR(-20004, '대출 정보가 존재하지 않아 반납할 수 없습니다.');
 END;
+
 
 ```
 
