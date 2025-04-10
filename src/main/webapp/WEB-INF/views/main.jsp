@@ -234,14 +234,14 @@ function fn_submit() {
 					</div>
 				</div>
 
-				<div class="feature-card">z
+				<div class="feature-card">
 					<div class="feature-icon">
 						<i class="fas fa-star"></i>
 					</div>
 					<div class="feature-content">
 						<h3>도서 추천</h3>
 						<p>회원님의 관심사에 맞는 도서를 추천해 드립니다.</p>
-						<a href="/pilotpjt/book_recommendation" class="btn-sm">바로가기</a>
+						<a href="/pilotpjt/user_book_recommend" class="btn-sm">바로가기</a>
 					</div>
 				</div>
 			</div>

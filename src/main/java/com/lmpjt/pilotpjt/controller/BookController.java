@@ -60,38 +60,34 @@ public class BookController {
 	
 	@RequestMapping("/book_borrow")
 	public String bookBorrow(@RequestParam HashMap<String, String> param, HttpServletRequest request, Model model) {
-		UserDTO user = (UserDTO) request.getSession().getAttribute("loginUser");
-		if (user == null) {
-	        return "redirect:main"; // �α���
+	    UserDTO user = (UserDTO) request.getSession().getAttribute("loginUser");
+	    if (user == null) {
+	        return "redirect:main"; // 로그인 안 되어 있으면 메인으로 이동
 	    }
-		int userNumber = user.getUserNumber();
-		
-	    param.put("userNumber", String.valueOf(userNumber)); // ������ȣ param�� �߰�
+	    int userNumber = user.getUserNumber();
+	    
+	    param.put("userNumber", String.valueOf(userNumber)); // 사용자 번호를 param에 추가
 	    try {
 	        service.bookBorrow(param);
 	    } catch (Exception e) {
-	        e.printStackTrace(); // �ֿܼ��� �ڼ��� Ȯ��
-
+	        //e.printStackTrace(); // 개발 시 에러 확인용
+	        // db에서 발생한 사용자 정의 예외 처리
 	        String message = e.getMessage();
-	        if (message != null && message.contains("ORA-20002")) {
-	            model.addAttribute("errorMsg", "UserCanBorrow = 0");
-	        } else if (message != null && message.contains("ORA-20001")) {
-	            model.addAttribute("errorMsg", "BookCount = 0");
+	        if (message != null && message.contains("ORA-20001")) {
+	        	model.addAttribute("errorMsg", "회원 정보가 올바르지 않아 대출에 실패했습니다.");
+	        } else if (message != null && message.contains("ORA-20002")) {
+	        	model.addAttribute("errorMsg", "대출 가능 권수를 초과했습니다.");
+	        } else if (message != null && message.contains("ORA-20004")) {
+	            model.addAttribute("errorMsg", "이미 빌린 책 입니다.");
 	        } else {
-	            model.addAttribute("errorMsg", "Other Error = " + message);
+	            model.addAttribute("errorMsg", "알 수 없는 오류: " + message);
 	        }
 
-	        model.addAttribute("bookNumber", param.get("bookNumber")); // �ٽ� book_detail�� ����
+	        model.addAttribute("bookNumber", param.get("bookNumber")); // 다시 book_detail로 돌아가기 위한 값
 	        return "book_detail";
 	    }
-
-	    
-	    return "redirect:book_detail?bookNumber=" + param.get("bookNumber");
-	}
-	
-	
-	@RequestMapping("/user_book_borrowing")
-	public String userBookBorrowing(BookDTO book) {
-		return "user_book_borrowing";
+	    model.addAttribute("bookNumber", param.get("bookNumber")); // 다시 book_detail로 돌아가기 위한 값
+	    model.addAttribute("successMSG", "도서 대출이 성공적으로 완료되었습니다!"); 
+	    return "book_detail";
 	}
 }

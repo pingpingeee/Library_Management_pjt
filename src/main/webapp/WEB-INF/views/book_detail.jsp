@@ -105,6 +105,7 @@
 							<a href="/pilotpjt/add_wishlist?bookNumber=${book.bookNumber}"
 								class="book-action-button wishlist-button"> <i
 								class="fas fa-heart"></i> 위시리스트에 추가
+<!-- 							</a> <a href="javascript:history.back()" -->
 							</a> <a href="javascript:history.back()"
 								class="book-action-button back-button"> <i
 								class="fas fa-arrow-left"></i> 목록으로 돌아가기
@@ -145,10 +146,19 @@
 			</div>
 		</c:if>
 	</div>
-   <c:if test="${not empty errorMsg}">
+<!-- 대출 불가 사유 alert 후 location을 통해 다시 book_detail 페이지로 전환됨 -->
+<c:if test="${not empty errorMsg}">
     <script>
         alert("${errorMsg}");
+        window.location.href = "book_detail?bookNumber=${bookNumber}";
     </script>
-    </c:if>
+</c:if>
+<!-- 대출 완료 alert 후 book_detail 페이지 전환 -->
+<c:if test="${not empty successMSG}">
+    <script>
+        alert("${successMSG}");
+        window.location.href = "book_detail?bookNumber=${bookNumber}";
+    </script>
+</c:if>
 </body>
 </html>
