@@ -125,19 +125,17 @@ CREATE TABLE BORROW_RECORD (
     borrowRecordNumber  NUMBER PRIMARY KEY,
     userNumber          NUMBER,
     bookNumber          NUMBER,
-    borrowNumber        NUMBER,
     bookBorrowDate      DATE,
-    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE,
-    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE,
-    FOREIGN KEY (borrowNumber) REFERENCES BOOK_BORROW(borrowNumber)ON DELETE CASCADE
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
 );
 CREATE TABLE RETURN_RECORD (
     returnNumber        NUMBER PRIMARY KEY,
     userNumber          NUMBER,
     bookNumber          NUMBER,
     bookReturnDate      DATE DEFAULT SYSDATE,
-    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE,
-    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
 );
 CREATE TABLE SELL_BOOK (
     sellNumber      NUMBER PRIMARY KEY,
@@ -230,25 +228,64 @@ EXCEPTION
         RAISE_APPLICATION_ERROR(-20003, '트리거 처리 중 오류 발생: ' || SQLERRM);
 END;
 
-CREATE SEQUENCE  "BOOKMANAGER"."BORROWRECORD_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 5 NOCACHE  NOORDER  NOCYCLE 
+CREATE SEQUENCE  "BOOKMANAGER"."BORROWRECORD_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE 
 
-create or replace TRIGGER trg_insert_borrow_record
-AFTER INSERT ON book_borrow
+
+create or replace TRIGGER after_return_record_insert
+after INSERT ON return_record
 FOR EACH ROW
 BEGIN
+     -- BOOKINFO 업데이트
+    UPDATE BOOKINFO
+    SET
+        BOOKCOUNT = BOOKCOUNT + 1
+    WHERE BOOKNUMBER = :NEW.BOOKNUMBER;
+
+    -- USERINFO 업데이트
+    UPDATE USERINFO
+    SET
+        USERCANBORROW = USERCANBORROW + 1
+    WHERE USERNUMBER = :NEW.USERNUMBER;
+END;
+
+
+create or replace TRIGGER before_return_record_insert
+BEFORE INSERT ON return_record
+FOR EACH ROW
+DECLARE
+    v_borrowDate DATE;
+    v_borrowNumber NUMBER;
+    ex_no_borrow EXCEPTION;
+BEGIN
+    -- 해당 대출 정보 유무 확인
+    SELECT borrowNumber, bookBorrowDate
+    INTO v_borrowNumber, v_borrowDate
+    FROM book_borrow
+    WHERE bookNumber = :NEW.bookNumber
+      AND userNumber = :NEW.userNumber;
+
+    -- 먼저 BORROW_RECORD에 기록
     INSERT INTO borrow_record (
-        borrowrecordnumber,
-        usernumber,
-        booknumber,
-        borrownumber,
-        BOOKBORROWDATE
-    ) VALUES (
-        borrowrecord_seq.NEXTVAL,   -- 시퀀스로 생성
-        :NEW.usernumber,            -- book_borrow에서 가져온 값
-        :NEW.booknumber,
-        :NEW.borrownumber,
-        SYSDATE
+        borrowRecordNumber,
+        userNumber,
+        bookNumber,
+        bookBorrowDate
+    )
+    VALUES (
+        (SELECT NVL(MAX(borrowRecordNumber), 0) + 1 FROM borrow_record),
+        :NEW.userNumber,
+        :NEW.bookNumber,
+        v_borrowDate
     );
+
+    -- 그 다음 BOOK_BORROW에서 삭제
+    DELETE FROM book_borrow
+    WHERE bookNumber = :NEW.bookNumber
+      AND userNumber = :NEW.userNumber;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RAISE_APPLICATION_ERROR(-20004, '대출 정보가 존재하지 않아 반납할 수 없습니다.');
 END;
 
 ```
