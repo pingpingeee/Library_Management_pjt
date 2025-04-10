@@ -21,4 +21,5 @@ public class UserDTO {
 	private int userBorrow; 
 	private int userAdmin; 
 	private String userRegdate;
+	private int userRecord;
 }

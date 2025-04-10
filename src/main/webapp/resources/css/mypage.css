@@ -331,7 +331,13 @@
             border-bottom: 1px solid #eee;
             margin-bottom: 20px;
         }
-        
+        .tab-container .tab-content {
+    display: none;
+}
+
+.tab-container .tab-content.active {
+    display: block;
+}
         .tab-button {
             padding: 12px 20px;
             background: none;

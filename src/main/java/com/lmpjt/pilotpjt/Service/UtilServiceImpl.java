@@ -37,4 +37,10 @@ public class UtilServiceImpl implements UtilService {
     	UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
         return dao.getOverdueBooks();
     }
+
+	@Override
+	public int getUserBorrowed(HashMap<String, String> param){
+		UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
+		return dao.getUserBorrowed(param);
+	}
 }

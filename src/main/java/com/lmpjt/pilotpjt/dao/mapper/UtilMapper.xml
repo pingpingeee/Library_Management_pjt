@@ -27,5 +27,10 @@
 		WHERE (SYSDATE - bookBorrowDate) > 30
 
 	</select>
+	<select id="getUserBorrowed" resultType="int">
+		select count(*)
+		from book_borrow
+		where userNUmber = #{userNumber}
+	</select>
 
 </mapper>

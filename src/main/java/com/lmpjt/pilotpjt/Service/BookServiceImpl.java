@@ -82,4 +82,13 @@ public class BookServiceImpl implements BookService {
 
 		return list;
 	}
+	
+	@Override
+	public ArrayList<BookRecordDTO> bookBorrowRecord(HashMap<String, String> param) {
+		BookDAO dao = sqlSession.getMapper(BookDAO.class);
+		System.out.println(param);
+		ArrayList<BookRecordDTO> list = dao.bookBorrowRecord(param);
+		
+		return list;
+	}
 }

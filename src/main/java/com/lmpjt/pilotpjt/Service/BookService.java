@@ -23,4 +23,6 @@ public interface BookService {
 	public void bookReturn(HashMap<String, String> param);
 	
 	public ArrayList<BookRecordDTO> bookBorrowed(HashMap<String, String> param);
+	
+	public ArrayList<BookRecordDTO> bookBorrowRecord(HashMap<String, String> param);
 }

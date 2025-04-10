@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.lmpjt.pilotpjt.Service.BookService;
 import com.lmpjt.pilotpjt.Service.UserService;
+import com.lmpjt.pilotpjt.Service.UtilService;
 import com.lmpjt.pilotpjt.dao.UserDAO;
 import com.lmpjt.pilotpjt.dto.BookRecordDTO;
 import com.lmpjt.pilotpjt.dto.UserDTO;
@@ -37,6 +38,8 @@ public class UserController {
 	
 	@Autowired
 	private BookService bookService;
+	@Autowired
+	private UtilService utilSerivce;
 
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request, @RequestParam HashMap<String, String> param) {
@@ -82,7 +85,12 @@ public class UserController {
 		
 		param.put("userNumber", String.valueOf(dto.getUserNumber()));
 		ArrayList<BookRecordDTO> bookBorrowedList = bookService.bookBorrowed(param);
+		ArrayList<BookRecordDTO> bookBorrowList = bookService.bookBorrowRecord(param);
+		int userBorrowedBooks = utilSerivce.getUserBorrowed(param);
 		model.addAttribute("bookBorrowedList", bookBorrowedList);
+		model.addAttribute("bookBorrowList", bookBorrowList);
+		model.addAttribute("userBorrowedBooks", userBorrowedBooks);
+		
 		return "mypage";
 	}
 	
@@ -122,8 +130,7 @@ public class UserController {
 			result = service.updateUserPwInfo(param);
 		}
 		
-		if (result > 0)
-		{
+		if (result > 0) {
 			session.invalidate(); // 세션 초기화 → 자동 로그아웃
 			return "redirect:/loginView"; // 로그인 페이지로
 		} 
