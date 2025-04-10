@@ -125,19 +125,17 @@ CREATE TABLE BORROW_RECORD (
     borrowRecordNumber  NUMBER PRIMARY KEY,
     userNumber          NUMBER,
     bookNumber          NUMBER,
-    borrowNumber        NUMBER,
     bookBorrowDate      DATE,
-    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE,
-    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE,
-    FOREIGN KEY (borrowNumber) REFERENCES BOOK_BORROW(borrowNumber)ON DELETE CASCADE
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
 );
 CREATE TABLE RETURN_RECORD (
     returnNumber        NUMBER PRIMARY KEY,
     userNumber          NUMBER,
     bookNumber          NUMBER,
     bookReturnDate      DATE DEFAULT SYSDATE,
-    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE,
-    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE
+    FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
+    FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
 );
 CREATE TABLE SELL_BOOK (
     sellNumber      NUMBER PRIMARY KEY,
