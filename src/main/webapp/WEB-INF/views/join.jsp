@@ -35,7 +35,6 @@ function fn_submit() {
         }
     });
 }
-
 </script>
 </head>
 <body>

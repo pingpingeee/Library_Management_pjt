@@ -112,7 +112,7 @@ public class BookController {
 		try {
 			service.bookReturn(param);
 		} catch (Exception e) {
-			// e.printStackTrace(); // 개발 시 에러 확인용
+			 e.printStackTrace(); // 개발 시 에러 확인용
 			// db에서 발생한 사용자 정의 예외 처리
 
 			String message = e.getMessage();

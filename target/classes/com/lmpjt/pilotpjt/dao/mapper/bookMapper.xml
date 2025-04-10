@@ -95,5 +95,10 @@
 		((select nvl(max(RETURNNUMBER), 0)+1 from
 		return_record),${userNumber},${bookNumber})
 	</insert>
+	
+	<select id="bookBorrowed" resultType="com.lmpjt.pilotpjt.dto.BookRecordDTO">
+		select bookTitle, bookWrite, borrowNumber, userNumber, bookNumber, bookBorrowDate, bookReturnDate
+		from book_borrow where userNumber=#{userNumber}
+	</select>
 
 </mapper>

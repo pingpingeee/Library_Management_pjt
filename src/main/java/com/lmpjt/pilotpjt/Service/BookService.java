@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.lmpjt.pilotpjt.dto.BookDTO;
+import com.lmpjt.pilotpjt.dto.BookRecordDTO;
 
 public interface BookService {
 	public void insertBook(HashMap<String, String> param);
@@ -20,4 +21,6 @@ public interface BookService {
 	public void bookBorrow(HashMap<String, String> param);
 
 	public void bookReturn(HashMap<String, String> param);
+	
+	public ArrayList<BookRecordDTO> bookBorrowed(HashMap<String, String> param);
 }

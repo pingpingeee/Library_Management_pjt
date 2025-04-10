@@ -15,6 +15,32 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="/pilotpjt/resources/js/mypage.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
+<script type="text/javascript">
+function return_submit(button){
+    const form = button.closest("form"); // 해당 버튼의 form
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    const formData = $(form).serialize(); // 개별 form 기준으로 serialize
+
+    $.ajax({
+        type: "post",
+        data: formData,
+        url: "book_return",
+        success: function(data) {
+            alert("정상적으로 반납되었습니다.");
+            location.href = "mypage"; // 새로고침
+        },
+        error: function() {
+            alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+        }
+    });
+}
+
+</script>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -158,42 +184,31 @@
 					if (borrowingCount > 0) {
 					%>
 					<div class="book-list">
-						<!-- 예시 데이터: 실제로는 DB에서 가져온 데이터로 대체해야 합니다 -->
-						<div class="book-item">
-							<div class="book-cover">
-								<img src="/pilotpjt/resources/images/book_cover1.jpg" alt="책 표지"
-									onerror="this.src='/pilotpjt/resources/images/default-book.png'">
-							</div>
-							<div class="book-info">
-								<div class="book-title">해리 포터와 마법사의 돌</div>
-								<div class="book-author">J.K. 롤링</div>
-								<div class="book-dates">
-									<span>대출일: 2023-05-15</span> <span>반납예정일: 2023-05-29</span>
+					
+						<c:forEach var="book" items="${bookBorrowedList}">
+							<div class="book-item">
+								<div class="book-cover">
+									표지
+								</div>
+								<div class="book-info">
+									<div class="book-title">${book.bookTitle}</div>
+									<div class="book-author">${book.bookWrite}</div>
+									<div class="book-dates">
+										<span>대출일 : ${book.bookBorrowDate}</span>
+										<span>반납예정일 : ${book.bookReturnDate}</span>
+									</div>
+								</div>
+								<div class="book-status status-borrowed">대출 중</div>
+								<div class="book-status status-return">
+									<form class="returnForm" style="display: inline-block; margin-top: 10px;">
+										<input type="hidden" name="bookNumber" value="${book.bookNumber}">
+										<button type="button" class="return-button" onclick="return_submit(this)">
+											<i class="fas fa-undo-alt"></i> 반납하기
+										</button>
+									</form>
 								</div>
 							</div>
-							<div class="book-status status-borrowed">대출 중</div>
-							<div class="book-status status-return">
-							<!-- 2025-04-10 수정 시작 -->
-							<a href="book_return?bookNumber=509"
-										class="book-action-button borrow-button"> <i
-										class="fas fa-hand-holding"></i> 반납하기
-									</a></div>
-						</div>
-						<!-- 2025-04-10 수정 종료 -->
-						<div class="book-item">
-							<div class="book-cover">
-								<img src="/pilotpjt/resources/images/book_cover2.jpg" alt="책 표지"
-									onerror="this.src='/pilotpjt/resources/images/default-book.png'">
-							</div>
-							<div class="book-info">
-								<div class="book-title">어린 왕자</div>
-								<div class="book-author">생텍쥐페리</div>
-								<div class="book-dates">
-									<span>대출일: 2023-05-10</span> <span>반납예정일: 2023-05-24</span>
-								</div>
-							</div>
-							<div class="book-status status-overdue">연체 (3일)</div>
-						</div>
+						</c:forEach>
 					</div>
 					<%
 					} else {
@@ -226,14 +241,16 @@
 								이력</button>
 						</div>
 
+
+						<!-- 전체기록 -->
 						<div id="all-history" class="tab-content active">
 							<div class="book-list">
 								<!-- 예시 데이터: 실제로는 DB에서 가져온 데이터로 대체해야 합니다 -->
 								<div class="book-item">
 									<div class="book-cover">
-										<img src="/pilotpjt/resources/images/book_cover3.jpg"
-											alt="책 표지"
-											onerror="this.src='/pilotpjt/resources/images/default-book.png'">
+									<div class="book-cover-placeholder">
+										<i class="fas fa-book"></i>
+									</div>
 									</div>
 									<div class="book-info">
 										<div class="book-title">데미안</div>
@@ -247,9 +264,9 @@
 
 								<div class="book-item">
 									<div class="book-cover">
-										<img src="/pilotpjt/resources/images/book_cover4.jpg"
-											alt="책 표지"
-											onerror="this.src='/pilotpjt/resources/images/default-book.png'">
+									<div class="book-cover-placeholder">
+										<i class="fas fa-book"></i>
+									</div>
 									</div>
 									<div class="book-info">
 										<div class="book-title">1984</div>
@@ -263,13 +280,14 @@
 							</div>
 						</div>
 
+						<!-- 반납완료 -->
 						<div id="returned-history" class="tab-content">
 							<div class="book-list">
 								<div class="book-item">
 									<div class="book-cover">
-										<img src="/pilotpjt/resources/images/book_cover3.jpg"
-											alt="책 표지"
-											onerror="this.src='/pilotpjt/resources/images/default-book.png'">
+									<div class="book-cover-placeholder">
+										<i class="fas fa-book"></i>
+									</div>
 									</div>
 									<div class="book-info">
 										<div class="book-title">데미안</div>
@@ -282,14 +300,15 @@
 								</div>
 							</div>
 						</div>
-
+						
+						<!-- 연체이력 -->
 						<div id="overdue-history" class="tab-content">
 							<div class="book-list">
 								<div class="book-item">
 									<div class="book-cover">
-										<img src="/pilotpjt/resources/images/book_cover4.jpg"
-											alt="책 표지"
-											onerror="this.src='/pilotpjt/resources/images/default-book.png'">
+									<div class="book-cover-placeholder">
+										<i class="fas fa-book"></i>
+									</div>
 									</div>
 									<div class="book-info">
 										<div class="book-title">1984</div>
@@ -302,6 +321,9 @@
 								</div>
 							</div>
 						</div>
+						
+						
+						
 					</div>
 				</div>
 

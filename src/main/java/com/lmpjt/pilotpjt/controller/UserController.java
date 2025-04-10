@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lmpjt.pilotpjt.Service.BookService;
 import com.lmpjt.pilotpjt.Service.UserService;
 import com.lmpjt.pilotpjt.dao.UserDAO;
+import com.lmpjt.pilotpjt.dto.BookRecordDTO;
 import com.lmpjt.pilotpjt.dto.UserDTO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +34,9 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+	private BookService bookService;
 
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request, @RequestParam HashMap<String, String> param) {
@@ -70,6 +75,17 @@ public class UserController {
 	public String getUserInfo(int u_number) {
 		return "user_info";
 	}
+	
+	@RequestMapping("/mypage")
+	public String mypage(HttpServletRequest request, @RequestParam HashMap<String, String> param, Model model) {
+		UserDTO dto = (UserDTO) request.getSession().getAttribute("loginUser");
+		
+		param.put("userNumber", String.valueOf(dto.getUserNumber()));
+		ArrayList<BookRecordDTO> bookBorrowedList = bookService.bookBorrowed(param);
+		model.addAttribute("bookBorrowedList", bookBorrowedList);
+		return "mypage";
+	}
+	
 
 	@RequestMapping("/user_update_view")
 	public String updateUserInfo(UserDTO user) {

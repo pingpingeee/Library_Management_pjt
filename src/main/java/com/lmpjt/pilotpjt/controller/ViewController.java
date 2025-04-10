@@ -40,10 +40,7 @@ public class ViewController {
 	public String loginPage() {
 		return "login";
 	}
-	@RequestMapping("/mypage")
-	public String mypage() {
-		return "mypage";
-	}
+
 
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {

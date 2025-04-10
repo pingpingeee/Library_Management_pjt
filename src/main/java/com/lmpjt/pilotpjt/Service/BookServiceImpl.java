@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.lmpjt.pilotpjt.dao.BookDAO;
 import com.lmpjt.pilotpjt.dto.BookDTO;
+import com.lmpjt.pilotpjt.dto.BookRecordDTO;
 import com.lmpjt.pilotpjt.dto.UserDTO;
 
 @Service
@@ -71,5 +72,14 @@ public class BookServiceImpl implements BookService {
 	public void bookReturn(HashMap<String, String> param) {
 		BookDAO dao = sqlSession.getMapper(BookDAO.class);
 		dao.bookReturn(param);
+	}
+
+	@Override
+	public ArrayList<BookRecordDTO> bookBorrowed(HashMap<String, String> param) {
+		BookDAO dao = sqlSession.getMapper(BookDAO.class);
+		System.out.println(param);
+		ArrayList<BookRecordDTO> list = dao.bookBorrowed(param);
+
+		return list;
 	}
 }
