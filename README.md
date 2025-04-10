@@ -164,13 +164,17 @@ CREATE TABLE BUY_RECORD (
 );
 
 create or replace TRIGGER trg_after_book_borrow_insert
-AFTER INSERT ON BOOK_BORROW
+-- AFTER 에서 BEFORE로 바뀜
+-- 중복 대출 체크(조회)를 위해 before로 수정
+BEFORE INSERT ON BOOK_BORROW
 FOR EACH ROW
 DECLARE
     v_bookcount     NUMBER;
     v_usercanborrow NUMBER;
+    v_count    NUMBER;
     ex_no_stock     EXCEPTION;
     ex_no_quota     EXCEPTION;
+    ex_already_borrowed EXCEPTION;
 BEGIN
     -- 책 재고 확인
     SELECT BOOKCOUNT INTO v_bookcount
@@ -181,6 +185,16 @@ BEGIN
     SELECT USERCANBORROW INTO v_usercanborrow
     FROM USERINFO
     WHERE USERNUMBER = :NEW.USERNUMBER;
+    
+    -- 중복 대출 체크
+    SELECT COUNT(*) INTO v_count
+    FROM BOOK_BORROW
+    WHERE USERNUMBER = :NEW.USERNUMBER
+     AND BOOKNUMBER = :NEW.BOOKNUMBER;
+
+    IF v_count > 0 THEN
+    RAISE ex_already_borrowed;
+    END IF;
 
     -- 예외 조건 검사
     IF v_bookcount <= 0 THEN
@@ -208,6 +222,8 @@ EXCEPTION
         RAISE_APPLICATION_ERROR(-20001, '도서 재고가 부족하여 대출할 수 없습니다.');
     WHEN ex_no_quota THEN
         RAISE_APPLICATION_ERROR(-20002, '회원의 대출 가능 권수가 0입니다.');
+    WHEN ex_already_borrowed THEN
+        RAISE_APPLICATION_ERROR(-20004, '이미 빌린 책 입니다');
     WHEN OTHERS THEN
         RAISE_APPLICATION_ERROR(-20003, '트리거 처리 중 오류 발생: ' || SQLERRM);
 END;
