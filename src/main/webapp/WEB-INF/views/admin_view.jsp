@@ -193,7 +193,7 @@
 					</div>
 					<h3>공지사항 등록</h3>
 					<p>새로운 공지사항을 등록합니다.</p>
-					<a href="notice_insert">등록하기</a>
+					<a href="admin_notice_write">등록하기</a>
 				</div>
 
 				<div class="action-card">

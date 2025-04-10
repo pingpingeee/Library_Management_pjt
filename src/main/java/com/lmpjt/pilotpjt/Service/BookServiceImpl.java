@@ -20,8 +20,6 @@ public class BookServiceImpl implements BookService {
 	private SqlSession sqlSession;
 	@Autowired
 	private HttpSession session;
-//	@Autowired
-//	private UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 
 	@Override
 	public void insertBook(HashMap<String, String> param) {
@@ -29,7 +27,7 @@ public class BookServiceImpl implements BookService {
 		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 
 		if (loginUser.getUserAdmin() == 1) {
-			dao.insertBook(param);	
+			dao.insertBook(param);
 		} else {
 			System.out.println("Not Admin access");
 		}
@@ -37,21 +35,22 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public void updateBook(HashMap<String, String> param) {
-
+		BookDAO dao = sqlSession.getMapper(BookDAO.class);
+		dao.updateBook(param);
 	}
 
 	@Override
 	public ArrayList<BookDTO> mainBookInfo() {
-		BookDAO dao = sqlSession.getMapper(BookDAO.class);		
+		BookDAO dao = sqlSession.getMapper(BookDAO.class);
 		ArrayList<BookDTO> list = dao.mainBookInfo();
 		return list;
 	}
 
 	@Override
-	public ArrayList<BookDTO> searchBookInfo(HashMap<String, String>param) {
-		BookDAO dao = sqlSession.getMapper(BookDAO.class);		
+	public ArrayList<BookDTO> searchBookInfo(HashMap<String, String> param) {
+		BookDAO dao = sqlSession.getMapper(BookDAO.class);
 		ArrayList<BookDTO> list = dao.searchBookInfo(param);
-		
+
 		return list;
 	}
 
@@ -72,7 +71,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void bookReturn(HashMap<String, String> param) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

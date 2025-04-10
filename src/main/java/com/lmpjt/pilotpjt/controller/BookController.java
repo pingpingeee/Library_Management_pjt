@@ -38,8 +38,20 @@ public class BookController {
 	}
 
 	@RequestMapping("/update_book")
-	public String updateBookView(BookDTO book) {
+	public String updateBookView(@RequestParam HashMap<String, String> param, BookDTO book, Model model)
+	{
+		book = service.bookDetailInfo(param);
+		model.addAttribute("book", book);
 		return "book_update";
+	}
+	
+	
+	@RequestMapping("/update_book_ok")
+	public String updateBook(@RequestParam HashMap<String, String> param) {
+
+		service.updateBook(param);
+		System.out.println(param);
+		return "main";
 	}
 
 	@RequestMapping("/book_search_view")

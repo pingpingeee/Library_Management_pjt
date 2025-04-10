@@ -11,16 +11,22 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
 <script type="text/javascript">
 	function fn_submit() {
-		var formData = $("#frm").serialize();//form 요소 자체
+	    const form = document.getElementById("updateForm"); 
+	    // 유효성 검사 실행
+	    if (!form.checkValidity()) {
+	        form.reportValidity();  // 브라우저 기본 경고창 띄움
+	        return;  // 중단
+	    }
+		var formData = $("#updateForm").serialize();//form 요소 자체
 
 		//비동기 전송방식의 jquery 함수
 		$.ajax({
 			type : "post",
 			data : formData,
-			url : "book_insert",
+			url : "update_book_ok",
 			success : function(data) {
-				alert("저장완료");
-				location.href = "admin_view"
+				alert("수정완료");
+				location.href = "book_detail?bookNumber=" + ${book.bookNumber}
 			},
 			error : function() {
 				alert("오류발생");
@@ -28,11 +34,10 @@
 		});
 	}
 </script>
-
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	<form id="updateForm" method="post" action="bookUpdate">
+	<form id="updateForm">
 		<h2>도서 정보 수정</h2>
 		<!-- 		1행 도서번호, ISBN -->
 		<div>
@@ -169,7 +174,8 @@
 		</div>
 		<!-- 8행 저장 취소 삭제 버튼 -->
 		<div>
-			<button type="submit">수정 완료</button>
+<!-- 			<input type="button" onclick="fn_submit()" value="수정 완료"> -->
+			<input class="btn" type="button" value="등록" onclick="fn_submit()">
 			<button type="reset">초기화</button>
 			<button type="button" onclick="history.back()">취소</button>
 			<!--                <button type="button" onclick="if(confirm('정말로 모든 도서 정보를 삭제하시겠습니까?')) -->
@@ -256,35 +262,3 @@
 	</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

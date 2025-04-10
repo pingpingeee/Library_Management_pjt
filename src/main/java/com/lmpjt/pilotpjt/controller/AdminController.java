@@ -70,10 +70,6 @@ public class AdminController {
 		return "admin_notice";
 	}
 
-//	@RequestMapping("/admin_notice_write")
-//	public String adminNotiWrite() {
-//		return "admin_notice_write";
-//	}
 	@RequestMapping("/admin_notice_write")
 	public String adminNoticeWrite() {
 		return "admin_notice_write";
