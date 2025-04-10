@@ -69,5 +69,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public void bookReturn(HashMap<String, String> param) {
+		BookDAO dao = sqlSession.getMapper(BookDAO.class);
+		dao.bookReturn(param);
 	}
 }

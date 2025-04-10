@@ -20,7 +20,8 @@
 		bookWrite=#{bookWrite}, bookPub=#{bookPub}, bookDate=#{bookDate},
 		bookMajorCategory=#{bookMajorCategory},
 		bookSubCategory=#{bookSubCategory}, bookCount=#{bookCount} where
-		bookNumber=#{bookNumber} </update>
+		bookNumber=#{bookNumber}
+	</update>
 
 	<select id="mainBookInfo"
 		resultType="com.lmpjt.pilotpjt.dto.BookDTO">
@@ -84,9 +85,15 @@
 	<insert id="bookBorrow">
 		insert into book_borrow(BORROWNUMBER, USERNUMBER,
 		BOOKNUMBER)
-		values ((select nvl(max(BORROWRECORDNUMBER), 0)+1
+		values ((select nvl(max(BORROWNUMBER), 0)+1
 		from
-		borrow_record),${userNumber},${bookNumber})
+		book_borrow),${userNumber},${bookNumber})
+	</insert>
+	<insert id="bookReturn">
+		insert into return_record(RETURNNUMBER, USERNUMBER,
+		BOOKNUMBER) values
+		((select nvl(max(RETURNNUMBER), 0)+1 from
+		return_record),${userNumber},${bookNumber})
 	</insert>
 
 </mapper>

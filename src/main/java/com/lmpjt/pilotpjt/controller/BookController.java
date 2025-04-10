@@ -99,4 +99,31 @@ public class BookController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("unexpectedServerError");
 		}
 	}
+
+	@RequestMapping("/book_return")
+	public String bookReturn(@RequestParam HashMap<String, String> param, HttpServletRequest request, Model model) {
+		UserDTO user = (UserDTO) request.getSession().getAttribute("loginUser");
+		if (user == null) {
+			return "redirect:main"; // 로그인 안 되어 있으면 메인으로 이동
+		}
+		int userNumber = user.getUserNumber();
+
+		param.put("userNumber", String.valueOf(userNumber)); // 사용자 번호를 param에 추가
+		try {
+			service.bookReturn(param);
+		} catch (Exception e) {
+			// e.printStackTrace(); // 개발 시 에러 확인용
+			// db에서 발생한 사용자 정의 예외 처리
+
+			String message = e.getMessage();
+			if (message != null && message.contains("ORA-20004")) {
+				model.addAttribute("return_errorMsg", "대출 정보가 존재하지 않아 반납할 수 없습니다.");
+			} else {
+				model.addAttribute("return_errorMsg", "알 수 없는 오류: " + message);
+			}
+			return "mypage";
+		}
+		model.addAttribute("return_successMSG", "도서 반납이 성공적으로 완료되었습니다!");
+		return "mypage";
+	}
 }

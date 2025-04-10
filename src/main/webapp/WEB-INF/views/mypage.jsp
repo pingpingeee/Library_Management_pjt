@@ -172,8 +172,14 @@
 								</div>
 							</div>
 							<div class="book-status status-borrowed">대출 중</div>
+							<div class="book-status status-return">
+							<!-- 2025-04-10 수정 시작 -->
+							<a href="book_return?bookNumber=509"
+										class="book-action-button borrow-button"> <i
+										class="fas fa-hand-holding"></i> 반납하기
+									</a></div>
 						</div>
-
+						<!-- 2025-04-10 수정 종료 -->
 						<div class="book-item">
 							<div class="book-cover">
 								<img src="/pilotpjt/resources/images/book_cover2.jpg" alt="책 표지"
@@ -364,7 +370,18 @@
 		alert("${errorMsg}");
 	</script>
 </c:if>
-
+<!-- 2025-04-10 수정 시작 -->
+<c:if test="${not empty return_successMSG}">
+	<script>
+		alert("${return_successMSG}");
+	</script>
+</c:if>
+<c:if test="${not empty return_errorMsg}">
+	<script>
+		alert("${return_errorMsg}");
+	</script>
+</c:if>
+<!-- 2025-04-10 수정 종료 -->
 
 </body>
 </html>
