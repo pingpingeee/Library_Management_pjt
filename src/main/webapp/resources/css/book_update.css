@@ -54,35 +54,83 @@ h2 {
 }
 
 /* 3행: 도서 설명 - 네 번째 div */
-#updateForm > div:nth-of-type(4) {
-    width: 100%;
-    margin-bottom: 10px;
-}
+/* #updateForm > div:nth-of-type(4) { */
+/*     width: 100%; */
+/*     margin-bottom: 10px; */
+/* } */
 
-input[name="bookComent"] {
+/* input[name="bookComent"] { */
+/*   height: 170px; 높이를 더 크게 설정 */
+/*   padding-top: 5px; */
+/*   padding-bottom: 5px; */
+/*   width: 100%; */
+/*   vertical-align: top; */
+/*   text-align: left; */
+/*   line-height: 300px; */
+/* } */
+
+
+/* .input-container{ */
+/* 	position: relative; */
+/* 	width: 100%; */
+/* } */
+/* .floating-label{ */
+/* 	position: absolute; */
+/* 	top: 10px; */
+/* 	left: 10px; */
+/* 	pointer-events: none; */
+/* 	color: #757575; */
+/* 	font-size: 16px; */
+/* } */
+/* input[name="bookComent"]:focus + .floating-label, */
+/* input[name="bookComent"]:not(:placeholder-shown) + .floating-label { */
+/*     top: 5px; */
+/*     font-size: 16px; */
+/*     color: #757575; */
+/* } */
+/* #updateForm > div:nth-of-type(4) { */
+/*     width: 100%; */
+/*     margin-bottom: 10px; */
+/* } */
+
+/* textarea test */
+textarea[name="bookComent"] {
   height: 170px; /* 높이를 더 크게 설정 */
   padding-top: 5px;
   padding-bottom: 5px;
+  padding-left: 8px;
+  width: 100%;
+  vertical-align: top;
+  text-align: left;
+  resize: none; /* 크기 조절 비활성화 */
+  font-family: inherit; /* 폰트 상속 */
+  font-size: inherit; /* 폰트 크기 상속 */
+  border: 1px solid #ccc; /* input과 동일한 테두리 */
+  border-radius: 4px; /* input과 동일한 테두리 둥글기 */
+  outline: none; /* 포커스 시 기본 아웃라인 제거 */
+}
+
+textarea[name="bookComent"]:focus {
+  border-color: #2563eb; /* input 포커스와 동일한 테두리 색상 */
+}
+
+.input-container {
+  position: relative;
   width: 100%;
 }
-.input-container{
-	position: relative;
-	width: 100%;
+
+/* placeholder 스타일링 */
+textarea[name="bookComent"]::placeholder {
+  color: #757575;
+  font-size: 16px;
+  padding-left: 2px;
 }
-.floating-label{
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	pointer-events: none;
-	color: #757575;
-	font-size: 16px;
+
+/* 포커스 시 placeholder 스타일 변경 */
+textarea[name="bookComent"]:focus::placeholder {
+  color: transparent;
 }
-input[name="bookComent"]:focus + .floating-label,
-input[name="bookComent"]:not(:placeholder-shown) + .floating-label {
-    top: 5px;
-    font-size: 16px;
-    color: #757575;
-}
+/*=====================*/
 /* 4행: 저자, 출판사 - 다섯 번째와 여섯 번째 div */
 #updateForm > div:nth-of-type(5),
 #updateForm > div:nth-of-type(6) {

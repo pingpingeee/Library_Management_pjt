@@ -8,34 +8,6 @@
 <title>도서관리 시스템 - 회원가입</title>
 <link rel="stylesheet" type="text/css" href="/pilotpjt/resources/css/joinview.css">
 <script src="/pilotpjt/resources/js/join.js"></script>
-
-<!-- <script type="text/javascript"> -->
-<!-- //    function fn_submit() { -->
-<!-- //        const form = document.getElementById("frm"); -->
-
-<!-- //           // 유효성 검사 실행 -->
-<!-- //           if (!form.checkValidity()) { -->
-<!-- //               form.reportValidity();  // 브라우저 기본 경고창 띄움 -->
-<!-- //               return;  // 중단 -->
-<!-- //           } -->
-<!-- //        const formData = $("#frm").serialize(); -->
-   
-<!-- //        $.ajax({ -->
-<!-- //            type: "post", -->
-<!-- //            data: formData, -->
-<!-- //            url: "recruit_result_ok", -->
-<!-- //            success: function(data) { -->
-<!-- //                alert("회원가입이 정상적으로 처리되었습니다."); -->
-<!-- //                location.href = "login"; -->
-<!-- //            }, -->
-<!-- //            error: function() { -->
-<!-- //                alert("오류 발생"); -->
-<!-- //            } -->
-<!-- //        }); -->
-<!-- //    } -->
-<!-- </script> -->
-
-
 <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
 <script type="text/javascript">
 function fn_submit() {
