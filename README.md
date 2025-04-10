@@ -163,6 +163,8 @@ CREATE TABLE BUY_RECORD (
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE
 );
 
+
+--------------------------------------------- 트리거 드래그로 개별 컴파일
 create or replace TRIGGER trg_after_book_borrow_insert
 -- AFTER 에서 BEFORE로 바뀜
 -- 중복 대출 체크(조회)를 위해 before로 수정
@@ -228,7 +230,7 @@ EXCEPTION
         RAISE_APPLICATION_ERROR(-20003, '트리거 처리 중 오류 발생: ' || SQLERRM);
 END;
 
-CREATE SEQUENCE  "BOOKMANAGER"."BORROWRECORD_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 20 NOCACHE  NOORDER  NOCYCLE 
+CREATE SEQUENCE  "BOOKMANAGER"."BORROWRECORD_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 5 NOCACHE  NOORDER  NOCYCLE 
 
 create or replace TRIGGER trg_insert_borrow_record
 AFTER INSERT ON book_borrow
@@ -238,15 +240,16 @@ BEGIN
         borrowrecordnumber,
         usernumber,
         booknumber,
-        borrownumber
+        borrownumber,
+        BOOKBORROWDATE
     ) VALUES (
         borrowrecord_seq.NEXTVAL,   -- 시퀀스로 생성
         :NEW.usernumber,            -- book_borrow에서 가져온 값
         :NEW.booknumber,
-        :NEW.borrownumber
+        :NEW.borrownumber,
+        SYSDATE
     );
 END;
-
 
 ```
 
