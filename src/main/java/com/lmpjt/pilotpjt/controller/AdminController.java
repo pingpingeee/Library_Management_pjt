@@ -33,14 +33,14 @@ public class AdminController {
 	@RequestMapping("/admin_notice")
 	public String adminNoti(Model model) {
 		ArrayList<NoticeDTO> list = admin_service.NoticeView();
-	    for (NoticeDTO dto : list) {
-	        String content = dto.getNoticeContent();
-	        if (content != null && content.length() > 30) {
-	            dto.setNoticeContent(content.substring(0, 30) + "...");
-	        }
-	    }
+		for (NoticeDTO dto : list) {
+			String content = dto.getNoticeContent();
+			if (content != null && content.length() > 30) {
+				dto.setNoticeContent(content.substring(0, 30) + "...");
+			}
+		}
 		model.addAttribute("noticeList", list);
-		
+
 		int countImportant = 0;
 		int countEvent = 0;
 		int countInfo = 0;
@@ -81,25 +81,28 @@ public class AdminController {
 		return "admin_notice";
 
 	}
+
 	@RequestMapping("/admin_delete")
 	public String adminNotiDelete(@RequestParam HashMap<String, String> param) {
 		admin_service.NoticeDelete(param);
 		return "redirect:admin_notice";
-		
+
 	}
+
 	@RequestMapping("/admin_update")
 	public String adminNotiUpdate(@RequestParam HashMap<String, String> param, Model model) {
 		NoticeDTO dto = admin_service.NoticeDetailView(param);
 		model.addAttribute("notice", dto);
 		return "admin_notice_update";
 	}
+
 	@RequestMapping("/admin_update_ok")
 	public String adminNotiUpdateOk(@RequestParam HashMap<String, String> param) {
 		admin_service.NoticeModify(param);
-		
+
 		return "redirect:admin_notice";
 	}
-	
+
 	@RequestMapping("/admin_notice_detail")
 	public String adminNotiDetail(@RequestParam HashMap<String, String> param, Model model) {
 		NoticeDTO dto = admin_service.NoticeDetailView(param);

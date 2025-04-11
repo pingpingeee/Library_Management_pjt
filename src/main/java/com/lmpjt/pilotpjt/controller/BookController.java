@@ -48,9 +48,7 @@ public class BookController {
 
 	@RequestMapping("/update_book_ok")
 	public String updateBook(@RequestParam HashMap<String, String> param) {
-
 		service.updateBook(param);
-		System.out.println(param);
 		return "main";
 	}
 
@@ -64,8 +62,6 @@ public class BookController {
 	@RequestMapping("/book_detail")
 	public String bookDetail(@RequestParam HashMap<String, String> param, Model model) {
 		BookDTO dto = service.bookDetailInfo(param);
-		System.out.println("param : " + param);
-		System.out.println("result : " + dto);
 		model.addAttribute("book", dto);
 		return "book_detail";
 	}
@@ -112,7 +108,7 @@ public class BookController {
 		try {
 			service.bookReturn(param);
 		} catch (Exception e) {
-			 e.printStackTrace(); // 개발 시 에러 확인용
+			e.printStackTrace(); // 개발 시 에러 확인용
 			// db에서 발생한 사용자 정의 예외 처리
 
 			String message = e.getMessage();

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookRecordDTO {
+	private int recordNumber;
 	private int userNumber;
     private int bookNumber;
     private String bookTitle;

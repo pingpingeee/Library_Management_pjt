@@ -11,7 +11,7 @@ import com.lmpjt.pilotpjt.dao.UserDAO;
 import com.lmpjt.pilotpjt.dto.UserDTO;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 	@Autowired
 	private SqlSession sqlSession;
 

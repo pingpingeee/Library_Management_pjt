@@ -31,8 +31,8 @@ public interface BookDAO {
 	public int getReturnedCount(HashMap<String, String> param);
 
 	public ArrayList<BookDTO> isReturned(HashMap<String, String> param);
-	
+
 	public ArrayList<BookRecordDTO> bookBorrowed(HashMap<String, String> param);
-	
-	public ArrayList<BookRecordDTO> bookBorrowRecord(HashMap<String, String> param);
+
+	public ArrayList<BookRecordDTO> bookRecord(HashMap<String, String> param);
 }

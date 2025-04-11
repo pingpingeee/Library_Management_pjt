@@ -23,24 +23,22 @@ public class ViewController {
 	private UtilService utilService;
 	@Autowired
 	private BookService bookSerivce;
-	
+
 	@RequestMapping("/main")
 	public String getMainBookInfo(Model model) {
-		model.addAttribute("totalBooks", 102422+utilService.getTotalBooks());
-		model.addAttribute("totalUsers", 21233+utilService.getTotalUsers());
-		model.addAttribute("borrowedBooks", 4422+utilService.getBorrowedBooks());
-		model.addAttribute("overdueBooks", 1324+utilService.getOverdueBooks());
+		model.addAttribute("totalBooks", 102422 + utilService.getTotalBooks());
+		model.addAttribute("totalUsers", 21233 + utilService.getTotalUsers());
+		model.addAttribute("borrowedBooks", 4422 + utilService.getBorrowedBooks());
+		model.addAttribute("overdueBooks", 1324 + utilService.getOverdueBooks());
 		model.addAttribute("bookList", bookSerivce.mainBookInfo());
-		
+
 		return "main";
 	}
-
 
 	@RequestMapping("/loginView")
 	public String loginPage() {
 		return "login";
 	}
-
 
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
@@ -52,7 +50,7 @@ public class ViewController {
 	public String join() {
 		return "join";
 	}
-	
+
 	// board
 	@RequestMapping("/board_write")
 	public String boardViewWrite() {

@@ -104,11 +104,10 @@
 		userNumber=#{userNumber}
 	</select>
 
-	<select id="bookBorrowRecord"
-		resultType="com.lmpjt.pilotpjt.dto.BookRecordDTO"> SELECT br.userNumber AS userNumber, br.bookNumber AS
-		bookNumber,br.bookTitle AS bookTitle,br.bookWrite AS
-		bookWrite,br.bookBorrowDate AS bookBorrowDate,rr.bookReturnDate AS
-		bookReturnDate FROM borrow_record br JOIN return_record rr ON
-		rr.bookJoinKey = br.borrowRecordNumber WHERE br.userNumber =
-		#{userNumber} ORDER BY br.bookBorrowDate ASC </select>
+	<select id="bookRecord"
+		resultType="com.lmpjt.pilotpjt.dto.BookRecordDTO">
+		select recordNumber, userNumber, bookNumber,
+		bookReturnDate, bookBorrowDate, bookTitle, bookWrite from book_record
+		where userNumber=#{userNumber}
+	</select>
 </mapper>
