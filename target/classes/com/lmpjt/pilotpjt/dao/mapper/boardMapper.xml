@@ -5,6 +5,7 @@
 
 <mapper namespace="com.lmpjt.pilotpjt.dao.BoardDAO">
 
+	<!-- 게시판 전체 보기 -->
 	<select id="boardView"
 		resultType="com.lmpjt.pilotpjt.dto.BoardDTO">
 		select boardNumber, userNumber, userName, boardTitle,
@@ -14,6 +15,7 @@
 		board
 	</select>
 
+	<!-- 게시글 작성 -->
 	<insert id="boardWrite">
 		insert into board(boardNumber, userNumber, userName,
 		boardTitle, boardContent)
@@ -22,6 +24,7 @@
 		#{boardContent})
 	</insert>
 
+	<!-- 게시글 디테일 -->
 	<select id="boardDetailView"
 		resultType="com.lmpjt.pilotpjt.dto.BoardDTO">
 		select boardNumber, userNumber, userName, boardTitle,
@@ -30,6 +33,7 @@
 		board where boardNumber=#{boardNumber}
 	</select>
 
+	<!-- 게시글 수정 -->
 	<update id="boardModify"> update board set boardTitle=#{boardTitle},
 		boardContent=#{boardContent} where boardNumber=#{boardNumber}
 	</update>

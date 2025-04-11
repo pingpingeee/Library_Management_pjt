@@ -5,6 +5,7 @@
 
 <mapper namespace="com.lmpjt.pilotpjt.dao.UserDAO">
 
+	<!-- 회원가입 -->
 	<insert id="userJoin">
 		INSERT INTO userinfo (
 		userNumber, userId, userPw, userName, userTel,
@@ -17,10 +18,13 @@
 		)
 	</insert>
 
+	<!-- 로그인 -->
 	<select id="userLogin"
 		resultType="com.lmpjt.pilotpjt.dto.UserDTO">
 		select userPw from userinfo where userId=#{userId}
 	</select>
+
+	<!-- 유저 정보 가져오기 -->
 	<select id="getUserInfo"
 		resultType="com.lmpjt.pilotpjt.dto.UserDTO">
 		select userNumber, userId, userPw, userName, userTel,
@@ -29,13 +33,19 @@
 		userBorrow, userAdmin, userRegdate from
 		userinfo where userId=#{userId}
 	</select>
+
+	<!-- 유저 정보 수정 -->
 	<update id="updateUserInfo"> update userinfo set userNumber=#{userNumber},
 		userId=#{userId}, userName=#{userName}, userTel=#{userTel} ,
 		userEmail=#{userEmail}, userZipCode=#{userZipCode},
 		userAddress=#{userAddress}, userDetailAddress=#{userDetailAddress}
 		where userNumber=#{userNumber} </update>
+
+	<!-- 유저 비밀번호 수정 -->
 	<update id="updateUserPwInfo"> update userinfo set userPw=#{userNewPw} where
 		userNumber=#{userNumber} </update>
+		
+	<!-- 회원가입시 아이디 중복 체크 -->
 	<select id="checkId" resultType="com.lmpjt.pilotpjt.dto.UserDTO">
 		select userId from userinfo
 		where userId=#{userId}
