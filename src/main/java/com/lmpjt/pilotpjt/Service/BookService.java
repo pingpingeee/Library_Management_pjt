@@ -25,4 +25,7 @@ public interface BookService {
 	public ArrayList<BookRecordDTO> bookBorrowed(HashMap<String, String> param);
 
 	public ArrayList<BookRecordDTO> bookRecord(HashMap<String, String> param);
+
+	public void deleteBook(HashMap<String, String> param);
+
 }

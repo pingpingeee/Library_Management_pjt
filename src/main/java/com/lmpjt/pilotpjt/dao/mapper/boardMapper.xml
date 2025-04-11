@@ -12,7 +12,7 @@
 		boardContent,
 		boardWriteDate, boardHit, boardViews, boardLikes
 		from
-		board
+		board order by boardWriteDate desc
 	</select>
 
 	<!-- 게시글 작성 -->

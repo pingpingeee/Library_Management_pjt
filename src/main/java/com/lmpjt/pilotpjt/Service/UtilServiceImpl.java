@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lmpjt.pilotpjt.dao.BookDAO;
 import com.lmpjt.pilotpjt.dao.UserDAO;
 import com.lmpjt.pilotpjt.dao.UtilDAO;
 
@@ -54,5 +55,11 @@ public class UtilServiceImpl implements UtilService {
 	public int getUserRecord(HashMap<String, String> param) {
 		UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
 		return dao.getUserRecord(param);
+	}
+	
+	@Override
+	public int getBookRecordCount(HashMap<String, String> param) {
+		UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
+		return dao.getBookRecordCount(param);
 	}
 }

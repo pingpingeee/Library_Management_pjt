@@ -89,11 +89,13 @@ public class UserController {
 		int userBorrowedBooks = utilSerivce.getUserBorrowed(param);
 		int userRecord = utilSerivce.getUserRecord(param);
 		int userOver = utilSerivce.getUserOver(param);
+		int userRecordCount = utilSerivce.getBookRecordCount(param);
 		model.addAttribute("bookBorrowedList", bookBorrowedList);
 		model.addAttribute("bookBorrowList", bookBorrowList);
 		model.addAttribute("userBorrowedBooks", userBorrowedBooks);
 		model.addAttribute("userRecord", userRecord);
 		model.addAttribute("userOver", userOver);
+		model.addAttribute("userRecordCount", userRecordCount);
 
 		return "mypage";
 	}

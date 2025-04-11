@@ -97,10 +97,10 @@
 
 	<!-- 책 반납 -->
 	<insert id="bookReturn">
-		insert into return_record(RETURNNUMBER, USERNUMBER,
+		insert into book_record(recordNumber, USERNUMBER,
 		BOOKNUMBER) values
-		((select nvl(max(RETURNNUMBER), 0)+1 from
-		return_record),${userNumber},${bookNumber})
+		((select nvl(max(recordNumber), 0)+1 from
+		book_record),${userNumber},${bookNumber})
 	</insert>
 
 	<!-- 책 대출현황 -->
@@ -119,4 +119,10 @@
 		bookReturnDate, bookBorrowDate, bookTitle, bookWrite from book_record
 		where userNumber=#{userNumber}
 	</select>
+
+	<!-- 삭제 -->
+	<update id="deleteBook">
+      delete from bookinfo where bookNumber=#{bookNumber}
+   </update>
+
 </mapper>

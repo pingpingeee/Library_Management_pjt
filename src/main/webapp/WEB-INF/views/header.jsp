@@ -48,9 +48,9 @@
                 </a>
                 
                 <% if (user != null) { %>
-                <a href="/pilotpjt/mypage" class="nav-link <%= currentPage.contains("my_books") ? "active" : "" %>">
+                <a href="user_book_borrowing" class="nav-link <%= currentPage.contains("my_books") ? "active" : "" %>">
                     <i class="nav-icon fa-solid fa-book-open-reader"></i>
-                    <span>마이페이지</span>
+                    <span>대출기록</span>
                 </a>
                 <% } %>
                 

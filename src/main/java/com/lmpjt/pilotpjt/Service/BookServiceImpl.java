@@ -89,4 +89,11 @@ public class BookServiceImpl implements BookService {
 
 		return list;
 	}
+
+	@Override
+	public void deleteBook(HashMap<String, String> param) {
+		BookDAO dao = sqlSession.getMapper(BookDAO.class);
+		dao.deleteBook(param);
+
+	}
 }

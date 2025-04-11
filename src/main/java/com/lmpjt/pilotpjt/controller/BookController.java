@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lmpjt.pilotpjt.Service.BookService;
+import com.lmpjt.pilotpjt.Service.UtilService;
 import com.lmpjt.pilotpjt.dao.BookDAO;
 import com.lmpjt.pilotpjt.dto.BookDTO;
+import com.lmpjt.pilotpjt.dto.BookRecordDTO;
 import com.lmpjt.pilotpjt.dto.UserDTO;
 
 @Controller
@@ -31,6 +33,8 @@ public class BookController {
 
 	@Autowired
 	private BookService service;
+	@Autowired
+	private UtilService utilService;
 
 	@RequestMapping("/book_insert")
 	public String insertBook(HttpServletRequest request, @RequestParam HashMap<String, String> param) {
@@ -40,11 +44,16 @@ public class BookController {
 	}
 
 	@RequestMapping("/update_book")
-	public String updateBookView(@RequestParam HashMap<String, String> param, BookDTO book, Model model) {
-		book = service.bookDetailInfo(param);
-		model.addAttribute("book", book);
-		return "book_update";
-	}
+	   public String updateBookView(@RequestParam HashMap<String, String> param, BookDTO book, Model model, HttpServletRequest request) {
+	      UserDTO user = (UserDTO) request.getSession().getAttribute("loginUser");
+
+	      if (user == null || user.getUserAdmin() != 1) {
+	         return "main";
+	      }
+	      book = service.bookDetailInfo(param);
+	      model.addAttribute("book", book);
+	      return "book_update";
+	   }
 
 	@RequestMapping("/update_book_ok")
 	public String updateBook(@RequestParam HashMap<String, String> param) {
@@ -66,6 +75,26 @@ public class BookController {
 		return "book_detail";
 	}
 
+	@RequestMapping("/book_delete")
+	   public ResponseEntity<String> bookDelete(@RequestParam HashMap<String, String> param, HttpServletRequest request) {
+	      UserDTO user = (UserDTO) request.getSession().getAttribute("loginUser");
+
+	      if (user == null || user.getUserAdmin() != 1) {
+	         return ResponseEntity.status(HttpStatus.CONFLICT).body("noUser");
+	      }
+
+	      param.put("userNumber", String.valueOf(user.getUserNumber()));
+
+	      try {
+	         service.deleteBook(param);
+	         return ResponseEntity.ok("successDelete");
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	         
+	         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("unexpectedServerError");
+	      }
+	   }
+	
 	@RequestMapping("/book_borrow")
 	public ResponseEntity<String> bookBorrow(@RequestParam HashMap<String, String> param, HttpServletRequest request) {
 		UserDTO user = (UserDTO) request.getSession().getAttribute("loginUser");
@@ -121,5 +150,29 @@ public class BookController {
 		}
 		model.addAttribute("return_successMSG", "도서 반납이 성공적으로 완료되었습니다!");
 		return "mypage";
+	}
+	
+	@RequestMapping("/user_book_recommend")
+	public String bookRecomm() {
+		return "user_book_recommend";
+	}
+	@RequestMapping("/user_book_borrowing")
+	public String bookBorrow(HttpServletRequest request, @RequestParam HashMap<String, String> param, Model model) {
+		UserDTO dto = (UserDTO) request.getSession().getAttribute("loginUser");
+
+		param.put("userNumber", String.valueOf(dto.getUserNumber()));
+		ArrayList<BookRecordDTO> bookBorrowedList = service.bookBorrowed(param);
+		ArrayList<BookRecordDTO> bookBorrowList = service.bookRecord(param);
+		int userBorrowedBooks = utilService.getUserBorrowed(param);
+		int userRecord = utilService.getUserRecord(param);
+		int userOver = utilService.getUserOver(param);
+		int userRecordCount = utilService.getBookRecordCount(param);
+		model.addAttribute("bookBorrowedList", bookBorrowedList);
+		model.addAttribute("bookBorrowList", bookBorrowList);
+		model.addAttribute("userBorrowedBooks", userBorrowedBooks);
+		model.addAttribute("userRecord", userRecord);
+		model.addAttribute("userOver", userOver);
+		model.addAttribute("userRecordCount", userRecordCount);
+		return "user_book_borrowing";
 	}
 }

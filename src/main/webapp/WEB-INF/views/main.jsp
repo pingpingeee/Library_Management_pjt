@@ -55,9 +55,11 @@ function fn_submit() {
 
 		<div class="slider-container">
 		  <div class="image-slider">
-		    <div class="slide"><img src="/pilotpjt/resources/images/test1.png" alt="슬라이드 1"></div>
-		    <div class="slide"><img src="/pilotpjt/resources/images/test2.png" alt="슬라이드 2"></div>
-		    <div class="slide"><img src="../pilotpjt/resources/images/test3.png" alt="슬라이드 3"></div>
+		    <div class="slide"><img src="/pilotpjt/resources/images/main1.png" alt="슬라이드 1"></div>
+		    <div class="slide"><img src="/pilotpjt/resources/images/main2.png" alt="슬라이드 2"></div>
+		    <div class="slide"><img src="../pilotpjt/resources/images/main3.png" alt="슬라이드 3"></div>
+		    <div class="slide"><img src="../pilotpjt/resources/images/main4.png" alt="슬라이드 4"></div>
+		    <div class="slide"><img src="../pilotpjt/resources/images/main5.png" alt="슬라이드 5"></div>
 		  </div>
 		</div>
 
@@ -241,7 +243,7 @@ function fn_submit() {
 					<div class="feature-content">
 						<h3>도서 추천</h3>
 						<p>회원님의 관심사에 맞는 도서를 추천해 드립니다.</p>
-						<a href="/pilotpjt/user_book_recommend" class="btn-sm">바로가기</a>
+						<a href="user_book_recommend" class="btn-sm">바로가기</a>
 					</div>
 				</div>
 			</div>

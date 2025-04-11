@@ -2,7 +2,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -54,18 +54,36 @@
 		return;
 	}
 
-	Object userBorrowedBooksObj = request.getAttribute("userBorrowedBooks");
-	int borrowingCount = 0; // 기본값 설정
+	Object userBorrowedBooksObj = request.getAttribute("userBorrowedBooks"); // 유저 현재 빌린 수
+	Object userBeforReturnCountObj = request.getAttribute("userRecord"); // 빌리자마자 올라가는 borrow 수
+	Object userRecordCountObj = request.getAttribute("userRecordCount"); // 반납하면 올라가는 borrow 수
+	int borrowingCount = 0; // 유저 현재 빌린 수
+	int recordCount = 0; // 빌리자마자 올라가는 수
+	int afterReturnCount = 0; // 반납하면 올라가는 수
+
 	if (userBorrowedBooksObj != null) {
-	    try {
-	        borrowingCount = Integer.parseInt(String.valueOf(userBorrowedBooksObj));
-	    } catch (NumberFormatException e) {
-	        // 변환 실패 시 기본값 유지
-	    }
+		try {
+			borrowingCount = Integer.parseInt(String.valueOf(userBorrowedBooksObj));
+		} catch (NumberFormatException e) {
+			// 변환 실패 시 기본값 유지
+		}
+	}
+	if (userBeforReturnCountObj != null) {
+		try {
+			recordCount = Integer.parseInt(String.valueOf(userBeforReturnCountObj));
+		} catch (NumberFormatException e) {
+			// 변환 실패 시 기본값 유지
+		}
+	}
+	if (userRecordCountObj != null) {
+		try {
+			afterReturnCount = Integer.parseInt(String.valueOf(userRecordCountObj));
+		} catch (NumberFormatException e) {
+			// 변환 실패 시 기본값 유지
+		}
 	}
 	// 연체 도서 수 (예시 데이터)
 	int overdueCount = 0;
-
 	%>
 
 	<div class="mypage-container">
@@ -89,7 +107,7 @@
 						<i class="fas fa-user"></i> <span>내 정보</span>
 					</div>
 					<div class="menu-item" onclick="showTab('books')">
-						<i class="fas fa-book"></i> <span>대출 현황</span>
+						<i class="fas fa-book"></i> <span>대출 현황 & 기록</span>
 					</div>
 					<a href="user_update_view" class="menu-item"> <i
 						class="fas fa-pen-to-square"></i> <span>정보 수정</span>
@@ -111,7 +129,7 @@
 							<div class="stat-icon">
 								<i class="fas fa-book"></i>
 							</div>
-							<div class="stat-value"><%=borrowingCount %></div>
+							<div class="stat-value"><%=borrowingCount%></div>
 							<div class="stat-label">대출 중인 도서</div>
 						</div>
 
@@ -185,10 +203,7 @@
 						<h2 class="section-title">대출 현황</h2>
 					</div>
 
-					<%
-					
-					if (borrowingCount > 0) {
-					%>
+
 					<div class="tab-container">
 						<div class="tab-buttons">
 							<button class="tab-button active"
@@ -199,6 +214,9 @@
 
 
 						<div id="borrowed" class="tab-content active">
+							<%
+							if (borrowingCount > 0) {
+							%>
 							<div class="book-list">
 								<c:forEach var="book" items="${bookBorrowedList}">
 
@@ -231,9 +249,27 @@
 									</div>
 								</c:forEach>
 							</div>
+							<%
+							} else {
+							%>
+							<div class="empty-state">
+								<div class="empty-icon">
+									<i class="fas fa-book"></i>
+								</div>
+								<div class="empty-message">현재 대출 중인 도서가 없습니다.</div>
+								<a href="book_search_view" class="btn btn-outline"> <i
+									class="fas fa-search"></i> 도서 검색하기
+								</a>
+							</div>
+							<%
+							}
+							%>
 						</div>
 						<!-- 대출기록 -->
 						<div id="returnRecord" class="tab-content">
+							<%
+							if (afterReturnCount > 0) {
+							%>
 							<div class="book-list">
 								<c:forEach var="bookBorrowRecord" items="${bookBorrowList}">
 									<div class="book-item">
@@ -253,23 +289,24 @@
 									</div>
 								</c:forEach>
 							</div>
+							<%
+							} else {
+							%>
+							<div class="empty-state">
+								<div class="empty-icon">
+									<i class="fas fa-book"></i>
+								</div>
+								<div class="empty-message">대출 기록이 없습니다.</div>
+								<a href="book_search_view" class="btn btn-outline"> <i
+									class="fas fa-search"></i> 도서 검색하기
+								</a>
+							</div>
+							<%
+							}
+							%>
 						</div>
 					</div>
-					<%
-					} else {
-					%>
-					<div class="empty-state">
-						<div class="empty-icon">
-							<i class="fas fa-book"></i>
-						</div>
-						<div class="empty-message">현재 대출 중인 도서가 없습니다.</div>
-						<a href="book_search_view" class="btn btn-outline"> <i
-							class="fas fa-search"></i> 도서 검색하기
-						</a>
-					</div>
-					<%
-					}
-					%>
+
 				</div>
 
 				<div id="password-tab" class="tab-content">

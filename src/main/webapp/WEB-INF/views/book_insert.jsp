@@ -12,6 +12,12 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
 <script type="text/javascript">
 	function fn_submit() {
+	    const form = document.getElementById("frm"); 
+	    // 유효성 검사 실행
+	    if (!form.checkValidity()) {
+	        form.reportValidity();  // 브라우저 기본 경고창 띄움
+	        return;  // 중단
+	    }
 		var formData = $("#frm").serialize();//form 요소 자체
 
 		//비동기 전송방식의 jquery 함수
@@ -32,19 +38,8 @@
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-<!-- 	<!-// 	카테고리 부분 인코딩이 깨짐;;; -->
-<!-- 	request.setCharacterEncoding("utf-8");); -->
-<!-- 	%>--> 
-	 
-<!-- 	<form method="post" action="book_insert"> -->
 		<form id="frm">
 			<h1>도서 등록 페이지</h1>
-
-<!-- 			<div class="form-intro"> -->
-<!-- 				<p> -->
-<!-- 					도서 등록 페이지입니다.<br>아래 순서대로 도서의 정보를 등록해 주세요. -->
-<!-- 				</p> -->
-<!-- 			</div> -->
 
 			<!-- 1행: ISBN -->
 			<div class="form-row">

@@ -70,6 +70,48 @@
 	}
 </script>
 
+<script type="text/javascript">
+function fn_del() {
+	const form = document.getElementById("frm_del");
+
+	if (!form.checkValidity()) {
+		form.reportValidity();
+		return;
+	}
+
+	const formData = $("#frm_del").serialize();
+
+	$.ajax({
+		type : "post",
+		url : "book_delete",
+		data : formData,
+		success : function(responseText) {
+			// 성공 처리
+			if (responseText === "successDelete") {
+				alert("도서가 성공적으로 삭제되었습니다!");
+				location.href = "book_search_view?searchKeyword=&searchType=title&majorCategory=&subCategory=";
+			} else {
+				alert("책 삭제 실패: " + responseText);
+			}
+		},
+		error : function(xhr) {
+			const msg = xhr.responseText;
+			switch (msg) {
+			case "noUser":
+				alert("로그인이 필요합니다.");
+				break;
+			case "serverError":
+			case "unexpectedServerError":
+				alert("서버 오류가 발생했습니다.");
+				break;
+			default:
+				alert("알 수 없는 오류: " + msg);
+			}
+		}
+	});
+}
+</script>
+
 
 </head>
 <body>
@@ -154,10 +196,13 @@
 									onclick="location.href='/pilotpjt/update_book?bookNumber=${book.bookNumber}'">
 									<i class="fas fa-edit"></i> 수정
 								</button>
+								<form id ="frm_del">
+								<input type="hidden" name="bookNumber" id="bookNumber" value="${book.bookNumber}">
 								<button class="action-button delete-button"
-									onclick="deletePost(${book.bookNumber})">
+									onclick="fn_del(${book.bookNumber})">
 									<i class="fas fa-trash"></i> 삭제
 								</button>
+								</form>
 								<%
 								}
 								%>

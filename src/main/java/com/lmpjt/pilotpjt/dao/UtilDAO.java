@@ -16,4 +16,6 @@ public interface UtilDAO {
 	public int getUserBorrowed(HashMap<String, String> param);
 
 	public int getUserRecord(HashMap<String, String> param);
+	
+	public int getBookRecordCount(HashMap<String, String> param);
 }

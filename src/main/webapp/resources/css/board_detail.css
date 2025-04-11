@@ -1,9 +1,10 @@
 :root {
 	--primary-color: #2563eb;
-	--secondary-color: #ff0000;
+	--secondary-color: #6c757d;
 	--accent-color: #8ba3d9;
 	--light-color: #f8fafc;
 	--dark-color: #1e293b;
+	--likeBtn-color: #FF6B6B;
 }
 
 body {
@@ -98,8 +99,8 @@ body {
 	align-items: center;
 	gap: 8px;
 	background-color: white;
-	border: 1px solid var(--secondary-color);
-	color: var(--secondary-color);
+	border: 1px solid var(--likeBtn-color);
+	color: var(--likeBtn-color);
 	padding: 8px 20px;
 	border-radius: 4px;
 	cursor: pointer;
@@ -107,7 +108,7 @@ body {
 }
 
 .like-button:hover, .like-button.active {
-	background-color: var(--secondary-color);
+	background-color: var(--likeBtn-color);
 	color: white;
 }
 
@@ -268,7 +269,7 @@ body {
 		justify-content: center;
 	}
 }
-/* ´ë´ñ±Û °ü·Ã ½ºÅ¸ÀÏ */
+/* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ */
 .reply-button {
 	background: none;
 	border: none;
