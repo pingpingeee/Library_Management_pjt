@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lmpjt.pilotpjt.Service.BookService;
 import com.lmpjt.pilotpjt.Service.UtilService;
+import com.lmpjt.pilotpjt.controller.util.ConnectionTracker;
 import com.lmpjt.pilotpjt.dto.BookDTO;
 import com.lmpjt.pilotpjt.dto.UserDTO;
 
@@ -36,8 +38,23 @@ public class ViewController {
 	}
 
 	@RequestMapping("/loginView")
-	public String loginPage() {
+	public String loginPage(HttpServletRequest request) {
+		String clientIp = getClientIp(request);
+		ConnectionTracker.addIp(clientIp);
+
+		// 세션에도 IP 저장
+		request.getSession().setAttribute("clientIp", clientIp);
+
+		System.out.println(clientIp + " 접속");
 		return "login";
+	}
+
+	@RequestMapping("/disconnect")
+	@ResponseBody
+	public void disconnect(HttpServletRequest request) {
+		String clientIp = getClientIp(request);
+		ConnectionTracker.removeIp(clientIp);
+		System.out.println("브라우저 종료 감지 - 접속 해제: " + clientIp);
 	}
 
 	@RequestMapping("/logout")
@@ -55,5 +72,25 @@ public class ViewController {
 	@RequestMapping("/board_write")
 	public String boardViewWrite() {
 		return "board_write";
+	}
+
+	private String getClientIp(HttpServletRequest request) {
+		String ip = request.getHeader("X-Forwarded-For");
+		if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr(); // 최종 fallback
+		}
+
+		// X-Forwarded-For는 IP 여러 개가 나올 수 있으므로 첫 번째 것만 사용
+		if (ip != null && ip.contains(",")) {
+			ip = ip.split(",")[0];
+		}
+
+		return ip;
 	}
 }
