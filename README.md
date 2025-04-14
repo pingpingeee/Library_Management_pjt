@@ -115,13 +115,14 @@ CREATE TABLE BOOK_BORROW (
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber)ON DELETE CASCADE,
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)ON DELETE CASCADE
 );
-CREATE TABLE BORROW_RECORD (
+CREATE TABLE Book_RECORD (
     recordNumber  NUMBER PRIMARY KEY,
     userNumber          NUMBER,
     bookNumber          NUMBER,
     bookTitle           VARCHAR2 (400),
     bookWrite           VARCHAR2 (100),
     bookBorrowDate      DATE,
+    bookReturnDate      DATE,
     FOREIGN KEY (userNumber) REFERENCES USERINFO(userNumber),
     FOREIGN KEY (bookNumber) REFERENCES BOOKINFO(bookNumber)
 );
@@ -151,7 +152,6 @@ BEGIN
 
 END;
 --------------------------------------------- 트리거 드래그로 개별 컴파일
-
 create or replace TRIGGER before_book_record_insert
 BEFORE INSERT ON book_record
 FOR EACH ROW
@@ -161,6 +161,7 @@ DECLARE
     v_booktitle varchar2(400);
     v_bookwrite varchar2(100);
     v_recordNumber number;
+    v_returnDate date default SYSDATE;
     ex_no_borrow EXCEPTION;
 BEGIN
     -- 해당 대출 정보 유무 확인
@@ -181,8 +182,10 @@ BEGIN
     FROM book_record;
    
     :NEW.bookBorrowDate := v_borrowDate;
+    :NEW.bookReturnDate := v_returnDate;
     :NEW.booktitle := v_booktitle;
     :NEW.bookwrite := v_bookwrite;
+    
 
     -- 그 다음 BOOK_BORROW에서 삭제
     DELETE FROM book_borrow
