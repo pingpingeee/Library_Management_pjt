@@ -28,10 +28,10 @@ public class ViewController {
 
 	@RequestMapping("/main")
 	public String getMainBookInfo(Model model) {
-		model.addAttribute("totalBooks", 102422 + utilService.getTotalBooks());
-		model.addAttribute("totalUsers", 21233 + utilService.getTotalUsers());
-		model.addAttribute("borrowedBooks", 4422 + utilService.getBorrowedBooks());
-		model.addAttribute("overdueBooks", 1324 + utilService.getOverdueBooks());
+		model.addAttribute("totalBooks", utilService.getTotalBooks());
+		model.addAttribute("totalUsers", utilService.getTotalUsers());
+		model.addAttribute("borrowedBooks", utilService.getBorrowedBooks());
+		model.addAttribute("overdueBooks", utilService.getOverdueBooks());
 		model.addAttribute("bookList", bookSerivce.mainBookInfo());
 
 		return "main";
