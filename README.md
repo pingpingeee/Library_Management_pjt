@@ -11,7 +11,9 @@
 - Java version : 11
 - Windows 10, 11
 
-```
+<details>
+  <summary>쿼리문(트리거 개별 실행)</summary> 
+  ```
 GRANT CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, 
       CREATE SYNONYM, CREATE PROCEDURE, CREATE TRIGGER, CREATE MATERIALIZED VIEW 
 TO bookmanager;
@@ -278,18 +280,15 @@ EXCEPTION
     WHEN OTHERS THEN
         RAISE_APPLICATION_ERROR(-20003, '트리거 처리 중 오류 발생: ' || SQLERRM);
 END;
-
-
-
 ```
+</details>
 
+
+
+<details>
+<summary>ERD</summary>
 ## ERD
 ![image](https://github.com/user-attachments/assets/83570193-7608-4401-99d2-f49fd906f9d9)
-
-## 로그인 & 회원가입 플로우차트
-![image](https://github.com/user-attachments/assets/4042bba2-7485-47e2-ab54-9bbd5991b108)
-
-## 도서 등록 플로우차트
-![image](https://github.com/user-attachments/assets/1a6076e6-6014-438a-b477-9cc63ff3ed8f)
+</details>
 
 
