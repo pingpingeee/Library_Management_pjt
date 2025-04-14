@@ -11,6 +11,10 @@
 - Java version : 11
 - Windows 10, 11
 
+##### ERD
+![제목 없음](https://github.com/user-attachments/assets/6fcc184a-7832-47de-9f53-7db4e7636054)
+
+
 <details>
   <summary>쿼리문 (트리거 개별 실행)</summary>
   <pre><code>
@@ -283,11 +287,5 @@ END;
   </code></pre>
 </details>
 
-
-
-<details>
-<summary>ERD</summary>
-![제목 없음](https://github.com/user-attachments/assets/6fcc184a-7832-47de-9f53-7db4e7636054)
-</details>
 
 
