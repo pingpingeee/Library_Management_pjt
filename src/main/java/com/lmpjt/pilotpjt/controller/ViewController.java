@@ -42,10 +42,9 @@ public class ViewController {
 		String clientIp = getClientIp(request);
 		ConnectionTracker.addIp(clientIp);
 
-		// 세션에도 IP 저장
 		request.getSession().setAttribute("clientIp", clientIp);
 
-		System.out.println(clientIp + " 접속");
+		System.out.println(clientIp + " online");
 		return "login";
 	}
 
@@ -53,8 +52,8 @@ public class ViewController {
 	@ResponseBody
 	public void disconnect(HttpServletRequest request) {
 		String clientIp = getClientIp(request);
-		ConnectionTracker.removeIp(clientIp);
-		System.out.println("브라우저 종료 감지 - 접속 해제: " + clientIp);
+//		ConnectionTracker.removeIp(clientIp);
+//		System.out.println("off : " + clientIp);
 	}
 
 	@RequestMapping("/logout")
@@ -83,10 +82,9 @@ public class ViewController {
 			ip = request.getHeader("WL-Proxy-Client-IP");
 		}
 		if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getRemoteAddr(); // 최종 fallback
+			ip = request.getRemoteAddr(); // 占쏙옙占쏙옙 fallback
 		}
 
-		// X-Forwarded-For는 IP 여러 개가 나올 수 있으므로 첫 번째 것만 사용
 		if (ip != null && ip.contains(",")) {
 			ip = ip.split(",")[0];
 		}

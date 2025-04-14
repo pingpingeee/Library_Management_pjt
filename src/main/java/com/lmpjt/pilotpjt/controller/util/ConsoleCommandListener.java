@@ -11,7 +11,7 @@ public class ConsoleCommandListener implements Runnable {
             while (true) {
                 String command = scanner.nextLine().trim();
 
-                if ("online".equals(command)) {
+                if ("현접".equals(command)) {
                     ConnectionTracker.printConnections();
                 } else {
                     System.out.println("not command" + command);
