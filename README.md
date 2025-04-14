@@ -287,5 +287,7 @@ END;
   </code></pre>
 </details>
 
+### 🔑회원가입
+https://github.com/user-attachments/assets/1e1b3202-5e98-482b-ba6a-8f2281aadce5
 
 
