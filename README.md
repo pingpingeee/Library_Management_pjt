@@ -12,6 +12,7 @@
 - Windows 10, 11
 
 <details>
+    <pre><code>
   <summary>쿼리문 (트리거 개별 실행)</summary>
 GRANT CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, 
       CREATE SYNONYM, CREATE PROCEDURE, CREATE TRIGGER, CREATE MATERIALIZED VIEW 
@@ -279,8 +280,6 @@ EXCEPTION
     WHEN OTHERS THEN
         RAISE_APPLICATION_ERROR(-20003, '트리거 처리 중 오류 발생: ' || SQLERRM);
 END;
-  <pre><code>
-    
   </code></pre>
 </details>
 
