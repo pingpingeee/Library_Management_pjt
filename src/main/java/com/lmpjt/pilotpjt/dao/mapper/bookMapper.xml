@@ -11,10 +11,13 @@
 		bookComent, bookWrite, bookPub,
 		bookDate, bookMajorCategory,
 		bookSubCategory, bookCount, bookIsbn)
-		values ((select nvl(max(bookNumber), 0)+1
+		values ((select
+		nvl(max(bookNumber), 0)+1
 		from bookinfo),
-		#{bookTitle}, #{bookComent}, #{bookWrite}, #{bookPub},
-		#{bookDate}, #{bookMajorCategory}, #{bookSubCategory}, #{bookCount}, #{bookIsbn})
+		#{bookTitle}, #{bookComent},
+		#{bookWrite}, #{bookPub},
+		#{bookDate}, #{bookMajorCategory},
+		#{bookSubCategory}, #{bookCount}, #{bookIsbn})
 	</insert>
 	<!-- 책 수정(관리자전용) -->
 	<update id="updateBook"> update bookinfo set bookIsbn=#{bookIsbn},
@@ -28,12 +31,23 @@
 	<!-- 메인에 보여질 책 -->
 	<select id="mainBookInfo"
 		resultType="com.lmpjt.pilotpjt.dto.BookDTO">
-		SELECT *
+		SELECT
+		bookNumber,
+		bookIsbn,
+		bookTitle,
+		bookComent,
+		bookWrite,
+		bookPub,
+		bookDate,
+		SUBSTR(bookMajorCategory, INSTR(bookMajorCategory, '-') + 1) AS bookMajorCategory,
+		SUBSTR(bookSubCategory, INSTR(bookSubCategory, '-') + 1) AS
+		bookSubCategory,
+		bookCount,
+		bookBorrowCount
 		FROM (
 		SELECT *
 		FROM bookinfo
-		ORDER BY bookBorrowCount
-		DESC
+		ORDER BY bookBorrowCount DESC
 		)
 		WHERE ROWNUM &lt;= 10
 	</select>
@@ -41,7 +55,18 @@
 	<!-- 도서검색 카테고리별로 정리 -->
 	<select id="searchBookInfo"
 		resultType="com.lmpjt.pilotpjt.dto.BookDTO" parameterType="map">
-		SELECT *
+		SELECT
+		bookNumber,
+		bookIsbn,
+		bookTitle,
+		bookComent,
+		bookWrite,
+		bookPub,
+		bookDate,
+		SUBSTR(bookMajorCategory, INSTR(bookMajorCategory, '-') + 1) AS bookMajorCategory,
+		SUBSTR(bookSubCategory, INSTR(bookSubCategory, '-') + 1) AS bookSubCategory,
+		bookCount,
+		bookBorrowCount
 		FROM bookinfo
 		WHERE 1=1
 
@@ -78,9 +103,16 @@
 	<!-- 책 디테일 -->
 	<select id="bookDetailInfo"
 		resultType="com.lmpjt.pilotpjt.dto.BookDTO">
-		select bookNumber, bookIsbn, bookTitle, bookComent,
+		select
+		bookNumber,
+		bookIsbn,
+		bookTitle,
+		bookComent,
 		bookWrite,
-		bookPub, bookDate, bookMajorCategory, bookSubCategory,
+		bookPub,
+		bookDate,
+		SUBSTR(bookMajorCategory, INSTR(bookMajorCategory, '-') + 1) AS bookMajorCategory,
+		SUBSTR(bookSubCategory, INSTR(bookSubCategory, '-') + 1) AS bookSubCategory,
 		bookCount,
 		bookBorrowCount
 		from bookinfo where bookNumber=#{bookNumber}
@@ -122,7 +154,7 @@
 
 	<!-- 삭제 -->
 	<update id="deleteBook">
-      delete from bookinfo where bookNumber=#{bookNumber}
-   </update>
+		delete from bookinfo where bookNumber=#{bookNumber}
+	</update>
 
 </mapper>

@@ -12,8 +12,8 @@
 		,noticeTitle,
 		noticeContent,
 		noticeRegdate, noticeViews
-		from
-		notice
+		from notice
+		order by noticeRegdate desc
 	</select>
 
 	<!-- 공지사항 작성 -->

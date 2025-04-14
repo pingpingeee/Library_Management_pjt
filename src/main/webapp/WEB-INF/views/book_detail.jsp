@@ -225,7 +225,10 @@ function fn_del() {
 										</button>
 									</c:otherwise>
 								</c:choose>
-								<a href="/pilotpjt/add_wishlist?bookNumber=${book.bookNumber}"
+<%-- 								<a href="/pilotpjt/add_wishlist?bookNumber=${book.bookNumber}" --%>
+<!-- 									class="book-action-button wishlist-button"> <i -->
+<!-- 									class="fas fa-heart"></i> 위시리스트에 추가 -->
+								<a href=""
 									class="book-action-button wishlist-button"> <i
 									class="fas fa-heart"></i> 위시리스트에 추가
 								</a> <a href="javascript:history.back()"

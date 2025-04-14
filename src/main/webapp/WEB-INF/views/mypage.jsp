@@ -137,7 +137,7 @@
 							<div class="stat-icon">
 								<i class="fas fa-exclamation-circle"></i>
 							</div>
-							<div class="stat-value">${userOver + 2}</div>
+							<div class="stat-value">${userOver}</div>
 							<div class="stat-label">연체 도서</div>
 						</div>
 

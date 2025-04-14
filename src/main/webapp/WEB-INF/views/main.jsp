@@ -54,13 +54,23 @@ function fn_submit() {
 		%>
 
 		<div class="slider-container">
-		  <div class="image-slider">
-		    <div class="slide"><img src="/pilotpjt/resources/images/main1.png" alt="슬라이드 1"></div>
-		    <div class="slide"><img src="/pilotpjt/resources/images/main2.png" alt="슬라이드 2"></div>
-		    <div class="slide"><img src="../pilotpjt/resources/images/main3.png" alt="슬라이드 3"></div>
-		    <div class="slide"><img src="../pilotpjt/resources/images/main4.png" alt="슬라이드 4"></div>
-		    <div class="slide"><img src="../pilotpjt/resources/images/main5.png" alt="슬라이드 5"></div>
-		  </div>
+			<div class="image-slider">
+				<div class="slide">
+					<img src="/pilotpjt/resources/images/main1.png" alt="슬라이드 1">
+				</div>
+				<div class="slide">
+					<img src="/pilotpjt/resources/images/main2.png" alt="슬라이드 2">
+				</div>
+				<div class="slide">
+					<img src="../pilotpjt/resources/images/main3.png" alt="슬라이드 3">
+				</div>
+				<div class="slide">
+					<img src="../pilotpjt/resources/images/main4.png" alt="슬라이드 4">
+				</div>
+				<div class="slide">
+					<img src="../pilotpjt/resources/images/main5.png" alt="슬라이드 5">
+				</div>
+			</div>
 		</div>
 
 		<div class="welcome-banner">
@@ -116,34 +126,34 @@ function fn_submit() {
 							<label class="filter-label" for="majorCategory">대분류</label> <select
 								class="filter-select" id="majorCategory" name="majorCategory">
 								<option value="">전체</option>
-								<option value="000"
+								<option value="000-총류"
 									${param.majorCategory == '000' ? 'selected' : ''}>000
 									- 총류</option>
-								<option value="100"
+								<option value="100-철학"
 									${param.majorCategory == '100' ? 'selected' : ''}>100
 									- 철학</option>
-								<option value="200"
+								<option value="200-종교"
 									${param.majorCategory == '200' ? 'selected' : ''}>200
 									- 종교</option>
-								<option value="300"
+								<option value="300-사회학"
 									${param.majorCategory == '300' ? 'selected' : ''}>300
 									- 사회학</option>
-								<option value="400"
+								<option value="400-자연과학"
 									${param.majorCategory == '400' ? 'selected' : ''}>400
 									- 자연과학</option>
-								<option value="500"
+								<option value="500-기술과학"
 									${param.majorCategory == '500' ? 'selected' : ''}>500
 									- 기술과학</option>
-								<option value="600"
+								<option value="600-예술"
 									${param.majorCategory == '600' ? 'selected' : ''}>600
 									- 예술</option>
-								<option value="700"
+								<option value="700-언어"
 									${param.majorCategory == '700' ? 'selected' : ''}>700
 									- 언어</option>
-								<option value="800"
+								<option value="800-문학"
 									${param.majorCategory == '800' ? 'selected' : ''}>800
 									- 문학</option>
-								<option value="900"
+								<option value="900-역사"
 									${param.majorCategory == '900' ? 'selected' : ''}>900
 									- 역사</option>
 							</select>
@@ -220,7 +230,7 @@ function fn_submit() {
 					<div class="feature-content">
 						<h3>내 대출 현황</h3>
 						<p>현재 대출 중인 도서와 반납 예정일을 확인하세요.</p>
-<!-- 						<a href="mypage?tab=history" class="btn-sm">바로가기</a> -->
+						<!-- 						<a href="mypage?tab=history" class="btn-sm">바로가기</a> -->
 						<a href="user_book_borrowing" class="btn-sm">바로가기</a>
 					</div>
 				</div>
@@ -265,25 +275,25 @@ function fn_submit() {
 						<c:if test="${status.index <4}">
 							<div class="book-card">
 								<div class="book-cover">
-<!-- 									<img src="/pilotpjt/resources/images/book1.jpg" alt="도서 표지" -->
-<!-- 										onerror="this.src='/pilotpjt/resources/images/default-book.jpg'; this.onerror=null;"> -->
+									<!-- 									<img src="/pilotpjt/resources/images/book1.jpg" alt="도서 표지" -->
+									<!-- 										onerror="this.src='/pilotpjt/resources/images/default-book.jpg'; this.onerror=null;"> -->
 									<div class="book-cover-placeholder">
 										<i class="fas fa-book"></i>
 									</div>
 								</div>
-<!-- 								<div class="book-info"> -->
-<%-- 									<h3 class="book-title">${book.bookTitle}</h3> --%>
-<%-- 									<p class="book-author">${book.bookWrite}</p> --%>
+								<!-- 								<div class="book-info"> -->
+								<%-- 									<h3 class="book-title">${book.bookTitle}</h3> --%>
+								<%-- 									<p class="book-author">${book.bookWrite}</p> --%>
 
-<%-- 									<c:choose> --%>
-<%-- 										<c:when test="${book.bookCount == 0}"> --%>
-<!-- 											<span class="book-status status-borrowed">대출 중</span> -->
-<%-- 										</c:when> --%>
-<%-- 										<c:otherwise> --%>
-<!-- 											<span class="book-status status-available">대출 가능</span> -->
-<%-- 										</c:otherwise> --%>
-<%-- 									</c:choose> --%>
-<!-- 								</div> -->
+								<%-- 									<c:choose> --%>
+								<%-- 										<c:when test="${book.bookCount == 0}"> --%>
+								<!-- 											<span class="book-status status-borrowed">대출 중</span> -->
+								<%-- 										</c:when> --%>
+								<%-- 										<c:otherwise> --%>
+								<!-- 											<span class="book-status status-available">대출 가능</span> -->
+								<%-- 										</c:otherwise> --%>
+								<%-- 									</c:choose> --%>
+								<!-- 								</div> -->
 								<div class="book-info">
 									<h3 class="book-title">${book.bookTitle}</h3>
 									<div class="book-author">저자: ${book.bookWrite}</div>
@@ -302,7 +312,8 @@ function fn_submit() {
 									</div>
 
 									<div class="book-status">
-										<div class="book-availability ${book.bookCount > 0 ? 'available' : 'unavailable'}">
+										<div
+											class="book-availability ${book.bookCount > 0 ? 'available' : 'unavailable'}">
 											<c:choose>
 												<c:when test="${book.bookCount > 0}">
 													<i class="fas fa-check-circle"></i> 대출 가능
@@ -343,7 +354,7 @@ function fn_submit() {
 			%>
 		</div>
 
-		
+
 		<script>
         document.addEventListener('DOMContentLoaded', function() {
             // Animate statistics numbers
@@ -377,27 +388,28 @@ function fn_submit() {
             subCategorySelect.innerHTML = '<option value="">전체</option>';
             
             // 대분류에 따른 소분류 옵션 추가
-if (majorCategory === '000') {
-	addSubCategories(['010 도서관․서지학', '020 문헌정보학', '030 백과사전', '040 강연․수필․연설문집', '050 일반학회․단체․박물관', '060 일반전집', '070 신문․언론․저널리즘', '080 일반전집․총서', '090 향토자료']);
-} else if (majorCategory === '100') {
-	addSubCategories(['110 형이상학', '120 인식론․인과론․인간학', '130 세계', '140 경학', '150 동양철학․사상', '160 서양철학', '170 논리학', '180 윤리학', '190 윤리․도덕교육']);
-} else if (majorCategory === '200') {
-	addSubCategories(['210 비교종교', '220 불교', '230 기독교', '240 도교', '250 천도교', '260 신도', '270 힌두교․브라만교', '280 회교(이슬람교)', '290 기타 제종교']);
-} else if (majorCategory === '300') {
-	addSubCategories(['310 통계학', '320 경제학', '330 사회학․사회문제', '340 정치학', '350 행정학', '360 법학', '370 교육학', '380 풍속․민속학', '390 국방․군사학']);
-} else if (majorCategory === '400') {
-	addSubCategories(['410 수학', '420 물리학', '430 화학', '440 천문학', '450 지학', '460 생명과학', '470 식물학', '480 동물학', '490 기타 자연과학']);
-} else if (majorCategory === '500') {
-	addSubCategories(['510 의학', '520 일반공학․공학일반', '530 기계공학', '540 전기․전자공학', '550 건축공학', '560 화학공학', '570 제조업', '580 생활과학', '590 기타 기술과학']);
-} else if (majorCategory === '600') {
-	addSubCategories(['610 건축', '620 조각․조형예술', '630 회화', '640 서예', '650 사진․인쇄', '660 음악', '670 공연예술․매체예술', '680 오락․스포츠', '690 기타 예술']);
-} else if (majorCategory === '700') {
-	addSubCategories(['710 한국어', '720 중국어', '730 일본어', '740 영어', '750 독일어', '760 프랑스어', '770 스페인어', '780 기타 언어']);
-} else if (majorCategory === '800') {
-	addSubCategories(['810 한국문학', '820 중국문학', '830 일본문학', '840 영어문학', '850 독일문학', '860 프랑스문학', '870 스페인문학', '880 기타 문학']);
-} else if (majorCategory === '900') {
-	addSubCategories(['910 한국사', '920 동양사', '930 서양사', '940 역사이론', '950 지리학', '960 지도․여행', '970 문화사', '980 민속사', '990 기타 역사']);
+if (majorCategory === '000-총류') {
+	addSubCategories(['010-도서관, 서지학', '020-문헌정보학', '030-백과사전', '040-강연, 수필, 연설문집', '050-일반학회, 단체, 박물관', '060-일반전집', '070-신문, 언론, 저널리즘', '080-일반전집, 총서', '090-향토자료']);
+} else if (majorCategory === '100-철학') {
+	addSubCategories(['110-형이상학', '120-인식론, 인과론, 인간학', '130-세계', '140-경학', '150-동양철학, 사상', '160-서양철학', '170-논리학', '180-윤리학', '190-윤리, 도덕교육']);
+} else if (majorCategory === '200-종교') {
+	addSubCategories(['210-비교종교', '220-불교', '230-기독교', '240-도교', '250-천도교', '260-신도', '270-힌두교, 브라만교', '280-회교(이슬람교)', '290-기타 제종교']);
+} else if (majorCategory === '300-사회학') {
+	addSubCategories(['310-통계학', '320-경제학', '330-사회학, 사회문제', '340-정치학', '350-행정학', '360-법학', '370-교육학', '380-풍속, 민속학', '390-국방, 군사학']);
+} else if (majorCategory === '400-자연과학') {
+	addSubCategories(['410-수학', '420-물리학', '430-화학', '440-천문학', '450-지학', '460-생명과학', '470-식물학', '480-동물학', '490-기타 자연과학']);
+} else if (majorCategory === '500-기술과학') {
+	addSubCategories(['510-의학', '520-일반공학, 공학일반', '530-기계공학', '540-전기, 전자공학', '550-건축공학', '560-화학공학', '570-제조업', '580-생활과학', '590-기타 기술과학']);
+} else if (majorCategory === '600-예술') {
+	addSubCategories(['610-건축', '620-조각, 조형예술', '630-회화', '640-서예', '650-사진, 인쇄', '660-음악', '670-공연예술, 매체예술', '680-오락, 스포츠', '690-기타 예술']);
+} else if (majorCategory === '700-언어') {
+	addSubCategories(['710-한국어', '720-중국어', '730-일본어', '740-영어', '750-독일어', '760-프랑스어', '770-스페인어', '780-기타 언어']);
+} else if (majorCategory === '800-문학') {
+	addSubCategories(['810-한국문학', '820-중국문학', '830-일본문학', '840-영어문학', '850-독일문학', '860-프랑스문학', '870-스페인문학', '880-기타 문학']);
+} else if (majorCategory === '900-역사') {
+	addSubCategories(['910-한국사', '920-동양사', '930-서양사', '940-역사이론', '950-지리학', '960-지도, 여행', '970-문화사', '980-민속사', '990-기타 역사']);
 }
+
 
             
             // 현재 URL에서 선택된 소분류가 있으면 선택 상태로 만들기
