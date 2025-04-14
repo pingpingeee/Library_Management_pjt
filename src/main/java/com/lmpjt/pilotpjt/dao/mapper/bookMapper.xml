@@ -10,11 +10,11 @@
 		insert into bookinfo(bookNumber, bookTitle,
 		bookComent, bookWrite, bookPub,
 		bookDate, bookMajorCategory,
-		bookSubCategory, bookCount)
+		bookSubCategory, bookCount, bookIsbn)
 		values ((select nvl(max(bookNumber), 0)+1
 		from bookinfo),
 		#{bookTitle}, #{bookComent}, #{bookWrite}, #{bookPub},
-		#{bookDate}, #{bookMajorCategory}, #{bookSubCategory}, #{bookCount})
+		#{bookDate}, #{bookMajorCategory}, #{bookSubCategory}, #{bookCount}, #{bookIsbn})
 	</insert>
 	<!-- 책 수정(관리자전용) -->
 	<update id="updateBook"> update bookinfo set bookIsbn=#{bookIsbn},
