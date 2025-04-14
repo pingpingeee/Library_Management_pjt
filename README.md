@@ -12,8 +12,8 @@
 - Windows 10, 11
 
 <details>
-    <pre><code>
   <summary>쿼리문 (트리거 개별 실행)</summary>
+  <pre><code>
 GRANT CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, 
       CREATE SYNONYM, CREATE PROCEDURE, CREATE TRIGGER, CREATE MATERIALIZED VIEW 
 TO bookmanager;
