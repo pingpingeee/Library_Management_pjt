@@ -37,6 +37,15 @@ CREATE TABLE USERINFO (
     userAdmin       NUMBER DEFAULT 0,
     userRegdate     DATE DEFAULT SYSDATE
 );
+
+
+CREATE TABLE user_sessions (
+    userId VARCHAR(50) PRIMARY KEY,
+    sessionId VARCHAR(100) NOT NULL,
+    loginTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
 CREATE TABLE BOOKINFO (
     bookNumber          NUMBER PRIMARY KEY,
     bookIsbn            VARCHAR2(50) DEFAULT 0,
