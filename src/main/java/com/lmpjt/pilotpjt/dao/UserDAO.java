@@ -17,4 +17,9 @@ public interface UserDAO {
 	public int updateUserInfo(HashMap<String, String> param);
 
 	public int updateUserPwInfo(HashMap<String, String> param);
+
+	public String getSessionIdByUserId(HashMap<String, String> param);
+	public void deleteSessionInfo(HashMap<String, String> param);
+	public void saveSessionInfo(HashMap<String, String> param);
+	public int isSessionValid(HashMap<String, String> param);
 }

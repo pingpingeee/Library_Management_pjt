@@ -25,6 +25,9 @@
 		<listener-class>com.lmpjt.pilotpjt.controller.util.SessionTrackerListener
 		</listener-class>
 	</listener>
+	<listener>
+		<listener-class>com.lmpjt.pilotpjt.controller.util.ServerStartupListener</listener-class>
+	</listener>
 
 	<!-- Processes application requests -->
 	<servlet>

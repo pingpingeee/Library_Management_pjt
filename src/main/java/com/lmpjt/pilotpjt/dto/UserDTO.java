@@ -22,4 +22,5 @@ public class UserDTO {
 	private int userAdmin;
 	private String userRegdate;
 	private int userRecord;
+	private String sessionId;
 }

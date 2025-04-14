@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lmpjt.pilotpjt.Service.BookService;
@@ -43,23 +45,53 @@ public class UserController {
 
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request, @RequestParam HashMap<String, String> param) {
-
-		ArrayList<UserDTO> dtos = service.userLogin(param);
-
-		UserDTO dto = service.getUserInfo(param);
-
-		if (dtos.isEmpty()) {
-			return "redirect:loginView";
-		} else {
-			if (param.get("userPw").equals(dtos.get(0).getUserPw())) {
-				HttpSession session = request.getSession();
-				session.setAttribute("loginUser", dto);
-				return "redirect:main";
-			}
-			return "redirect:loginView";
-		}
+	    ArrayList<UserDTO> dtos = service.userLogin(param);
+	    
+	    if (dtos.isEmpty()) {
+	        // 사용자가 존재하지 않는 경우
+	        return "redirect:loginView?error=invalid";
+	    } else {
+	        if (param.get("userPw").equals(dtos.get(0).getUserPw())) {
+	            UserDTO dto = service.getUserInfo(param);
+	            
+	            // 사용자 ID 가져오기
+	            String userId = dto.getUserId();
+	            
+	            // 새 세션 생성
+	            HttpSession session = request.getSession(true);
+	            session.setAttribute("loginUser", dto);
+	            
+	            // 세션 정보 저장
+	            HashMap<String, String> sessionParam = new HashMap<>();
+	            sessionParam.put("userId", userId);
+	            sessionParam.put("sessionId", session.getId());
+	            service.saveSessionInfo(sessionParam);
+	            
+	            return "redirect:main";
+	        }
+	        // 비밀번호가 일치하지 않는 경우
+	        return "redirect:loginView?error=invalid";
+	    }
 	}
 
+	
+	@RequestMapping(value = "/checkExistingSession", method = RequestMethod.POST)
+	public void checkExistingSession(@RequestParam("userId") String userId, HttpServletResponse response) throws IOException {
+	    response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+	    PrintWriter out = response.getWriter();
+	    
+	    HashMap<String, String> param = new HashMap<>();
+	    param.put("userId", userId); // 이미 String 타입이므로 문제 없음
+	    
+	    String sessionId = service.getSessionIdByUserId(param);
+	    boolean exists = sessionId != null;
+	    
+	    out.print("{\"exists\":" + exists + "}");
+	    out.flush();
+	}
+	
+	
 	@RequestMapping("/join")
 	public ResponseEntity<String> join(HttpServletRequest request, @RequestParam HashMap<String, String> param) {
 
@@ -140,5 +172,37 @@ public class UserController {
 			model.addAttribute("userNewPwCheck", confirmPw);
 			return "mypage"; // 이 JSP가 위 코드와 같은 JSP라고 가정
 		}
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request) {
+	    HttpSession session = request.getSession(false);
+	    
+	    if (session != null) {
+	        // 세션에서 사용자 정보 가져오기
+	        UserDTO user = (UserDTO) session.getAttribute("loginUser");
+	        
+	        if (user != null) {
+	            // 데이터베이스에서 세션 정보 삭제
+	            String userId = user.getUserId();
+	            HashMap<String, String> param = new HashMap<>();
+	            param.put("userId", userId);
+	            
+	            try {
+	                // 세션 정보 삭제
+	                service.deleteSessionInfo(param);
+	                System.out.println("로그아웃: 사용자 " + userId + "의 세션 정보가 데이터베이스에서 삭제됨");
+	            } catch (Exception e) {
+	                System.out.println("세션 정보 삭제 중 오류 발생: " + e.getMessage());
+	                e.printStackTrace();
+	            }
+	        }
+	        
+	        // 세션 무효화
+	        session.invalidate();
+	        System.out.println("로그아웃: 세션이 무효화됨");
+	    }
+	    
+	    return "redirect:loginView";
 	}
 }

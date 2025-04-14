@@ -57,4 +57,35 @@ public class UserServiceImpl implements UserService {
 		int re = dao.updateUserPwInfo(param);
 		return re;
 	}
+
+	// UserServiceImpl 클래스에서
+	public String getSessionIdByUserId(HashMap<String, String> param) {
+		UserDAO dao = sqlSession.getMapper(UserDAO.class);
+//		System.out.println("getSessionIdByUserId 호출: " + param);
+		String result = dao.getSessionIdByUserId(param);
+//		System.out.println("조회된 세션 ID: " + result);
+		return result;
+	}
+
+	@Override
+	public void deleteSessionInfo(HashMap<String, String> param) {
+		UserDAO dao = sqlSession.getMapper(UserDAO.class);
+		dao.deleteSessionInfo(param);
+	}
+
+	public void saveSessionInfo(HashMap<String, String> param) {
+		UserDAO dao = sqlSession.getMapper(UserDAO.class);
+	    System.out.println("saveSessionInfo 호출: " + param);
+	    dao.saveSessionInfo(param);
+//	    System.out.println("세션 저장 완료");
+	}
+
+	public int isSessionValid(HashMap<String, String> param) {
+		UserDAO dao = sqlSession.getMapper(UserDAO.class);
+//		System.out.println("isSessionValid 호출: " + param);
+		int result = dao.isSessionValid(param);
+//		System.out.println("세션 유효성 결과: " + result);
+		return result;
+	}
+
 }

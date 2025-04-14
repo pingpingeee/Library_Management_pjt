@@ -18,4 +18,6 @@ public interface UtilService {
 	public int getUserRecord(HashMap<String, String> param);
 	
 	public int getBookRecordCount(HashMap<String, String> param);
+	
+	public void clearAllSessions();
 }

@@ -62,4 +62,8 @@
 		book_record
 		where userNumber=#{userNumber}
 	</select>
+
+	<delete id="clearAllSessions">
+		DELETE FROM user_sessions
+	</delete>
 </mapper>

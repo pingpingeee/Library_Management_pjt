@@ -56,12 +56,6 @@ public class ViewController {
 //		System.out.println("off : " + clientIp);
 	}
 
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "login";
-	}
-
 	@RequestMapping("/joinView")
 	public String join() {
 		return "join";

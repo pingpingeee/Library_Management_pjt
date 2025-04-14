@@ -62,4 +62,10 @@ public class UtilServiceImpl implements UtilService {
 		UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
 		return dao.getBookRecordCount(param);
 	}
+
+	@Override
+	public void clearAllSessions() {
+		UtilDAO dao = sqlSession.getMapper(UtilDAO.class);
+	    dao.clearAllSessions();
+	}
 }
