@@ -150,7 +150,7 @@ BEGIN
     WHERE USERNUMBER = :NEW.USERNUMBER;
 
 END;
-
+--------------------------------------------- 트리거 드래그로 개별 컴파일
 
 create or replace TRIGGER before_book_record_insert
 BEFORE INSERT ON book_record
@@ -193,7 +193,7 @@ EXCEPTION
     WHEN NO_DATA_FOUND THEN
         RAISE_APPLICATION_ERROR(-20004, '대출 정보가 존재하지 않아 반납할 수 없습니다.');
 END;
-
+--------------------------------------------- 트리거 드래그로 개별 컴파일
 
 create or replace TRIGGER trg_after_book_borrow_insert
 -- AFTER 에서 BEFORE로 바뀜
