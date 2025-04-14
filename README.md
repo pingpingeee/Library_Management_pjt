@@ -287,8 +287,8 @@ END;
 
 <details>
 <summary>ERD</summary>
-## ERD
-![image](https://github.com/user-attachments/assets/83570193-7608-4401-99d2-f49fd906f9d9)
+  ![image](https://github.com/user-attachments/assets/5d59bd59-e04e-48cb-b082-7657d5122087)
+
 </details>
 
 
