@@ -4,12 +4,31 @@
   <img src="https://img.shields.io/badge/oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white"> 
   <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
 
-##### 개발환경
+#### 개발환경
 - IDE : eclipse
 - IDE package : sts-3.9.18.RELEASE
 - language : Java
 - Java version : 11
 - Windows 10, 11
+
+#### 업무 분장
+##### 정종현
+- 전체 구조 설계&전체 form작성
+- 회원가입&로그인
+- 게시판
+- 댓글&대댓글&추천
+- 도서 등록&상세정보&검색&대출중인 도서
+##### 김형섭(Front)
+- 도서 추천&수정&등록
+- 개인 정보 수정
+##### 이병훈(Back)
+- 도서 수정
+- 개인 정보 수정
+- 게시글 작성&수정&삭제
+##### 정재윤(Back)
+- 공지사항 작성&수정&삭제
+- 도서 대출&반납&삭제&반납/대출기록
+- DB트리거 작성
 
 ##### ERD
 ![제목 없음](https://github.com/user-attachments/assets/6fcc184a-7832-47de-9f53-7db4e7636054)
