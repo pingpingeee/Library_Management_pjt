@@ -30,7 +30,7 @@
 - 도서 대출&반납&삭제&반납/대출기록
 - DB트리거 작성
 
-##### ERD
+#### ERD
 ![제목 없음](https://github.com/user-attachments/assets/6fcc184a-7832-47de-9f53-7db4e7636054)
 
 
