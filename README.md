@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white"> 
   <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
 
-#### 개발환경
+## 개발환경
 - **IDE** : eclipse
 - **프레임워크**: Spring Framework + MyBatis
 - **개발 언어**: Java (JDK 8 이상), JavaScript
@@ -13,7 +13,7 @@
 - **형상관리**: Git / GitHub
 - **협업 도구**: Jira, Notion
 
-#### 업무 분장
+## 업무 분장
 ##### 정종현
 - 전체 구조 설계&전체 form작성
 - 회원가입&로그인
@@ -32,7 +32,7 @@
 - 도서 대출&반납&삭제&반납/대출기록
 - DB트리거 작성
 
-#### ERD
+## ERD
 ![제목 없음](https://github.com/user-attachments/assets/6fcc184a-7832-47de-9f53-7db4e7636054)
 
 
@@ -308,23 +308,23 @@ END;
   </code></pre>
 </details>
 
-### 🔑회원가입 - 도로명 api
+## 🔑회원가입 - 도로명 api
 https://github.com/user-attachments/assets/1e1b3202-5e98-482b-ba6a-8f2281aadce5
 
-### 🏠마이페이지 - 대출중도서, 연체도서, 총 대출 이력, 대출현황&기록
+## 🏠마이페이지 - 대출중도서, 연체도서, 총 대출 이력, 대출현황&기록
 https://github.com/user-attachments/assets/21322cc8-3d86-4957-b91a-c8b608871d74
 
-### 📖대출&반납
+## 📖대출&반납
 https://github.com/user-attachments/assets/9cf238c0-6ded-475b-a1fd-eb9e090d7dd1
 
-### 📨게시판 작성, 수정, 삭제, 댓글, 추천
+## 📨게시판 작성, 수정, 삭제, 댓글, 추천
 https://github.com/user-attachments/assets/295d5c3a-c79f-47a0-b290-f535c7cfbd1d
 
-### 📕 도서 등록
+## 📕 도서 등록
 https://github.com/user-attachments/assets/c25e002f-0a1c-4fdb-8285-8b6f5f99a085
 
-### ✏️도서 수정
+## ✏️도서 수정
 https://github.com/user-attachments/assets/6a497dd5-5aa5-4dac-9bef-000b31cdd8e0
 
-### 📢공지사항 작성, 수정, 삭제
+## 📢공지사항 작성, 수정, 삭제
 https://github.com/user-attachments/assets/5691abc0-2bc7-49a5-9be8-166daf432095
