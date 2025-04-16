@@ -5,11 +5,13 @@
   <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
 
 #### 개발환경
-- IDE : eclipse
-- IDE package : sts-3.9.18.RELEASE
-- language : Java
-- Java version : 11
-- Windows 10, 11
+- **IDE** : eclipse
+- **프레임워크**: Spring Framework + MyBatis
+- **개발 언어**: Java (JDK 8 이상), JavaScript
+- **DB**: Oracle 11g 이상
+- **WAS**: Apache Tomcat 9
+- **형상관리**: Git / GitHub
+- **협업 도구**: Jira, Notion
 
 #### 업무 분장
 ##### 정종현
