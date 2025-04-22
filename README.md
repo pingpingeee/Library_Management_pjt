@@ -4,14 +4,16 @@
   <img src="https://img.shields.io/badge/oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white"> 
   <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
 
-## 개발환경
-- **IDE** : eclipse
-- **프레임워크** : Spring Framework + MyBatis
-- **개발 언어** : Java (JDK 8 이상), JavaScript
-- **DB** : Oracle 11g 이상
-- **WAS** : Apache Tomcat 9
-- **형상관리** : Git / GitHub
-- **협업 도구** : Jira, Notion
+## 📦 개발 환경 구조 요약
+
+| 구분 | 내용
+|-----|-----
+| **개발 언어** | Java (JDK 8 이상), JavaScript
+| **프레임워크** | Spring Framework + MyBatis
+| **DB** | Oracle 11g 이상
+| **WAS** | Apache Tomcat 9
+| **형상관리** | Git / GitHub
+| **협업 도구** | Jira, Notion
 
 ## 기술 스택 (Tech Stack)
 
@@ -32,7 +34,7 @@
 | MyBatis | SQL과 서버 객체간 매핑담당 도구자, 시퀀스와 연계가 용름
 | Oracle | 대규모 데이터 관리를 위한 관계형 데이터베이스 사용
 
----
+
 ### 🛠️ 개발 도구 (Development Tools)
 
 | 도구 | 사용 목적
@@ -42,6 +44,8 @@
 | Jira | 이슈 관리 및 구체적인 일정 계획 수립을 위한 협업 도구
 | GitHub | 코드 버전 관리 및 팀 협업
 | Apache Tomcat | 웹앱 서버 구동, 테스트
+
+---
 
 ## 👥 업무 분장 (Team Roles)
 
