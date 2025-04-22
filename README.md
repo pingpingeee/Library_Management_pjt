@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white"> 
   <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
 
-## 📦 개발 환경 구조 요약
+# 📦 개발 환경 구조 요약
 
 | 구분 | 내용
 |-----|-----
@@ -15,7 +15,7 @@
 | **형상관리** | Git / GitHub
 | **협업 도구** | Jira, Notion
 
-## 기술 스택 (Tech Stack)
+# 기술 스택 (Tech Stack)
 
 ### 🌐 프론트엔드 (Frontend)
 
@@ -45,9 +45,8 @@
 | GitHub | 코드 버전 관리 및 팀 협업
 | Apache Tomcat | 웹앱 서버 구동, 테스트
 
----
 
-## 👥 업무 분장 (Team Roles)
+# 👥 업무 분장 (Team Roles)
 
 ### 👨‍💻 정종현 (FullStack)
 
