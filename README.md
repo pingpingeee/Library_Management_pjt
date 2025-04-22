@@ -6,12 +6,42 @@
 
 ## 개발환경
 - **IDE** : eclipse
-- **프레임워크**: Spring Framework + MyBatis
-- **개발 언어**: Java (JDK 8 이상), JavaScript
-- **DB**: Oracle 11g 이상
-- **WAS**: Apache Tomcat 9
-- **형상관리**: Git / GitHub
-- **협업 도구**: Jira, Notion
+- **프레임워크** : Spring Framework + MyBatis
+- **개발 언어** : Java (JDK 8 이상), JavaScript
+- **DB** : Oracle 11g 이상
+- **WAS** : Apache Tomcat 9
+- **형상관리** : Git / GitHub
+- **협업 도구** : Jira, Notion
+
+### 기술 스택 (Tech Stack)
+
+## 🌐 프론트엔드 (Frontend)
+
+| 기술 | 설명
+|-----|-----
+| JSP | 서버 측에서 HTML을 생성하는 렌더링 기술`<br>`동적인 웹 페이지 구현에 사용
+| js/jQuery | 클라이언트 측에 필요한 동작처리, 동적 콘텐츠 로딩
+| MyBatis | SQL Mapper 프레임워크로 프론트와 DB간의 효율적인 데이터 매핑 활용
+
+
+## ⚙️ 백엔드 (Backend)
+
+| 기술 | 설명
+|-----|-----
+| Spring Framework | 컨트롤러, 서비스 계층의 구현을 위해 사용`<br>`표준 MVC 패턴 기반으로 구조화
+| MyBatis | SQL과 서버 객체간 매핑담당 도구자, 시퀀스와 연계가 용름
+| Oracle | 대규모 데이터 관리를 위한 관계형 데이터베이스 사용
+
+
+## 🛠️ 개발 도구 (Development Tools)
+
+| 도구 | 사용 목적
+|-----|-----
+| Visual Studio Code | JS, CSS, 프론트 등 코드 작성용 에디터
+| Eclipse | Java 백엔드 및 Spring 기반 프로젝트 구현
+| Jira | 이슈 관리 및 구체적인 일정 계획 수립을 위한 협업 도구
+| GitHub | 코드 버전 관리 및 팀 협업
+| Apache Tomcat | 웹앱 서버 구동, 테스트
 
 ## 업무 분장
 ##### 정종현
